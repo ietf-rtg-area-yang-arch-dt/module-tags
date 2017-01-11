@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+  ]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc toc="yes" ?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes"?>
+<?rfc iprnotified="no" ?>
+<?rfc strict="yes" ?>
+<rfc category="info" ipr="trust200902" docName="draft-rtgyangdt-module-tags.xml" >
+  <front>
+    <title abbrev="YANG Module Tags">YANG Module Tags</title>
+    <author initials='C.' surname="Hopps" fullname='Christan Hopps'>
+      <organization>Deutsche Telekom</organization>
+      <address>
+        <email>chopps@chopps.org</email>
+      </address>
+    </author>
+    <author initials='L.' surname="Berger" fullname='Lou Berger' role='editor'>
+      <organization>LabN Consulting, L.L.C.</organization>
+      <address>
+        <email>lberger@labn.net</email>
+      </address>
+    </author>
+    <author initials='D.' surname="Bogdanovic" fullname='Dean Bogdanovic'>
+      <organization></organization>
+      <address>
+        <email>ivandean@gmail.com</email>
+      </address>
+    </author>
+    <date/>
+    <abstract>
+      <t>
+        This document defines a mechanism for organizing and classifying
+        yang modules through the use of tags.
+      </t>
+    </abstract>
+  </front>
+  <middle>
+    <section anchor="sec-intro" title="Introduction">
+      <t>
+        The use of tags for classification and organization is fairly
+        ubiquitous not only within IETF protocols, but in the internet
+        itself (see #hashtags). Tags can be usefully standardized, but
+        they can also serve as a non-standardized mechanism available
+        for users to define themselves. Our solution provides for both
+        cases allowing for the most flexibility.
+      </t>
+    </section>
+    <section anchor="sec-prefixes" title="Tag Prefixes">
+      <t>
+        All tags have a prefix indicating who owns their definition. An
+        IANA registry has been created for standardizing tag prefixes.
+        Currently 2 prefixes are defined with all others reserved.
+      </t>
+      <section anchor="sec-std-tags" title="Standard Tags">
+        <t>
+          An IETF standard tag is a tag that has the prefix "ietf-". All
+          IETF standard tags are registered with IANA in a registry
+          defined later in this document.
+        </t>
+      </section>
+      <section anchor="sec-local-tags" title="Local Tags">
+        <t>
+          A local tag is any tag that has the prefix "local-". These tags
+          are defined by the local user/administrator, and will never be
+          standardized.
+        </t>
+      </section>
+      <section anchor="sec-resv-tags" title="Reserved Tags">
+        <t>
+          Any tag not starting with the prefix "ietf-" or "local-" is
+          reserved for future standardization.
+        </t>
+      </section>
+    </section>
+    <section anchor="sec-module-tags" title="Module Added Tags">
+      <t>
+        A module definition SHOULD indicate a set of standard tags to be
+        automatically added by the module implementer. These tags MUST
+        be standard tags (<xref target="sec-std-tags"/>). If needed
+        standard tags do not already exist the module SHOULD define new
+        standard tags to add to the IANA registry.
+      </t>
+    </section>
+    <section anchor="sec-admin-tags" title="Administrative Tagging">
+      <t>
+        Two RPCs have been defined to allow for the administrative
+        addition and removal of tags from a module.
+      </t>
+      <section anchor="sec-add-tags" title="Adding Tags">
+        <t>
+          A new RPC "add-tags" has been defined. This RPC takes as input
+          the name and revision of a module to add tags to as well as the
+          list of tags to add.
+        </t>
+        <t>
+          No restriction is placed on the tag values to add.
+        </t>
+      </section>
+      <section anchor="sec-rm-tags" title="Removing Tags">
+        <t>
+          A new RPC "remove-tags" has been defined. This RPC takes as
+          input the name and revision of a module to remove tags from as
+          well as the list of tags to remove.
+        </t>
+        <t>
+          No restriction is placed on the tag values to remove.
+        </t>
+      </section>
+    </section>
+    <section anchor="sec-tag-location" title="Tag Locations">
+      <t>
+        Two tag list locations are defined. Both locations actually
+        refer to the same list of tags that have been added or removed
+        from a given module. One location is within the module itself,
+        and the other location is in the yang library under the modules
+        entry.
+      </t>
+      <section anchor="sec-module-location" title="Module Location">
+        <t>
+          One tag list location depends on the module author adding a
+          tag list using the 'module-tags' grouping defined in this
+          document. This list MUST be added by a module author under
+          container named "module-tags" at the root of their module.
+        </t>
+      </section>
+      <section anchor="sec-lib-location" title="YANG Library Location">
+        <t>
+          The other tag list location can be found in a modules entry in
+          the yang library <xref target="RFC7895"/>. As long as the
+          server supports both this module and the yang library module
+          then a user can add, remove and search for tags for all
+          modules on the server regardless of whether a module included
+          tagging support.
+        </t>
+      </section>
+    </section>
+    <section anchor="sec-module" title="Tags Module Structure">
+      <t>
+        <figure>
+          <artwork><![CDATA[
+<CODE BEGINS> file "ietf-module-tags.yang"
+module ietf-module-tags {
+  yang-version "1";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
+  prefix "tags";
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import ietf-yang-library {
+    prefix lib;
+  }
+
+  organization
+    "IETF RTG YANG Design Team";
+  contact
+    "Routing Area YANG Architecture Design Team -
+     <rtg-dt-yang-arch@ietf.org>";
+  description
+    "This module describes a tagging mechanism for yang module.";
+
+  revision "2017-01-10" {
+    reference "TBD";
+  }
+
+  grouping module-tags {
+    description
+      "The correct way to use this grouping is to include it at the
+       following standard location at top level of your module. This
+       standard location allows searching module using a well-known
+       xpath wilcard path.
+
+       Additionally the module will indicate in the description under
+       the container the initial pre-defined tags that should be
+       populated in the leaf-list for any instantiation of this module.
+
+         module my-module {
+           ...
+           container module-tags {
+             description
+               ''Predefined tags:
+                  - ietf-foo
+                  - ietf-bar
+                  - ...
+               '';
+             uses module-tags;
+           }
+           ...
+         }
+
+       ";
+
+    leaf-list tags {
+      type inet:uri;
+
+      description
+        "The module assigned tags. The prefix 'ietf' is reserved
+         for standardization. Standardized tags are defined in the
+         IANA registry (TBD).
+
+         A module author will indicate in the description under  ";
+    }
+  }
+
+  augment "/lib:modules-state/lib:module" {
+    description
+      "The yang library structure is also augmented with a module tags
+       list. This allows operators to tag modules regardless of
+       whether they included tags or not";
+
+    container module-tags {
+      uses module-tags;
+    }
+  }
+
+  grouping module-id {
+    leaf module-name {
+      type yang:yang-identifier;
+    }
+    leaf module-revision {
+      type union {
+        type lib:revision-identifier;
+        type string { length 0; }
+      }
+      description
+        "The YANG module or submodule revision date.
+         A zero-length string is used if no revision statement
+         is present in the YANG module or submodule.";
+    }
+  }
+
+  rpc add-tags {
+    input {
+      uses module-id;
+
+      leaf-list tags {
+        type inet:uri;
+        description
+          "Add admin assigned tags. The prefix 'ietf' is reserved
+           for standardization. Standardized tags are defined in the
+           IANA registry (TBD).";
+      }
+    }
+  }
+
+  rpc remove-tags {
+    input {
+      uses module-id;
+
+      leaf-list tags {
+        type inet:uri;
+        description
+          "Remove tags. The prefix 'ietf' is reserved for
+           standardization. Standardized tags are defined in the
+           IANA registry (TBD).
+
+           Removing module defined tags is allowed.";
+      }
+    }
+  }
+}<CODE ENDS>
+]]></artwork>
+        </figure>
+      </t>
+    </section>
+    <section anchor="sec-other" title="Other Classifications">
+      <t>
+        It's worth noting that another yang module classification
+        document also exists <xref
+        target="I-D.ietf-netmod-yang-model-classification"/>; however,
+        it is classifying modules at a much higher level than our
+        solution. <xref
+        target="I-D.ietf-netmod-yang-model-classification"/> is dividing
+        yang modules into one of 2 categories (service or entity) and
+        then into one of 3 origins: standard, vendor or user.
+        <xref target="I-D.ietf-netmod-yang-model-classification"/>
+        provides a good way to discuss and identify modules in general.
+        Our solution on the other hand is more useful for, for example,
+        locating all routing related modules (e.g., by looking for the
+        standard tag "ietf-routing").
+      </t>
+    </section>
+  </middle>
+  <?rfc needLines="20"?>
+  <back>
+    <references title="Normative References">
+      <?rfc include="reference.RFC.7895"?>
+    </references>
+    <references title="Informative References">
+      <?rfc include="reference.I-D.draft-ietf-netmod-yang-model-classification-04.xml"?>
+    </references>
+  </back>
+</rfc>
+
+<!-- Local Variables: -->
+<!-- fill-column:72 -->
+<!-- End: -->

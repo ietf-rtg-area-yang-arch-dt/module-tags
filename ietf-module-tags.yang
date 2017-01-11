@@ -1,0 +1,125 @@
+module ietf-module-tags {
+  yang-version "1";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
+  prefix "tags";
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import ietf-yang-library {
+    prefix lib;
+  }
+
+  organization
+    "IETF RTG YANG Design Team";
+  contact
+    "Routing Area YANG Architecture Design Team -
+     <rtg-dt-yang-arch@ietf.org>";
+  description
+    "This module describes a tagging mechanism for yang module.";
+
+  revision "2017-01-10" {
+    reference "TBD";
+  }
+
+  grouping module-tags {
+    description
+      "The correct way to use this grouping is to include it at the
+       following standard location at top level of your module. This
+       standard location allows searching module using a well-known
+       xpath wilcard path.
+
+       Additionally the module will indicate in the description under
+       the container the initial pre-defined tags that should be
+       populated in the leaf-list for any instantiation of this module.
+
+         module my-module {
+           ...
+           container module-tags {
+             description
+               ''Predefined tags:
+                  - ietf-foo
+                  - ietf-bar
+                  - ...
+               '';
+             uses module-tags;
+           }
+           ...
+         }
+
+       ";
+
+    leaf-list tags {
+      type inet:uri;
+
+      description
+        "The module assigned tags. The prefix 'ietf' is reserved
+         for standardization. Standardized tags are defined in the
+         IANA registry (TBD).
+
+         A module author will indicate in the description under  ";
+    }
+  }
+
+  augment "/lib:modules-state/lib:module" {
+    description
+      "The yang library structure is also augmented with a module tags
+       list. This allows operators to tag modules regardless of
+       whether they included tags or not";
+
+    container module-tags {
+      uses module-tags;
+    }
+  }
+
+  grouping module-id {
+    leaf module-name {
+      type yang:yang-identifier;
+    }
+    leaf module-revision {
+      type union {
+        type lib:revision-identifier;
+        type string { length 0; }
+      }
+      description
+        "The YANG module or submodule revision date.
+         A zero-length string is used if no revision statement
+         is present in the YANG module or submodule.";
+    }
+  }
+
+  rpc add-tags {
+    input {
+      uses module-id;
+
+      leaf-list tags {
+        type inet:uri;
+        description
+          "Add admin assigned tags. The prefix 'ietf' is reserved
+           for standardization. Standardized tags are defined in the
+           IANA registry (TBD).";
+      }
+    }
+  }
+
+  rpc remove-tags {
+    input {
+      uses module-id;
+
+      leaf-list tags {
+        type inet:uri;
+        description
+          "Remove tags. The prefix 'ietf' is reserved for
+           standardization. Standardized tags are defined in the
+           IANA registry (TBD).
+
+           Removing module defined tags is allowed.";
+      }
+    }
+  }
+}
