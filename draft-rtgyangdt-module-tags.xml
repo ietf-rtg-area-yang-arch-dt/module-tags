@@ -288,11 +288,80 @@ module ietf-module-tags {
         standard tag "ietf-routing").
       </t>
     </section>
+    <section anchor="sec-iana" title="IANA Considerations">
+      <section anchor="sec-iana-prefix" title="YANG Module Tag Prefix Registry">
+        <t>
+          This registry allocates tag prefixes. All YANG module tags must
+          begin with one of the prefixes in this registry.
+        </t>
+        <t>
+          The allocation policy for this registry is Specification Required
+          <xref target="RFC5226"/>.
+        </t>
+        <t>
+          The initial values for this registry are as follows.
+          <figure>
+            <artwork>
+ prefix    description
+ --------  ------------------------------------------------------------
+ ietf-     IETF Standard Tag allocated in the IANA YANG Module IETF Tag
+           Registry.
+ local-    Non-standardized tags allocated by and for the user.
+            </artwork>
+          </figure>
+        </t>
+        <t>
+        </t>
+      </section>
+      <section anchor="sec-ietf-prefix" title="YANG Module IETF Tag Registry">
+        <t>
+          This registry allocates prefixes that have the standard prefix
+          "ietf-". New values should be well considered and not achievable
+          through a combination of already existing standard tags.
+        </t>
+        <t>
+          The allocation policy for this registry is IETF Review
+          <xref target="RFC5226"/>.
+        </t>
+        <t>
+          The initial values for this registry are as follows.
+        </t>
+        <t>
+          <figure>
+            <artwork>
+ tag              description
+ ---------------  -----------------------------------------
+ ietf-area-art    Applications and Real-Time Area module.
+ ietf-area-gen    General Area module.
+ ietf-area-int    Internet Area module.
+ ietf-area-ops    Operations and Management Area module.
+ ietf-area-rtg    Routing Area module.
+ ietf-area-sec    Security Area module.
+ ietf-area-tsv    Transport Area module.
+
+ ietf-entity      A module for an entity (*).
+ ietf-service     A module for a service (*).
+
+ ietf-hardware    A module for hardware.
+ ietf-software    A module for software.
+
+ ietf-protocol    A module representing a protocol.
+
+ ietf-rtg-igp     An IGP protocol module.
+ ietf-rtg-egp     An EGP protocol module.
+ ...
+            </artwork>
+          </figure>
+          (*) - see <xref target="I-D.ietf-netmod-yang-model-classification"/>
+        </t>
+      </section>
+    </section>
   </middle>
   <?rfc needLines="20"?>
   <back>
     <references title="Normative References">
       <?rfc include="reference.RFC.7895"?>
+      <?rfc include="reference.RFC.5226"?>
     </references>
     <references title="Informative References">
       <?rfc include="reference.I-D.draft-ietf-netmod-yang-model-classification-04.xml"?>
