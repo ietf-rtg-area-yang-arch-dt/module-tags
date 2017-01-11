@@ -265,7 +265,8 @@ module ietf-module-tags {
       }
     }
   }
-}<CODE ENDS>
+}
+<CODE ENDS>
 ]]></artwork>
         </figure>
       </t>

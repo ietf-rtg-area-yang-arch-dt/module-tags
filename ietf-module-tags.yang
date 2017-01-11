@@ -23,7 +23,7 @@ module ietf-module-tags {
   description
     "This module describes a tagging mechanism for yang module.";
 
-  revision "2017-01-10" {
+  revision "2017-01-11" {
     reference "TBD";
   }
 
@@ -68,18 +68,28 @@ module ietf-module-tags {
 
   augment "/lib:modules-state/lib:module" {
     description
-      "The yang library structure is also augmented with a module tags
-       list. This allows operators to tag modules regardless of
-       whether they included tags or not";
+      "The yang library structure is augmented with a module tags
+       list as well. This allows operators to tag modules regardless
+       of whether the modules included tag support or not";
 
     container module-tags {
+      description
+        "The list of tags for the given module.";
+
       uses module-tags;
     }
   }
 
   grouping module-id {
+    description
+      "This is the same identification as required by YANG library for
+       uniquely identifying a module.";
+
     leaf module-name {
       type yang:yang-identifier;
+
+      description
+        "The name of the module.";
     }
     leaf module-revision {
       type union {
@@ -94,6 +104,9 @@ module ietf-module-tags {
   }
 
   rpc add-tags {
+    description
+      "Add a list of tags to a given module.";
+
     input {
       uses module-id;
 
@@ -108,6 +121,9 @@ module ietf-module-tags {
   }
 
   rpc remove-tags {
+    description
+      "Remove a list of tags, if present, from a given module.";
+
     input {
       uses module-id;
 
