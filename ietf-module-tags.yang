@@ -1,19 +1,7 @@
 module ietf-module-tags {
-  yang-version "1";
+  yang-version "1.1";
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
-  prefix "tags";
-
-  import ietf-yang-types {
-    prefix yang;
-  }
-
-  import ietf-inet-types {
-    prefix inet;
-  }
-
-  import ietf-yang-library {
-    prefix lib;
-  }
+  prefix "mtags";
 
   organization
     "IETF RTG YANG Design Team";
@@ -21,41 +9,49 @@ module ietf-module-tags {
     "Routing Area YANG Architecture Design Team -
      <rtg-dt-yang-arch@ietf.org>";
   description
-    "This module describes a tagging mechanism for yang module.";
+    "This module describes a tagging mechanism for yang module. Tags may
+     be IANA or privately defined types.
 
-  revision "2017-01-11" {
+     The correct way to use this grouping is to include it at the
+     following standard location at top level of your module. This
+     standard location allows searching module using a well-known
+     xpath wilcard path.
+
+     Additionally the module will indicate in the description under
+     the container the initial pre-defined tags that should be
+     populated in the leaf-list for any instantiation of this module.
+
+        module my-module {
+          ...
+          container module-tags {
+            description
+              ''Predefined tags:
+                 - ietf:foo
+                 - ietf:bar
+                 - ...
+              '';
+            uses module-tags;
+          }
+          ...
+        }
+
+     If you do *not* want a module user to add or remove tags, replace the
+     above 'uses' statement with:
+        uses module-tags-static;
+    ";
+
+  revision "2017-01-20" {
+    description
+      "Initial revision.";
     reference "TBD";
   }
 
-  grouping module-tags {
+  grouping module-tags-static {
     description
-      "The correct way to use this grouping is to include it at the
-       following standard location at top level of your module. This
-       standard location allows searching module using a well-known
-       xpath wilcard path.
-
-       Additionally the module will indicate in the description under
-       the container the initial pre-defined tags that should be
-       populated in the leaf-list for any instantiation of this module.
-
-         module my-module {
-           ...
-           container module-tags {
-             description
-               ''Predefined tags:
-                  - ietf-foo
-                  - ietf-bar
-                  - ...
-               '';
-             uses module-tags;
-           }
-           ...
-         }
-
-       ";
+      "A grouping that may be used to classify a module.";
 
     leaf-list tags {
-      type inet:uri;
+      type string;
 
       description
         "The module assigned tags. The prefix 'ietf' is reserved
@@ -66,75 +62,39 @@ module ietf-module-tags {
     }
   }
 
-  augment "/lib:modules-state/lib:module" {
+  grouping module-tags {
     description
-      "The yang library structure is augmented with a module tags
-       list as well. This allows operators to tag modules regardless
-       of whether the modules included tag support or not";
+      "A grouping that may be used to classify a module,
+       with the ability to add, remove and reset a list of tags.";
 
-    container module-tags {
+    uses module-tags-static;
+
+    action add-tags {
       description
-        "The list of tags for the given module.";
+        "Add a list of tags to a given module.";
 
-      uses module-tags;
-    }
-  }
-
-  grouping module-id {
-    description
-      "This is the same identification as required by YANG library for
-       uniquely identifying a module.";
-
-    leaf module-name {
-      type yang:yang-identifier;
-
-      description
-        "The name of the module.";
-    }
-    leaf module-revision {
-      type union {
-        type lib:revision-identifier;
-        type string { length 0; }
-      }
-      description
-        "The YANG module or submodule revision date.
-         A zero-length string is used if no revision statement
-         is present in the YANG module or submodule.";
-    }
-  }
-
-  rpc add-tags {
-    description
-      "Add a list of tags to a given module.";
-
-    input {
-      uses module-id;
-
-      leaf-list tags {
-        type inet:uri;
-        description
-          "Add admin assigned tags. The prefix 'ietf' is reserved
-           for standardization. Standardized tags are defined in the
-           IANA registry (TBD).";
+      input {
+        uses module-tags-static;
       }
     }
-  }
 
-  rpc remove-tags {
-    description
-      "Remove a list of tags, if present, from a given module.";
+    action remove-tags {
+      description
+        "Remove a list of tags, if present, from a given module.";
 
-    input {
-      uses module-id;
+      input {
+        uses module-tags-static;
+      }
+    }
 
-      leaf-list tags {
-        type inet:uri;
-        description
-          "Remove tags. The prefix 'ietf' is reserved for
-           standardization. Standardized tags are defined in the
-           IANA registry (TBD).
+    action reset-tags {
+      description
+        "Reset a list of tags for a given module to the list of module and
+         implementation time defiend tags. It provides the list of tags
+         associated with the module post reset.";
 
-           Removing module defined tags is allowed.";
+       output {
+         uses module-tags-static;
       }
     }
   }

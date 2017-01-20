@@ -16,7 +16,7 @@
         <email>chopps@chopps.org</email>
       </address>
     </author>
-    <author initials='L.' surname="Berger" fullname='Lou Berger' role='editor'>
+    <author initials='L.' surname="Berger" fullname='Lou Berger'>
       <organization>LabN Consulting, L.L.C.</organization>
       <address>
         <email>lberger@labn.net</email>
@@ -31,8 +31,14 @@
     <date/>
     <abstract>
       <t>
-        This document defines a mechanism for organizing and classifying
-        yang modules through the use of tags.
+        This document defines two modules that support the association
+        of tags with modules.  Tags may be included in a module or
+        associated with a module through the use of an augmentation to
+        YANG library that is defined in this document.  The expectation
+        is for such tags to be used to help classify logically organize
+        modules.  Tags may be standardized and assigned during module
+        definition; assigned by implementations; or dynamically defined
+        and set by users.
       </t>
     </abstract>
   </front>
@@ -44,54 +50,118 @@
         itself (see #hashtags). Tags can be usefully standardized, but
         they can also serve as a non-standardized mechanism available
         for users to define themselves. Our solution provides for both
-        cases allowing for the most flexibility.
+        cases allowing for the most flexibility.  In particular, tags
+        may be standardized and assigned during module definition;
+        assigned by implementations; or dynamically defined and set by
+        users.
+      </t>
+      <t>
+        This document defines two modules that support the association
+        of tags with modules. The first module defines a grouping which
+        contains a list of tags as well as an action statement for
+        changing the contents of the list.  Tags are strings that are
+        structured to enable the differentiation of globally assigned
+        and non-assigned tags based on a fixed prefix.  This document
+        also defines an initial set of globally assigned tags.
+      </t>
+      <t>
+        The second module defined in this document defines an
+        augmentation to YANG Library <xref target="RFC7895"/>.  It uses
+        (imports) the first module to provide a well known location for
+        tags.
+      </t>
+    </section>
+    <section anchor="sec-tag-location" title="Tag Locations">
+      <t>
+        Two tag list locations are defined. One location is within the
+        module itself, and the other location is in the yang library
+        under the modules entry.  When a module includes tags, the same
+        tag list may also be presented in yang library.
+      </t>
+      <t>
+        To add tags to a module, the module definition includes a
+        tag list using the 'module-tags' grouping defined in this
+        document. This list MUST be added by a module author under
+        container named "module-tags" at the root of their module.
       </t>
     </section>
     <section anchor="sec-prefixes" title="Tag Prefixes">
       <t>
         All tags have a prefix indicating who owns their definition. An
-        IANA registry has been created for standardizing tag prefixes.
+        IANA registry is used to support standardizing tag prefixes.
         Currently 2 prefixes are defined with all others reserved.
       </t>
-      <section anchor="sec-std-tags" title="Standard Tags">
+      <t>
+        [LB: I don't understand the expected forward compatibility with
+        this approach.  Let's say that IANA assigns the IEEE/ETSI/TMP
+        etc their own prefixes and a user wants to use one of these.  In
+        the proposed approach, these new types would be rejected.  I
+        really think we should defined just the IETF assigned structure
+        and call everything else unstructured.  The prefix "ietf:" is
+        fine, URNs aren't needed - I am using colons as it allows for
+        use of hyphens within a tag as word separators.  It also seems
+        to be more consistent with YANG/XML.]
+      </t>
+      <t>
+        [LB Also, perhaps we also want to defined the tags 'vendor:' and
+        'user:' to build on <xref
+        target="I-D.ietf-netmod-yang-model-classification"/>.]
+      </t>
+      <section anchor="sec-std-tags" title="IETF Standard Tags">
         <t>
-          An IETF standard tag is a tag that has the prefix "ietf-". All
+          An IETF standard tag is a tag that has the prefix "ietf:". All
           IETF standard tags are registered with IANA in a registry
           defined later in this document.
         </t>
       </section>
       <section anchor="sec-local-tags" title="Local Tags">
         <t>
-          A local tag is any tag that has the prefix "local-". These tags
+          A local tag is any tag that has the prefix "local:". These tags
           are defined by the local user/administrator, and will never be
           standardized.
         </t>
       </section>
       <section anchor="sec-resv-tags" title="Reserved Tags">
         <t>
-          Any tag not starting with the prefix "ietf-" or "local-" is
+          Any tag not starting with the prefix "ietf:" or "local:" is
           reserved for future standardization.
         </t>
       </section>
     </section>
-    <section anchor="sec-module-tags" title="Module Added Tags">
+  <section anchor="sec-mod-tag-mgmnt" title="Tag Management">
+    <t>
+      Tags can become associated with a module in a number of ways.
+      Tags may be defined as associated at model design time, at
+      implementation time, or via user administrative control.  As the
+      main consumer of tags are users, users may remove any tag, not
+      matter how the tag became associated with a module.
+    </t>
+    <section anchor="sec-module-tags" title="Module Definition Association">
       <t>
         A module definition SHOULD indicate a set of standard tags to be
         automatically added by the module implementer. These tags MUST
-        be standard tags (<xref target="sec-std-tags"/>). If needed
-        standard tags do not already exist the module SHOULD define new
-        standard tags to add to the IANA registry.
+        be standard tags (<xref target="sec-std-tags"/>). This does
+        imply that new modules may also drive the addition of new 
+        standard tags to the IANA registry.
+      </t>
+    </section>
+    <section anchor="sec-imp-tags" title="Implementation Association">
+      <t>
+        An implementation MAY include additional tags associated with a
+        module.  These tags may be standard or vendor specific tags. 
       </t>
     </section>
     <section anchor="sec-admin-tags" title="Administrative Tagging">
       <t>
-        Two RPCs have been defined to allow for the administrative
-        addition and removal of tags from a module.
+        Two action statements are defined in this document to enable
+        administrative addition and removal of tags from a module by a
+        user. An additional action is defined to reset a module's tag
+        list to the implementation default.
       </t>
       <section anchor="sec-add-tags" title="Adding Tags">
         <t>
-          A new RPC "add-tags" has been defined. This RPC takes as input
-          the name and revision of a module to add tags to as well as the
+          The "add-tags" action statement is defined to support the
+          addition of tags. This action statement takes as input the
           list of tags to add.
         </t>
         <t>
@@ -100,63 +170,37 @@
       </section>
       <section anchor="sec-rm-tags" title="Removing Tags">
         <t>
-          A new RPC "remove-tags" has been defined. This RPC takes as
-          input the name and revision of a module to remove tags from as
-          well as the list of tags to remove.
+          The "remove-tags" action statement is defined to remove tags.
+          This action statement takes as input the list of tags to
+          remove.
         </t>
         <t>
-          No restriction is placed on the tag values to remove.
+          No restriction is placed on the tag values to remove.  This
+          means that tags associated based on a module's definition or
+          implementation MUST be removable. 
+        </t>
+      </section>
+      <section anchor="sec-reset-tags" title="Resetting Tags">
+        <t>
+          The "reset-tags" action statement is defined to reset a
+          module's tag list to the implementation default, i.e. the tags
+          that are present based on module definition and any that are
+          added during implementation time.  This action statement takes
+          no input, and provides the list of list of tags that are
+          present after the reset.
         </t>
       </section>
     </section>
-    <section anchor="sec-tag-location" title="Tag Locations">
-      <t>
-        Two tag list locations are defined. Both locations actually
-        refer to the same list of tags that have been added or removed
-        from a given module. One location is within the module itself,
-        and the other location is in the yang library under the modules
-        entry.
-      </t>
-      <section anchor="sec-module-location" title="Module Location">
-        <t>
-          One tag list location depends on the module author adding a
-          tag list using the 'module-tags' grouping defined in this
-          document. This list MUST be added by a module author under
-          container named "module-tags" at the root of their module.
-        </t>
-      </section>
-      <section anchor="sec-lib-location" title="YANG Library Location">
-        <t>
-          The other tag list location can be found in a modules entry in
-          the yang library <xref target="RFC7895"/>. As long as the
-          server supports both this module and the yang library module
-          then a user can add, remove and search for tags for all
-          modules on the server regardless of whether a module included
-          tagging support.
-        </t>
-      </section>
-    </section>
+ </section>
     <section anchor="sec-module" title="Tags Module Structure">
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-module-tags.yang"
+<CODE BEGINS> file "ietf-module-tags@2017-01-20.yang"
 module ietf-module-tags {
-  yang-version "1";
+  yang-version "1.1";
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
-  prefix "tags";
-
-  import ietf-yang-types {
-    prefix yang;
-  }
-
-  import ietf-inet-types {
-    prefix inet;
-  }
-
-  import ietf-yang-library {
-    prefix lib;
-  }
+  prefix "mtags";
 
   organization
     "IETF RTG YANG Design Team";
@@ -164,41 +208,49 @@ module ietf-module-tags {
     "Routing Area YANG Architecture Design Team -
      <rtg-dt-yang-arch@ietf.org>";
   description
-    "This module describes a tagging mechanism for yang module.";
+    "This module describes a tagging mechanism for yang module. Tags
+     maybe IANA or privately defined types.
 
-  revision "2017-01-10" {
+     The correct way to use this grouping is to include it at the
+     following standard location at top level of your module. This
+     standard location allows searching module using a well-known
+     xpath wilcard path.
+
+     Additionally the module will indicate in the description under
+     the container the initial pre-defined tags that should be
+     populated in the leaf-list for any instantiation of this module.
+
+        module my-module {
+          ...
+          container module-tags {
+            description
+              ''Predefined tags:
+                 - ietf:foo
+                 - ietf:bar
+                 - ...
+              '';
+            uses module-tags;
+          }
+          ...
+        }
+
+     If you do *not* want a module user to add or remove tags, replace
+     the above 'uses' statement with:
+        uses module-tags-static;
+    ";
+
+  revision "2017-01-20" {
+    description
+      "Initial revision.";
     reference "TBD";
   }
 
-  grouping module-tags {
+  grouping module-tags-static {
     description
-      "The correct way to use this grouping is to include it at the
-       following standard location at top level of your module. This
-       standard location allows searching module using a well-known
-       xpath wilcard path.
-
-       Additionally the module will indicate in the description under
-       the container the initial pre-defined tags that should be
-       populated in the leaf-list for any instantiation of this module.
-
-         module my-module {
-           ...
-           container module-tags {
-             description
-               ''Predefined tags:
-                  - ietf-foo
-                  - ietf-bar
-                  - ...
-               '';
-             uses module-tags;
-           }
-           ...
-         }
-
-       ";
+      "A grouping that may be used to classify a module.";
 
     leaf-list tags {
-      type inet:uri;
+      type string;
 
       description
         "The module assigned tags. The prefix 'ietf' is reserved
@@ -209,59 +261,39 @@ module ietf-module-tags {
     }
   }
 
-  augment "/lib:modules-state/lib:module" {
+  grouping module-tags {
     description
-      "The yang library structure is also augmented with a module tags
-       list. This allows operators to tag modules regardless of
-       whether they included tags or not";
+      "A grouping that may be used to classify a module,
+       with the ability to add, remove and reset a list of tags.";
 
-    container module-tags {
-      uses module-tags;
-    }
-  }
+    uses module-tags-static;
 
-  grouping module-id {
-    leaf module-name {
-      type yang:yang-identifier;
-    }
-    leaf module-revision {
-      type union {
-        type lib:revision-identifier;
-        type string { length 0; }
-      }
+    action add-tags {
       description
-        "The YANG module or submodule revision date.
-         A zero-length string is used if no revision statement
-         is present in the YANG module or submodule.";
-    }
-  }
+        "Add a list of tags to a given module.";
 
-  rpc add-tags {
-    input {
-      uses module-id;
-
-      leaf-list tags {
-        type inet:uri;
-        description
-          "Add admin assigned tags. The prefix 'ietf' is reserved
-           for standardization. Standardized tags are defined in the
-           IANA registry (TBD).";
+      input {
+        uses module-tags-static;
       }
     }
-  }
 
-  rpc remove-tags {
-    input {
-      uses module-id;
+    action remove-tags {
+      description
+        "Remove a list of tags, if present, from a given module.";
 
-      leaf-list tags {
-        type inet:uri;
-        description
-          "Remove tags. The prefix 'ietf' is reserved for
-           standardization. Standardized tags are defined in the
-           IANA registry (TBD).
+      input {
+        uses module-tags-static;
+      }
+    }
 
-           Removing module defined tags is allowed.";
+    action reset-tags {
+      description
+        "Reset a list of tags for a given module to the list of module
+         and implementation time defiend tags. It provides the list of
+         tags associated with the module post reset.";
+
+       output {
+         uses module-tags-static;
       }
     }
   }
@@ -271,21 +303,81 @@ module ietf-module-tags {
         </figure>
       </t>
     </section>
+
+    <section anchor="sec-lib" title="Library Augmentation">
+      <t>
+        The other tag list location can be found in a modules entry in
+        the yang library <xref target="RFC7895"/>. As long as the
+        server supports both this module and the yang library module
+        then a user can add, remove and search for tags for all
+        modules on the server regardless of whether a module included
+        tagging support.
+      </t>
+    <section anchor="sec-lib-module" title="Library Augmentation Module">
+      <t>
+        <figure>
+          <artwork><![CDATA[
+<CODE BEGINS> file "ietf-library-tags@2017-01-20.yang"
+module ietf-library-tags {
+  // namespace
+  namespace "urn:ietf:params:xml:ns:yang:ietf-library-tags";
+
+  prefix ylibtags;
+
+  import ietf-yang-library {
+     prefix yanglib;
+  }
+  import ietf-module-tags {
+     prefix mtags;
+  }
+
+  // meta
+  organization "IETF NetMod Working Group (NetMod)";
+
+  contact
+      "NetMod Working Group - <netmod@ietf.org>";
+
+  description
+    "This module augments ietf-yang-library with searchable
+    classfication tags.  Tags may be IANA or privately defined
+    types.";
+
+  revision "2017-01-20" {
+    description
+      "Initial revision.";
+    reference "RFC TBD";
+  }
+
+  augment "/yanglib:modules-state/yanglib:module" {
+    description
+      "The yang library structure is augmented with a module tags
+       list. This allows operators to tag modules regardless of
+       whether the modules included tag support or not";
+
+    uses mtags:module-tags;
+
+  }
+}
+<CODE ENDS>
+]]></artwork>
+        </figure>
+      </t>
+    </section>
+    
+    </section>
     <section anchor="sec-other" title="Other Classifications">
       <t>
-        It's worth noting that another yang module classification
-        document also exists <xref
-        target="I-D.ietf-netmod-yang-model-classification"/>; however,
-        it is classifying modules at a much higher level than our
-        solution. <xref
-        target="I-D.ietf-netmod-yang-model-classification"/> is dividing
-        yang modules into one of 2 categories (service or entity) and
-        then into one of 3 origins: standard, vendor or user.
-        <xref target="I-D.ietf-netmod-yang-model-classification"/>
-        provides a good way to discuss and identify modules in general.
-        Our solution on the other hand is more useful for, for example,
-        locating all routing related modules (e.g., by looking for the
-        standard tag "ietf-routing").
+        It's worth noting that a different yang module classification
+        document exists <xref
+        target="I-D.ietf-netmod-yang-model-classification"/>. That
+        document is classifying modules in only a logical manner and
+        does not define tagging or any other mechanisms. It divides yang
+        modules into 2 categories (service or entity) and then into one
+        of 3 origins: standard, vendor or user.  It does provide a good
+        way to discuss and identify modules in general.  This document
+        defines standard tags to support <xref
+        target="I-D.ietf-netmod-yang-model-classification"/> style
+        classification.
       </t>
     </section>
     <section anchor="sec-iana" title="IANA Considerations">
@@ -303,10 +395,10 @@ module ietf-module-tags {
           <figure>
             <artwork>
  prefix    description
- --------  ------------------------------------------------------------
- ietf-     IETF Standard Tag allocated in the IANA YANG Module IETF Tag
-           Registry.
- local-    Non-standardized tags allocated by and for the user.
+ --------  ---------------------------------------------------
+ ietf:     IETF Standard Tag allocated in the IANA YANG Module
+           IETF Tag Registry.
+ local:    Non-standardized tags allocated by and for the user.
             </artwork>
           </figure>
         </t>
@@ -316,7 +408,7 @@ module ietf-module-tags {
       <section anchor="sec-ietf-prefix" title="YANG Module IETF Tag Registry">
         <t>
           This registry allocates prefixes that have the standard prefix
-          "ietf-". New values should be well considered and not achievable
+          "ietf:". New values should be well considered and not achievable
           through a combination of already existing standard tags.
         </t>
         <t>
@@ -327,33 +419,100 @@ module ietf-module-tags {
           The initial values for this registry are as follows.
         </t>
         <t>
-          <figure>
-            <artwork>
- tag              description
- ---------------  -----------------------------------------
- ietf-area-art    Applications and Real-Time Area module.
- ietf-area-gen    General Area module.
- ietf-area-int    Internet Area module.
- ietf-area-ops    Operations and Management Area module.
- ietf-area-rtg    Routing Area module.
- ietf-area-sec    Security Area module.
- ietf-area-tsv    Transport Area module.
-
- ietf-entity      A module for an entity (*).
- ietf-service     A module for a service (*).
-
- ietf-hardware    A module for hardware.
- ietf-software    A module for software.
-
- ietf-protocol    A module representing a protocol.
-
- ietf-rtg-igp     An IGP protocol module.
- ietf-rtg-egp     An EGP protocol module.
- ...
-            </artwork>
-          </figure>
-          (*) - see <xref target="I-D.ietf-netmod-yang-model-classification"/>
+          [LB I suggest we move all but the tags matching the
+          classification draft to the device model or conventions draft.]
+          [LB: I'm also unconvinced on the per-area tags.  If we keep
+          them, they should stay.]
         </t>
+        <texttable anchor="table_ietf_iana" title="IETF Module Tag Registry">
+          <ttcol align='center'>Tag</ttcol>
+          <ttcol align='center'>Description</ttcol>
+          <ttcol align='center'>Reference</ttcol>
+
+         <c>ietf:area:art</c>
+         <c>Applications and Real-Time Area module.</c>
+         <c>[This document]</c>
+
+         <c>ietf:area:gen</c>
+         <c>General Area module.</c>
+         <c>[This document]</c>
+
+         <c>ietf:area:int</c>
+         <c>Internet Area module.</c>
+         <c>[This document]</c>
+
+         <c>ietf:area:ops</c>
+         <c>Operations and Management Area module.</c>
+         <c>[This document]</c>
+
+         <c>ietf:area:rtg</c>
+         <c>Routing Area module.</c>
+         <c>[This document]</c>
+
+         <c>ietf:area:sec</c>
+         <c>Security Area module.</c>
+         <c>[This document]</c>
+
+         <c>ietf:area:tsv</c>
+         <c>Transport Area module.</c>
+         <c>[This document]</c>
+
+         <c>ietf:entity</c>
+         <c>A module for an entity (*).</c>
+         <c>[This document]</c>
+
+         <c>ietf:service</c>
+         <c>A module for a service (*).</c>
+         <c>[This document]</c>
+
+         <c>ietf:hardware</c>
+         <c>A module for hardware.</c>
+         <c>[This document]</c>
+
+         <c>ietf:software</c>
+         <c>A module for software.</c>
+         <c>[This document]</c>
+
+         <c>ietf:protocol</c>
+         <c>A module representing a protocol.</c>
+         <c>[This document]</c>
+
+         <c>ietf:protocol:system-management</c>
+         <c>A module representing a system management protocol.</c>
+         <c>[This document]</c>
+
+         <c>ietf:protocol:network-service</c>
+         <c>A module representing a network service protocol.</c>
+         <c>[This document]</c>
+
+         <c>ietf:protocol:routing</c>
+         <c>A module representing a control plane routing protocol.</c>
+         <c>[This document]</c>
+
+         <c>ietf:protocol:signaling</c>
+         <c>A module representing a control plane signaling protocol.</c>
+         <c>[This document]</c>
+
+         <c>ietf:protocol:oam</c>
+         <c>A module representing a Operations, Administration, and Maintenance protocol.</c>
+         <c>[This document]</c>
+
+         <c>ietf:protocol:lmp</c>
+         <c>A module representing a link management protocol.</c>
+         <c>[This document]</c>
+
+         <c>ietf:protocol:routing:igp</c>
+         <c>An IGP protocol module.</c>
+         <c>[This document]</c>
+
+         <c>ietf:protocol:routing:egp</c>
+         <c>An EGP protocol module.</c>
+         <c>[This document]</c>
+
+         <postamble>
+         (*) - see <xref target="I-D.ietf-netmod-yang-model-classification"/>
+         </postamble>
+        </texttable>
       </section>
     </section>
   </middle>

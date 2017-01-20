@@ -4,13 +4,14 @@
 #This file is considered a hack and not production grade by the author
 
 DRAFT  = draft-rtgyangdt-module-tags
-MODELS = ietf-module-tags.yang
+MODELS = ietf-module-tags.yang \
+	 ietf-library-tags.yang
 
 #assumes standard yang modules installed in ../yang, customize as needed
 #  e.g., based on a 'cd .. ; git clone https://github.com/YangModels/yang.git'
-YANGIMPORT_BASE = ../../yang
+YANGIMPORT_BASE = ../yang
 PLUGPATH    := $(shell echo `find $(YANGIMPORT_BASE) -name \*.yang | sed 's,/[a-z0-9A-Z@_\-]*.yang$$,,' | uniq` | tr \  :)
-#PYTHONPATH  := $(shell echo `find /usr/lib* /usr/local/lib* -name  site-packages ` | tr \  :)
+PYTHONPATH  := $(shell echo `find /usr/lib* /usr/local/lib* -name  site-packages ` | tr \  :)
 WITHXML2RFC := $(shell which xml2rfc > /dev/null 2>&1 ; echo $$? )
 
 ID_DIR	     = IDs
@@ -25,12 +26,12 @@ NEW          = $(ID_DIR)/$(DRAFT)-$(REV)
 TREES := $(MODELS:.yang=.tree)
 
 %.tree: %.yang
-	echo Updating $< revision date
-	rm -f $<.prev; cp -pf $< $<.prev
-	sed 's/revision.\"[0-9]*\-[0-9]*\-[0-9]*\"/revision "'`date +%F`'"/' < $<.prev > $<
-	diff $<.prev $< || exit 0
-	echo Generating $@
-	pyang --ietf -f tree -p $(PLUGPATH) $< > $@  || exit 0
+	@echo Updating $< revision date
+	@rm -f $<.prev; cp -pf $< $<.prev 
+	@sed 's/revision.\"[0-9]*\-[0-9]*\-[0-9]*\"/revision "'`date +%F`'"/' < $<.prev > $<
+	@diff $<.prev $< || exit 0
+	@echo Generating $@	
+	@PYTHONPATH=$(PYTHONPATH) pyang --ietf -f tree -p $(PLUGPATH) $< > $@  || exit 0
 
 %.txt: %.xml
 	rm -f $@.prev
@@ -39,9 +40,10 @@ TREES := $(MODELS:.yang=.tree)
 	if [ -f $@.prev ]; then diff $@.prev $@; fi || exit 0
 
 %.html: %.xml
-	rm -f $@.prev
-	if [ -f $@ ]; then cp -pf $@ $@.prev; fi
-	xml2rfc --html $<
+	@if [ $(WITHXML2RFC) == 0 ] ; then 	\
+		rm -f $@.prev; cp -pf $@ $@.prev ; \
+		xml2rfc --html $< 		; \
+	fi
 
 all:	$(TREES) $(DRAFT).txt $(DRAFT).html
 
@@ -56,8 +58,8 @@ vars:
 	@echo OLD=$(OLD)
 
 $(DRAFT).xml: $(MODELS)
-	rm -f $@.prev; cp -p $@ $@.prev
-	for model in $? ; do \
+	@rm -f $@.prev; cp -p $@ $@.prev
+	@for model in $? ; do \
 		rm -f $@.tmp; cp -p $@ $@.tmp	 		 	; \
 		echo Updating $@ based on $$model		 	; \
 		base=`echo $$model | cut -d. -f 1` 		 	; \
