@@ -3,14 +3,23 @@ module ietf-module-tags {
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
   prefix "mtags";
 
+  import ietf-yang-types {
+    prefix yang;
+  }
+
+  import ietf-yang-library {
+    prefix yanglib;
+  }
+
   organization
     "IETF RTG YANG Design Team";
+
   contact
     "Routing Area YANG Architecture Design Team -
      <rtg-dt-yang-arch@ietf.org>";
 
   description
-    "This module describes a tagging mechanism for yang module. 
+    "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
   revision "2017-02-01" {
@@ -19,7 +28,7 @@ module ietf-module-tags {
     reference "TBD";
   }
 
-  grouping module-tags-static {
+  grouping module-tags {
     description
       "A grouping that may be used to classify a module.";
 
@@ -35,40 +44,65 @@ module ietf-module-tags {
     }
   }
 
-  grouping module-tags {
+  grouping yanglib-common-leafs {
     description
-      "A grouping that may be used to classify a module,
-       with the ability to add, remove and reset a list of tags.";
+      "Common parameters for YANG modules and submodules.
+       This definition extract from RFC7895 as it is defined as
+       a grouping within a grouping.
 
-    uses module-tags-static;
+       TBD is there a legal way to use a grouping defined wuthin
+       another grouping without using the parent? If so, should change
+       to that.";
 
-    action add-tags {
+    leaf name {
+      type yang:yang-identifier;
       description
-        "Add a list of tags to a given module.";
-
-      input {
-        uses module-tags-static;
+        "The YANG module or submodule name.";
+    }
+    leaf revision {
+      type union {
+        type yanglib:revision-identifier;
+        type string { length 0; }
       }
+      description
+        "The YANG module or submodule revision date.
+         A zero-length string is used if no revision statement
+         is present in the YANG module or submodule.";
+    }
+  }
+
+  rpc add-tags {
+    description
+      "Add a list of tags to a given module.";
+
+    input {
+      uses yanglib-common-leafs;
+      uses module-tags;
+    }
+  }
+
+  rpc remove-tags {
+    description
+      "Remove a list of tags, if present, from a given module.";
+
+    input {
+      uses yanglib-common-leafs;
+      uses module-tags;
+    }
+  }
+
+  rpc reset-tags {
+    description
+      "Reset a list of tags for a given module to the list of module
+       and implementation time defiend tags. It provides the list of
+       tags associated with the module post reset.";
+
+    input {
+      uses yanglib-common-leafs;
     }
 
-    action remove-tags {
-      description
-        "Remove a list of tags, if present, from a given module.";
-
-      input {
-        uses module-tags-static;
-      }
-    }
-
-    action reset-tags {
-      description
-        "Reset a list of tags for a given module to the list of module
-         and implementation time defiend tags. It provides the list of
-         tags associated with the module post reset.";
-
-       output {
-         uses module-tags-static;
-      }
+    output {
+       uses module-tags;
     }
   }
 }

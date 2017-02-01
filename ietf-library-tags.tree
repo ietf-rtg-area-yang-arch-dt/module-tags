@@ -1,12 +1,3 @@
 module: ietf-library-tags
   augment /yanglib:modules-state/yanglib:module:
-    +--ro tags*          string
-    +---x add-tags
-    |  +---w input
-    |     +---w tags*   string
-    +---x remove-tags
-    |  +---w input
-    |     +---w tags*   string
-    +---x reset-tags
-       +--ro output
-          +--ro tags*   string
+    +--ro tags*   string

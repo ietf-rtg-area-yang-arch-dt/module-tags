@@ -62,7 +62,7 @@
       <t>
         This document defines two modules that support the association
         of tags with modules. The first module defines a grouping which
-        contains a list of tags as well as an action statement for
+        contains a list of tags as well as rpc statements for
         changing the contents of the list.  Tags are strings that are
         structured to enable the differentiation of globally assigned
         and non-assigned tags based on a fixed prefix.  This document
@@ -118,10 +118,7 @@
         etc their own prefixes and a user wants to use one of these.  In
         the proposed approach, these new types would be rejected.  I
         really think we should defined just the IETF assigned structure
-        and call everything else unstructured.  The prefix "ietf:" is
-        fine, URNs aren't needed - I am using colons as it allows for
-        use of hyphens within a tag as word separators.  It also seems
-        to be more consistent with YANG/XML.]
+        and call everything else unstructured.]
       </t>
       <t>
         [LB Also, perhaps we also want to defined the tags 'vendor:' and
@@ -174,24 +171,42 @@
     </section>
     <section anchor="sec-admin-tags" title="Administrative Tagging">
       <t>
-        Two action statements are defined in this document to enable
+        RPC statements are defined in this document to enable
         administrative addition and removal of tags from a module by a
-        user. An additional action is defined to reset a module's tag
+        user. An additional rpc is defined to reset a module's tag
         list to the implementation default.
       </t>
       <t>
-        Implementations that support the action statements defined in
+        Each rpc identifies the module on which the tag operation is to
+        be performed.  This identifications uses reuses the format of
+        the common-leafs (sub) grouping defined in <xref
+        target="RFC7895"/>.  The grouping itself is refined in <xref
+        target="sec-module" /> so that it is a stand-alone grouping.
+      </t>
+      <t>
+        Implementations that support the rpc statements defined in
         this document MUST ensure that a specific module's tags leaf
         list is consistent across any location from which the list is
         available.  Specifically this includes in the module itself, per
         <xref target="sec-guide-mod" />, or in yang library, per <xref
         target="sec-lib" />.
       </t>
+      <t>
+        Implementations that do not support the defined rpc statements
+        (whether at all, or just for a particular rpc or module) MUST
+        respond with an YANG transport protocol-appropriate rpc layer
+        error when such a statement is received.
+      </t>
+      <t>
+        [LB: note we don't allow for RO tag list as part of module
+        definition when using RPCs -- we did with action -- is this a
+        problem?] 
+      </t>
       <section anchor="sec-add-tags" title="Adding Tags">
         <t>
-          The "add-tags" action statement is defined to support the
-          addition of tags. This action statement takes as input the
-          list of tags to add.
+          The "add-tags" rpc statement is defined to support the
+          addition of tags. This rpc statement takes as input module
+          identification information and the list of tags to add.
         </t>
         <t>
           No restriction is placed on the tag values to add.
@@ -199,9 +214,9 @@
       </section>
       <section anchor="sec-rm-tags" title="Removing Tags">
         <t>
-          The "remove-tags" action statement is defined to remove tags.
-          This action statement takes as input the list of tags to
-          remove.
+          The "remove-tags" rpc statement is defined to remove tags.
+          This rpc statement takes as input module identification
+          information and the list of tags to remove.
         </t>
         <t>
           No restriction is placed on the tag values to remove.  This
@@ -211,17 +226,47 @@
       </section>
       <section anchor="sec-reset-tags" title="Resetting Tags">
         <t>
-          The "reset-tags" action statement is defined to reset a
-          module's tag list to the implementation default, i.e. the tags
-          that are present based on module definition and any that are
-          added during implementation time.  This action statement takes
-          no input, and provides the list of list of tags that are
-          present after the reset.
+          The "reset-tags" rpc statement is defined to reset a module's
+          tag list to the implementation default, i.e. the tags that are
+          present based on module definition and any that are added
+          during implementation time.  This rpc statement takes module
+          identification information as input, and provides the list of
+          list of tags that are present after the reset.
         </t>
       </section>
     </section>
  </section>
     <section anchor="sec-module" title="Tags Module Structure">
+      <section anchor="sec-module-tree" title="Tags Module Tree">
+      <t>
+        The tree associated with the tags module is:
+        <figure>
+          <artwork><![CDATA[
+module: ietf-module-tags
+  rpcs:
+    +---x add-tags
+    |  +---w input
+    |     +---w name?       yang:yang-identifier
+    |     +---w revision?   union
+    |     +---w tags*       string
+    +---x remove-tags
+    |  +---w input
+    |     +---w name?       yang:yang-identifier
+    |     +---w revision?   union
+    |     +---w tags*       string
+    +---x reset-tags
+       +---w input
+       |  +---w name?       yang:yang-identifier
+       |  +---w revision?   union
+       +--ro output
+          +--ro tags*   string
+]]>
+          </artwork>
+        </figure>
+      </t>
+      
+      </section>
+      <section anchor="sec-module-yang" title="Tags Module">
       <t>
         <figure>
           <artwork><![CDATA[
@@ -231,14 +276,23 @@ module ietf-module-tags {
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
   prefix "mtags";
 
+  import ietf-yang-types {
+    prefix yang;
+  }
+
+  import ietf-yang-library {
+    prefix yanglib;
+  }
+
   organization
     "IETF RTG YANG Design Team";
+
   contact
     "Routing Area YANG Architecture Design Team -
      <rtg-dt-yang-arch@ietf.org>";
 
   description
-    "This module describes a tagging mechanism for yang module. 
+    "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
   revision "2017-02-01" {
@@ -247,7 +301,7 @@ module ietf-module-tags {
     reference "TBD";
   }
 
-  grouping module-tags-static {
+  grouping module-tags {
     description
       "A grouping that may be used to classify a module.";
 
@@ -263,40 +317,65 @@ module ietf-module-tags {
     }
   }
 
-  grouping module-tags {
+  grouping yanglib-common-leafs {
     description
-      "A grouping that may be used to classify a module,
-       with the ability to add, remove and reset a list of tags.";
+      "Common parameters for YANG modules and submodules.
+       This definition extract from RFC7895 as it is defined as
+       a grouping within a grouping.
 
-    uses module-tags-static;
+       TBD is there a legal way to use a grouping defined wuthin
+       another grouping without using the parent? If so, should change
+       to that.";
 
-    action add-tags {
+    leaf name {
+      type yang:yang-identifier;
       description
-        "Add a list of tags to a given module.";
-
-      input {
-        uses module-tags-static;
+        "The YANG module or submodule name.";
+    }
+    leaf revision {
+      type union {
+        type yanglib:revision-identifier;
+        type string { length 0; }
       }
+      description
+        "The YANG module or submodule revision date.
+         A zero-length string is used if no revision statement
+         is present in the YANG module or submodule.";
+    }
+  }
+
+  rpc add-tags {
+    description
+      "Add a list of tags to a given module.";
+
+    input {
+      uses yanglib-common-leafs;
+      uses module-tags;
+    }
+  }
+
+  rpc remove-tags {
+    description
+      "Remove a list of tags, if present, from a given module.";
+
+    input {
+      uses yanglib-common-leafs;
+      uses module-tags;
+    }
+  }
+
+  rpc reset-tags {
+    description
+      "Reset a list of tags for a given module to the list of module
+       and implementation time defiend tags. It provides the list of
+       tags associated with the module post reset.";
+
+    input {
+      uses yanglib-common-leafs;
     }
 
-    action remove-tags {
-      description
-        "Remove a list of tags, if present, from a given module.";
-
-      input {
-        uses module-tags-static;
-      }
-    }
-
-    action reset-tags {
-      description
-        "Reset a list of tags for a given module to the list of module
-         and implementation time defiend tags. It provides the list of
-         tags associated with the module post reset.";
-
-       output {
-         uses module-tags-static;
-      }
+    output {
+       uses module-tags;
     }
   }
 }
@@ -304,6 +383,7 @@ module ietf-module-tags {
 ]]></artwork>
         </figure>
       </t>
+    </section>
     </section>
 
     <section anchor="sec-lib" title="Library Augmentation">
@@ -321,17 +401,7 @@ module ietf-module-tags {
           <artwork><![CDATA[
 module: ietf-library-tags
   augment /yanglib:modules-state/yanglib:module:
-    +--ro tags*          string
-    +---x add-tags
-    |  +---w input
-    |     +---w tags*   string
-    +---x remove-tags
-    |  +---w input
-    |     +---w tags*   string
-    +---x reset-tags
-       +--ro output
-          +--ro tags*   string
-
+    +--ro tags*   string
 ]]>
           </artwork>
         </figure>
@@ -447,36 +517,9 @@ module ietf-library-tags {
               <artwork><![CDATA[
         module: sample-module
             +--rw module-tags
-            |  +--ro tags*          string
-            |  +---x add-tags
-            |  |  +---w input
-            |  |     +---w tags*   string
-            |  +---x remove-tags
-            |  |  +---w input
-            |  |     +---w tags*   string
-            |  +---x reset-tags
-            |     +--ro output
-            |        +--ro tags*   string
+            |  +--ro tags*   string
             +--...
 
-]]>
-              </artwork>
-            </figure>
-          </t>
-          <t>
-            If you do not want a module user to have the ability to add
-            or remove tags, replace the above 'uses' statement with:
-
-            <list style="empty"><t>uses module-tags-static;</t></list>
-          </t>
-          <t>
-            In which case the associated tree will simply be:
-            <figure>
-              <artwork><![CDATA[
-        module: sample-module
-            +--rw module-tags
-            |  +--ro tags*          string
-            +--...
 ]]>
               </artwork>
             </figure>
