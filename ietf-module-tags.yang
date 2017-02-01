@@ -11,12 +11,11 @@ module ietf-module-tags {
     prefix yanglib;
   }
 
-  organization
-    "IETF RTG YANG Design Team";
+  // meta
+  organization "IETF NetMod Working Group (NetMod)";
 
   contact
-    "Routing Area YANG Architecture Design Team -
-     <rtg-dt-yang-arch@ietf.org>";
+    "NetMod Working Group - <netmod@ietf.org>";
 
   description
     "This module describes a tagging mechanism for yang module.

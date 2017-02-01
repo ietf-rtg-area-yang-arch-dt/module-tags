@@ -8,7 +8,7 @@
 <?rfc iprnotified="no" ?>
 <?rfc strict="yes" ?>
 <rfc category="std" ipr="trust200902"
-     docName="draft-rtgyangdt-module-tags.xml"
+     docName="draft-rtgyangdt-netmod-module-tags.xml"
      updates="rfc6087bis">
   <front>
     <title abbrev="YANG Module Tags">YANG Module Tags</title>
@@ -284,12 +284,11 @@ module ietf-module-tags {
     prefix yanglib;
   }
 
-  organization
-    "IETF RTG YANG Design Team";
+  // meta
+  organization "IETF NetMod Working Group (NetMod)";
 
   contact
-    "Routing Area YANG Architecture Design Team -
-     <rtg-dt-yang-arch@ietf.org>";
+    "NetMod Working Group - <netmod@ietf.org>";
 
   description
     "This module describes a tagging mechanism for yang module.
