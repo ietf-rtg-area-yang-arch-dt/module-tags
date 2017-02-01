@@ -5,7 +5,8 @@
 
 DRAFT  = draft-rtgyangdt-module-tags
 MODELS = ietf-module-tags.yang \
-	 ietf-library-tags.yang
+	 ietf-library-tags.yang \
+	 sample-module.yang
 
 #assumes standard yang modules installed in ../yang, customize as needed
 #  e.g., based on a 'cd .. ; git clone https://github.com/YangModels/yang.git'
@@ -63,20 +64,22 @@ $(DRAFT).xml: $(MODELS)
 		rm -f $@.tmp; cp -p $@ $@.tmp	 		 	; \
 		echo Updating $@ based on $$model		 	; \
 		base=`echo $$model | cut -d. -f 1` 		 	; \
-		echo $${base};\
 		start_stop=(`awk 'BEGIN{pout=1}				\
 			/^<CODE BEGINS> file .'$${base}'/ 		\
 				{pout=0; print NR-1;} 			\
 			pout == 0 && /^<CODE E/ 			\
-				{pout=1; print NR;}' $@.tmp`) 		; \
+				{pout=1; print NR;}			\
+                        END{print "0 0"}' $@.tmp`) 		; \
 		echo start_stop=$${start_stop[0]},$${start_stop[1]} ; \
-		head -$${start_stop[0]}    $@.tmp    		> $@	; \
-		echo '<CODE BEGINS> file "'$${base}'@'`date +%F`'.yang"'>> $@;\
-		cat $$model					>> $@	; \
-		tail -n +$${start_stop[1]} $@.tmp 		>> $@	; \
-		rm -f $@.tmp 		 				; \
+		if [ $${start_stop[0]} -gt 0 ] ; then \
+			head -$${start_stop[0]}    $@.tmp    		> $@	; \
+			echo '<CODE BEGINS> file "'$${base}'@'`date +%F`'.yang"'>> $@;\
+			cat $$model					>> $@	; \
+			tail -n +$${start_stop[1]} $@.tmp 		>> $@	; \
+			rm -f $@.tmp 		 				; \
+		fi ; \
 	done
-	if [ -f $@.prev ]; then diff -bw $@.prev $@; fi || exit 0
+	@if [ -f $@.prev ]; then diff -bw $@.prev $@; fi || exit 0
 
 
 $(DRAFT)-diff.txt: $(DRAFT).txt 

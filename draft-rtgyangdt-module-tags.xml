@@ -7,7 +7,9 @@
 <?rfc sortrefs="yes"?>
 <?rfc iprnotified="no" ?>
 <?rfc strict="yes" ?>
-<rfc category="info" ipr="trust200902" docName="draft-rtgyangdt-module-tags.xml" >
+<rfc category="std" ipr="trust200902"
+     docName="draft-rtgyangdt-module-tags.xml"
+     updates="rfc6087bis">
   <front>
     <title abbrev="YANG Module Tags">YANG Module Tags</title>
     <author initials='C.' surname="Hopps" fullname='Christan Hopps'>
@@ -38,7 +40,9 @@
         is for such tags to be used to help classify logically organize
         modules.  Tags may be standardized and assigned during module
         definition; assigned by implementations; or dynamically defined
-        and set by users.
+        and set by users.  This document provides guidance to future
+        model writers and, as such, this document updates <xref
+        target="I-D.ietf-netmod-rfc6087bis"/>. 
       </t>
     </abstract>
   </front>
@@ -69,6 +73,23 @@
         augmentation to YANG Library <xref target="RFC7895"/>.  It uses
         (imports) the first module to provide a well known location for
         tags.
+      </t>
+      <t>
+        <xref target="sec-guide"/> provides guidelines for
+        authors of YANG data models.  This section updates <xref
+        target="I-D.ietf-netmod-rfc6087bis"/>. 
+      </t>
+    </section>
+    <section anchor="sec-conventions" title="Conventions Used in This Document">
+      <t>
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+        document are to be interpreted as described in <xref target="RFC2119"/>.
+      </t>
+      <t>
+        Note that lower case versions of these key words are used in
+        section <xref target="sec-guide"/> where guidance is provided to
+        future document authors.
       </t>
     </section>
     <section anchor="sec-tag-location" title="Tag Locations">
@@ -158,6 +179,14 @@
         user. An additional action is defined to reset a module's tag
         list to the implementation default.
       </t>
+      <t>
+        Implementations that support the action statements defined in
+        this document MUST ensure that a specific module's tags leaf
+        list is consistent across any location from which the list is
+        available.  Specifically this includes in the module itself, per
+        <xref target="sec-guide-mod" />, or in yang library, per <xref
+        target="sec-lib" />.
+      </t>
       <section anchor="sec-add-tags" title="Adding Tags">
         <t>
           The "add-tags" action statement is defined to support the
@@ -196,7 +225,7 @@
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-module-tags@2017-01-20.yang"
+<CODE BEGINS> file "ietf-module-tags@2017-02-01.yang"
 module ietf-module-tags {
   yang-version "1.1";
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -207,39 +236,12 @@ module ietf-module-tags {
   contact
     "Routing Area YANG Architecture Design Team -
      <rtg-dt-yang-arch@ietf.org>";
+
   description
-    "This module describes a tagging mechanism for yang module. Tags
-     maybe IANA or privately defined types.
+    "This module describes a tagging mechanism for yang module. 
+     Tags may be IANA assigned or privately defined types.";
 
-     The correct way to use this grouping is to include it at the
-     following standard location at top level of your module. This
-     standard location allows searching module using a well-known
-     xpath wilcard path.
-
-     Additionally the module will indicate in the description under
-     the container the initial pre-defined tags that should be
-     populated in the leaf-list for any instantiation of this module.
-
-        module my-module {
-          ...
-          container module-tags {
-            description
-              ''Predefined tags:
-                 - ietf:foo
-                 - ietf:bar
-                 - ...
-              '';
-            uses module-tags;
-          }
-          ...
-        }
-
-     If you do *not* want a module user to add or remove tags, replace
-     the above 'uses' statement with:
-        uses module-tags-static;
-    ";
-
-  revision "2017-01-20" {
+  revision "2017-02-01" {
     description
       "Initial revision.";
     reference "TBD";
@@ -252,12 +254,12 @@ module ietf-module-tags {
     leaf-list tags {
       type string;
 
-      description
-        "The module assigned tags. The prefix 'ietf' is reserved
-         for standardization. Standardized tags are defined in the
-         IANA registry (TBD).
+      config false;
 
-         A module author will indicate in the description under  ";
+      description
+        "The module associated tags. See the IANA 'YANG Module Tag
+        Prefix' registry for reserved prefixes and the IANA 'YANG
+        Module IETF Tag' registry for IETF standard tags";
     }
   }
 
@@ -306,18 +308,39 @@ module ietf-module-tags {
 
     <section anchor="sec-lib" title="Library Augmentation">
       <t>
-        The other tag list location can be found in a modules entry in
-        the yang library <xref target="RFC7895"/>. As long as the
-        server supports both this module and the yang library module
-        then a user can add, remove and search for tags for all
-        modules on the server regardless of whether a module included
-        tagging support.
+        Tags can also be associated with a module using 
+        the yang library <xref target="RFC7895"/>. When a server
+        supports both yang library and the augmentation defined below,
+        a user can add, remove and search for tags for any
+        module on the server regardless of whether the specific module
+        included tag support in its definition or not.
+      </t>
+      <t>
+        The tree associated with the defined augmentation is:
+        <figure>
+          <artwork><![CDATA[
+module: ietf-library-tags
+  augment /yanglib:modules-state/yanglib:module:
+    +--ro tags*          string
+    +---x add-tags
+    |  +---w input
+    |     +---w tags*   string
+    +---x remove-tags
+    |  +---w input
+    |     +---w tags*   string
+    +---x reset-tags
+       +--ro output
+          +--ro tags*   string
+
+]]>
+          </artwork>
+        </figure>
       </t>
     <section anchor="sec-lib-module" title="Library Augmentation Module">
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-library-tags@2017-01-20.yang"
+<CODE BEGINS> file "ietf-library-tags@2017-02-01.yang"
 module ietf-library-tags {
   // namespace
   namespace "urn:ietf:params:xml:ns:yang:ietf-library-tags";
@@ -342,7 +365,7 @@ module ietf-library-tags {
     classfication tags.  Tags may be IANA or privately defined
     types.";
 
-  revision "2017-01-20" {
+  revision "2017-02-01" {
     description
       "Initial revision.";
     reference "RFC TBD";
@@ -379,6 +402,102 @@ module ietf-library-tags {
         target="I-D.ietf-netmod-yang-model-classification"/> style
         classification.
       </t>
+    </section>
+    <section anchor="sec-guide" title="Guidelines to Model Writers">
+      <t>
+        This section updates <xref
+        target="I-D.ietf-netmod-rfc6087bis"/>.  This document makes two
+        recommendations to model writers,
+      </t>
+      <section anchor="sec-guide-mod" title="Include Module Tags">
+        <t>
+            The correct way to use the module-tags grouping is to
+            include it in a standard location at the top level
+            of your module, specifically contained within a container
+            named "module-tags". This standard location allows searching
+            module using a well-known xpath wilcard path. For example:
+            <figure>
+              <artwork><![CDATA[
+        module sample-module {
+          ...
+          import ietf-module-tags {
+            prefix mtags;
+          }
+          ...
+          container module-tags {
+            description
+              "A list of classification tags associated with this
+               module. The following predefined tags <MUST|SHOULD|MAY>
+               be included by an implementation:
+                 - ietf:foo
+                 - ietf:bar
+                 - ...
+              ";
+            uses mtags:module-tags;
+          }
+          ...
+        }
+]]>
+              </artwork>
+            </figure>
+          </t>
+          <t>
+            The associated tree will look like:
+            <figure>
+              <artwork><![CDATA[
+        module: sample-module
+            +--rw module-tags
+            |  +--ro tags*          string
+            |  +---x add-tags
+            |  |  +---w input
+            |  |     +---w tags*   string
+            |  +---x remove-tags
+            |  |  +---w input
+            |  |     +---w tags*   string
+            |  +---x reset-tags
+            |     +--ro output
+            |        +--ro tags*   string
+            +--...
+
+]]>
+              </artwork>
+            </figure>
+          </t>
+          <t>
+            If you do not want a module user to have the ability to add
+            or remove tags, replace the above 'uses' statement with:
+
+            <list style="empty"><t>uses module-tags-static;</t></list>
+          </t>
+          <t>
+            In which case the associated tree will simply be:
+            <figure>
+              <artwork><![CDATA[
+        module: sample-module
+            +--rw module-tags
+            |  +--ro tags*          string
+            +--...
+]]>
+              </artwork>
+            </figure>
+          </t>
+      </section>
+      <section anchor="sec-guide-def" title="Define Standard Tags">
+        <t>
+            A module should indicate, in the description of the
+            "module-tags" container, the set of tags that are
+            to be populated in the leaf-list for any implementation of
+            the module. This description should also include the
+            appropriate conformance statement or statements, using <xref
+            target="RFC2119"/> language, for each tag.
+        </t>
+        <t>
+            The module writer may use existing standard tags, or use new
+            tags defined in the model definition, as appropriate.  New
+            tags should be assigned in the IANA registry defined below,
+            see <xref target="sec-ietf-prefix"/> below.
+        </t>
+      </section>
     </section>
     <section anchor="sec-iana" title="IANA Considerations">
       <section anchor="sec-iana-prefix" title="YANG Module Tag Prefix Registry">
@@ -419,10 +538,10 @@ module ietf-library-tags {
           The initial values for this registry are as follows.
         </t>
         <t>
-          [LB I suggest we move all but the tags matching the
-          classification draft to the device model or conventions draft.]
-          [LB: I'm also unconvinced on the per-area tags.  If we keep
-          them, they should stay.]
+          [Editor's note: some of these tags are expected to move to
+          <xref target="I-D.ietf-rtgwg-device-model"/> if/when this
+          document becomes a WG document and that document is refactored
+          to use tags.]
         </t>
         <texttable anchor="table_ietf_iana" title="IETF Module Tag Registry">
           <ttcol align='center'>Tag</ttcol>
@@ -519,11 +638,15 @@ module ietf-library-tags {
   <?rfc needLines="20"?>
   <back>
     <references title="Normative References">
-      <?rfc include="reference.RFC.7895"?>
+      <?rfc include="reference.RFC.2119"?>
       <?rfc include="reference.RFC.5226"?>
+      <?rfc include="reference.RFC.7895"?>
+      <?rfc include="reference.I-D.ietf-netmod-rfc6087bis.xml"?>
     </references>
     <references title="Informative References">
-      <?rfc include="reference.I-D.draft-ietf-netmod-yang-model-classification-04.xml"?>
+      <?rfc
+        include="reference.I-D.draft-ietf-netmod-yang-model-classification-04.xml"?>
+      <?rfc include="reference.I-D.ietf-rtgwg-device-model.xml"?>
     </references>
   </back>
 </rfc>

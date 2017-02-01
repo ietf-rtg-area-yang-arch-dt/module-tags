@@ -8,39 +8,12 @@ module ietf-module-tags {
   contact
     "Routing Area YANG Architecture Design Team -
      <rtg-dt-yang-arch@ietf.org>";
+
   description
-    "This module describes a tagging mechanism for yang module. Tags may
-     be IANA or privately defined types.
+    "This module describes a tagging mechanism for yang module. 
+     Tags may be IANA assigned or privately defined types.";
 
-     The correct way to use this grouping is to include it at the
-     following standard location at top level of your module. This
-     standard location allows searching module using a well-known
-     xpath wilcard path.
-
-     Additionally the module will indicate in the description under
-     the container the initial pre-defined tags that should be
-     populated in the leaf-list for any instantiation of this module.
-
-        module my-module {
-          ...
-          container module-tags {
-            description
-              ''Predefined tags:
-                 - ietf:foo
-                 - ietf:bar
-                 - ...
-              '';
-            uses module-tags;
-          }
-          ...
-        }
-
-     If you do *not* want a module user to add or remove tags, replace the
-     above 'uses' statement with:
-        uses module-tags-static;
-    ";
-
-  revision "2017-01-20" {
+  revision "2017-02-01" {
     description
       "Initial revision.";
     reference "TBD";
@@ -53,12 +26,12 @@ module ietf-module-tags {
     leaf-list tags {
       type string;
 
-      description
-        "The module assigned tags. The prefix 'ietf' is reserved
-         for standardization. Standardized tags are defined in the
-         IANA registry (TBD).
+      config false;
 
-         A module author will indicate in the description under  ";
+      description
+        "The module associated tags. See the IANA 'YANG Module Tag
+        Prefix' registry for reserved prefixes and the IANA 'YANG
+        Module IETF Tag' registry for IETF standard tags";
     }
   }
 
@@ -89,9 +62,9 @@ module ietf-module-tags {
 
     action reset-tags {
       description
-        "Reset a list of tags for a given module to the list of module and
-         implementation time defiend tags. It provides the list of tags
-         associated with the module post reset.";
+        "Reset a list of tags for a given module to the list of module
+         and implementation time defiend tags. It provides the list of
+         tags associated with the module post reset.";
 
        output {
          uses module-tags-static;
