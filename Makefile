@@ -12,7 +12,7 @@ MODELS = ietf-module-tags.yang \
 #  e.g., based on a 'cd .. ; git clone https://github.com/YangModels/yang.git'
 YANGIMPORT_BASE = ../yang
 PLUGPATH    := $(shell echo `find $(YANGIMPORT_BASE) -name \*.yang | sed 's,/[a-z0-9A-Z@_\-]*.yang$$,,' | uniq` | tr \  :)
-PYTHONPATH  := $(shell echo `find /usr/lib* /usr/local/lib* -name  site-packages ` | tr \  :)
+# PYTHONPATH  := $(shell echo `find /usr/lib* /usr/local/lib* -name  site-packages ` | tr \  :)
 WITHXML2RFC := $(shell which xml2rfc > /dev/null 2>&1 ; echo $$? )
 
 ID_DIR	     = IDs
@@ -32,7 +32,9 @@ TREES := $(MODELS:.yang=.tree)
 	@sed 's/revision.\"[0-9]*\-[0-9]*\-[0-9]*\"/revision "'`date +%F`'"/' < $<.prev > $<
 	@diff $<.prev $< || exit 0
 	@echo Generating $@	
-	@PYTHONPATH=$(PYTHONPATH) pyang --ietf -f tree -p $(PLUGPATH) $< > $@  || exit 0
+	pyang --ietf -f tree -p $(PLUGPATH) $< > $@  || exit 0
+
+	# @PYTHONPATH=$(PYTHONPATH) pyang --ietf -f tree -p $(PLUGPATH) $< > $@  || exit 0
 
 %.txt: %.xml
 	rm -f $@.prev

@@ -21,7 +21,7 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2017-02-01" {
+  revision "2017-02-06" {
     description
       "Initial revision.";
     reference "TBD";
@@ -57,6 +57,7 @@ module ietf-module-tags {
       type yang:yang-identifier;
       description
         "The YANG module or submodule name.";
+      mandatory true;
     }
     leaf revision {
       type union {

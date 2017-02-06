@@ -3,17 +3,17 @@ module: ietf-module-tags
   rpcs:
     +---x add-tags
     |  +---w input
-    |     +---w name?       yang:yang-identifier
+    |     +---w name        yang:yang-identifier
     |     +---w revision?   union
     |     +---w tags*       string
     +---x remove-tags
     |  +---w input
-    |     +---w name?       yang:yang-identifier
+    |     +---w name        yang:yang-identifier
     |     +---w revision?   union
     |     +---w tags*       string
     +---x reset-tags
        +---w input
-       |  +---w name?       yang:yang-identifier
+       |  +---w name        yang:yang-identifier
        |  +---w revision?   union
        +--ro output
           +--ro tags*   string
