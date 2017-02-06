@@ -132,6 +132,13 @@
           defined later in this document.
         </t>
       </section>
+      <section anchor="sec-vendor-tags" title="Vendor Tags">
+        <t>
+          A vendor tag is a tag that has the prefix "vendor:". These
+          tags are defined by the vendor that implements the module,
+          and are not standardized.
+        </t>
+      </section>
       <section anchor="sec-local-tags" title="Local Tags">
         <t>
           A local tag is any tag that has the prefix "local:". These tags
@@ -141,8 +148,8 @@
       </section>
       <section anchor="sec-resv-tags" title="Reserved Tags">
         <t>
-          Any tag not starting with the prefix "ietf:" or "local:" is
-          reserved for future standardization.
+          Any tag not starting with the prefix "ietf:", "vendor:" or
+          "local:" is reserved for future standardization.
         </t>
       </section>
     </section>
@@ -151,7 +158,7 @@
       Tags can become associated with a module in a number of ways.
       Tags may be defined as associated at model design time, at
       implementation time, or via user administrative control.  As the
-      main consumer of tags are users, users may remove any tag, not
+      main consumer of tags are users, users may remove any tag, no
       matter how the tag became associated with a module.
     </t>
     <section anchor="sec-module-tags" title="Module Definition Association">
@@ -178,7 +185,7 @@
       </t>
       <t>
         Each rpc identifies the module on which the tag operation is to
-        be performed.  This identifications uses reuses the format of
+        be performed.  This identifications reuses the format of
         the common-leafs (sub) grouping defined in <xref
         target="RFC7895"/>.  The grouping itself is refined in <xref
         target="sec-module" /> so that it is a stand-alone grouping.
@@ -200,7 +207,11 @@
       <t>
         [LB: note we don't allow for RO tag list as part of module
         definition when using RPCs -- we did with action -- is this a
-        problem?] 
+        problem?]
+      </t>
+      <t>
+        [CHOPPS: No, I don't even know what read-only is as we always
+        allow the user to remove any and all tags. :)]
       </t>
       <section anchor="sec-add-tags" title="Adding Tags">
         <t>
@@ -246,22 +257,21 @@ module: ietf-module-tags
   rpcs:
     +---x add-tags
     |  +---w input
-    |     +---w name?       yang:yang-identifier
+    |     +---w name        yang:yang-identifier
     |     +---w revision?   union
     |     +---w tags*       string
     +---x remove-tags
     |  +---w input
-    |     +---w name?       yang:yang-identifier
+    |     +---w name        yang:yang-identifier
     |     +---w revision?   union
     |     +---w tags*       string
     +---x reset-tags
        +---w input
-       |  +---w name?       yang:yang-identifier
+       |  +---w name        yang:yang-identifier
        |  +---w revision?   union
        +--ro output
           +--ro tags*   string
-]]>
-          </artwork>
+]]></artwork>
         </figure>
       </t>
       
@@ -394,6 +404,9 @@ module ietf-module-tags {
         a user can add, remove and search for tags for any
         module on the server regardless of whether the specific module
         included tag support in its definition or not.
+      </t>
+      <t>
+        [CHOPPS: How are the RPCs pulled into this module?]
       </t>
       <t>
         The tree associated with the defined augmentation is:
@@ -560,6 +573,7 @@ module ietf-library-tags {
  --------  ---------------------------------------------------
  ietf:     IETF Standard Tag allocated in the IANA YANG Module
            IETF Tag Registry.
+ vendor:   Non-standardized tags allocated by the module implementer.
  local:    Non-standardized tags allocated by and for the user.
             </artwork>
           </figure>
