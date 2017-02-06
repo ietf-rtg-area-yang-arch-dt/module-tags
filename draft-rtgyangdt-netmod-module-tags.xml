@@ -112,19 +112,6 @@
         IANA registry is used to support standardizing tag prefixes.
         Currently 2 prefixes are defined with all others reserved.
       </t>
-      <t>
-        [LB: I don't understand the expected forward compatibility with
-        this approach.  Let's say that IANA assigns the IEEE/ETSI/TMP
-        etc their own prefixes and a user wants to use one of these.  In
-        the proposed approach, these new types would be rejected.  I
-        really think we should defined just the IETF assigned structure
-        and call everything else unstructured.]
-      </t>
-      <t>
-        [LB Also, perhaps we also want to defined the tags 'vendor:' and
-        'user:' to build on <xref
-        target="I-D.ietf-netmod-yang-model-classification"/>.]
-      </t>
       <section anchor="sec-std-tags" title="IETF Standard Tags">
         <t>
           An IETF standard tag is a tag that has the prefix "ietf:". All
@@ -203,15 +190,6 @@
         (whether at all, or just for a particular rpc or module) MUST
         respond with an YANG transport protocol-appropriate rpc layer
         error when such a statement is received.
-      </t>
-      <t>
-        [LB: note we don't allow for RO tag list as part of module
-        definition when using RPCs -- we did with action -- is this a
-        problem?]
-      </t>
-      <t>
-        [CHOPPS: No, I don't even know what read-only is as we always
-        allow the user to remove any and all tags. :)]
       </t>
       <section anchor="sec-add-tags" title="Adding Tags">
         <t>
@@ -404,9 +382,6 @@ module ietf-module-tags {
         a user can add, remove and search for tags for any
         module on the server regardless of whether the specific module
         included tag support in its definition or not.
-      </t>
-      <t>
-        [CHOPPS: How are the RPCs pulled into this module?]
       </t>
       <t>
         The tree associated with the defined augmentation is:
