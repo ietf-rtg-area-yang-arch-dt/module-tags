@@ -381,7 +381,9 @@ module ietf-module-tags {
         supports both yang library and the augmentation defined below,
         a user can add, remove and search for tags for any
         module on the server regardless of whether the specific module
-        included tag support in its definition or not.
+        included tag support in its definition or not. If a server
+        supports ietf-module-tags and the yang library it SHOULD also
+        support the ietf-library-tags module.
       </t>
       <t>
         The tree associated with the defined augmentation is:
@@ -398,7 +400,7 @@ module: ietf-library-tags
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-library-tags@2017-02-06.yang"
+<CODE BEGINS> file "ietf-library-tags@2017-02-08.yang"
 module ietf-library-tags {
   // namespace
   namespace "urn:ietf:params:xml:ns:yang:ietf-library-tags";
