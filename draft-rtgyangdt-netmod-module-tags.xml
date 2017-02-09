@@ -8,7 +8,7 @@
 <?rfc iprnotified="no" ?>
 <?rfc strict="yes" ?>
 <rfc category="std" ipr="trust200902"
-     docName="draft-rtgyangdt-netmod-module-tags-00"
+     docName="draft-rtgyangdt-netmod-module-tags-01"
      updates="rfc6087bis">
   <front>
     <title abbrev="YANG Module Tags">YANG Module Tags</title>
