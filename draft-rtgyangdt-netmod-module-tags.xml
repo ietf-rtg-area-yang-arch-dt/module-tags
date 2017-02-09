@@ -8,7 +8,7 @@
 <?rfc iprnotified="no" ?>
 <?rfc strict="yes" ?>
 <rfc category="std" ipr="trust200902"
-     docName="draft-rtgyangdt-netmod-module-tags-01"
+     docName="draft-rtgyangdt-netmod-module-tags-00"
      updates="rfc6087bis">
   <front>
     <title abbrev="YANG Module Tags">YANG Module Tags</title>
@@ -34,15 +34,15 @@
     <abstract>
       <t>
         This document defines two modules that support the association
-        of tags with modules.  Tags may be included in a module or
+        of tags with modules. Tags may be included in a module or
         associated with a module through the use of an augmentation to
-        YANG library that is defined in this document.  The expectation
-        is for such tags to be used to help classify logically organize
-        modules.  Tags may be standardized and assigned during module
+        YANG library that is defined in this document. The expectation
+        is for such tags to be used to help classify and organize
+        modules. Tags may be standardized and assigned during module
         definition; assigned by implementations; or dynamically defined
-        and set by users.  This document provides guidance to future
+        and set by users. This document provides guidance to future
         model writers and, as such, this document updates <xref
-        target="I-D.ietf-netmod-rfc6087bis"/>. 
+        target="I-D.ietf-netmod-rfc6087bis"/>.
       </t>
     </abstract>
   </front>
@@ -258,7 +258,7 @@ module: ietf-module-tags
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-module-tags@2017-02-06.yang"
+<CODE BEGINS> file "ietf-module-tags@2017-02-09.yang"
 module ietf-module-tags {
   yang-version "1.1";
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -282,7 +282,7 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2017-02-06" {
+  revision "2017-02-09" {
     description
       "Initial revision.";
     reference "TBD";
@@ -316,9 +316,9 @@ module ietf-module-tags {
 
     leaf name {
       type yang:yang-identifier;
+      mandatory true;
       description
         "The YANG module or submodule name.";
-      mandatory true;
     }
     leaf revision {
       type union {
@@ -400,7 +400,7 @@ module: ietf-library-tags
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-library-tags@2017-02-08.yang"
+<CODE BEGINS> file "ietf-library-tags@2017-02-09.yang"
 module ietf-library-tags {
   // namespace
   namespace "urn:ietf:params:xml:ns:yang:ietf-library-tags";
@@ -425,7 +425,7 @@ module ietf-library-tags {
     classfication tags.  Tags may be IANA or privately defined
     types.";
 
-  revision "2017-02-06" {
+  revision "2017-02-09" {
     description
       "Initial revision.";
     reference "RFC TBD";
@@ -455,7 +455,7 @@ module ietf-library-tags {
         target="I-D.ietf-netmod-yang-model-classification"/>. That
         document is classifying modules in only a logical manner and
         does not define tagging or any other mechanisms. It divides yang
-        modules into 2 categories (service or entity) and then into one
+        modules into 2 categories (service or element) and then into one
         of 3 origins: standard, vendor or user.  It does provide a good
         way to discuss and identify modules in general.  This document
         defines standard tags to support <xref
@@ -610,8 +610,8 @@ module ietf-library-tags {
          <c>Transport Area module.</c>
          <c>[This document]</c>
 
-         <c>ietf:entity</c>
-         <c>A module for an entity (*).</c>
+         <c>ietf:element</c>
+         <c>A module for an element (*).</c>
          <c>[This document]</c>
 
          <c>ietf:service</c>
