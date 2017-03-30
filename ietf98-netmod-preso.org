@@ -1,0 +1,179 @@
+# -*- org-latex-listings: t -*-
+#+TITLE: Module Tags
+# #+AUTHOR: \href{mailto:chopps@chopps.org}{Christian E. Hopps}
+#+EMAIL: chopps@chopps.org
+#+STARTUP: beamer content indent
+#+OPTIONS: author:t date:nil h:2 toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+
+#+LATEX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger, aspectratio=43]
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+BEAMER_HEADER: \subtitle{draft-rtgyangdt-netmod-module-tags}
+#+BEAMER_HEADER: \author{\texorpdfstring{Christian E. Hopps \textit{\scriptsize{<chopps@chopps.org>}}\newline Lou Berger \textit{\scriptsize{<lberger@labn.net>}}\newline Dean Bogdanovic \textit{\scriptsize{<ivandean@gmail.com>}}}{Some Long Name??????}}
+#+BEAMER_THEME: metropolis [everytitleformat=regular]
+
+#+MACRO: mkbold @@latex:\textbf{@@$1@@latex:}@@
+
+* Module Tags
+** Use Cases
+- Organization
+- Classification
+- Other future module metadata
+** Example Yang Tree (before and after)
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+#+begin_latex
+\small
+\begin{verbatim}
+
+module isis:
++--rw routing
+   +--rw control-plane-protocols
+      +--rw control-plane-protocol
+        +--rw name
+          +--rw isis (augments here)
+becomes:
+
+module isis:
++--rw isis
+
+\end{verbatim}
+#+end_latex
+
+** Example XML Per-Module (before and after)
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+#+begin_latex
+\small
+\begin{verbatim}
+
+XML:
+<rt:routing>
+  <rt:control-plane-protocols>
+    <rt:control-plane-protocol>
+      <i:isis>
+        ...
+becomes:
+
+<i:isis>
+   ...
+\end{verbatim}
+#+end_latex
+** Example XML Global Tag List
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+#+begin_latex
+\small
+\begin{verbatim}
+and:
+
+<t:module-tags>
+  <t:module>
+    <t:module-key>isis</t:module-key>
+    <t:tags>routing</t:tags>
+    <t:tags>control-plane-protocol</t:tags>
+  </t:module>
+</t:module-tags>
+\end{verbatim}
+#+end_latex
+** Creating Tags
+- 3 creation points
+  - Module (author)
+  - Implementer (vendor)
+  - User (customer)
+** Key Points Here
+Fixed structure (routing or device meta-model)
+- Modules depend on IETF standard parent module.
+- Parent module must be revised to add new structure.
+- Authors only decide classification and organization.
+Tags
+- Modules remain more loosely coupled.
+- Non-IETF can add to organization and classification.
+- Users can add and {{{mkbold(remove)}}} tags.
+- Allows for other additional types of metadata.
+** Tag Standardization (and local use)
+IANA Registry for tag prefixes
+  - ~ietf:~   - ietf standardized
+  - ~vendor:~ - for implementer use
+  - ~local:~  - for local user use
+  - Alloc Policy: Specification Required
+    - Allows allocation by other SDOs (e.g., ~ieee:~)
+IANA Registry for ~ietf:~ tags
+  - Alloc Policy: IETF Review (IETF reviewed documents)
+** Root-level Additions
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+#+begin_latex
+\small
+\begin{verbatim}
+module: ietf-module-tags
+  rpcs:
+  +---x [rm'ing: add-tags]
+  +---x [rm'ing: remove-tags]
+  +---x reset-tags
+     +---w in
+     |  +---w name        yang:yang-identifier
+     |  +---w revision?   union
+     +--ro output
+        +--ro tags*       string
+\end{verbatim}
+#+end_latex
+** Yang Library List Augment
+:PROPERTIES:
+   :BEAMER_opt: fragile
+   :END:
+#+begin_latex
+\small
+\begin{verbatim}
+module: ietf-library-tags
+  augment /yanglib:modules-state/yanglib:module:
+    +--ro tags*   string
+\end{verbatim}
+#+end_latex
+** R/W List of Module Tag Lists
+:PROPERTIES:
+   :BEAMER_opt: fragile
+   :END:
+#+begin_latex
+\small
+\begin{verbatim}
+   module: ietf-module-tags
+     +--rw module-tags
+       +--rw module*       [module-key]
+         +--rw module-key
+         +--rw tags*       string
+
+
+\end{verbatim}
+#+end_latex
+- Allows adding tags to any modules
+** R/W Per-module Tags List
+:PROPERTIES:
+   :BEAMER_opt: fragile
+   :END:
+#+begin_latex
+\small
+\begin{verbatim}
+    module: example-module
+
+       +--rw module-tags
+       |  +--rw tags*   string
+       +--rw examples-stuff
+
+\end{verbatim}
+#+end_latex
+- Grouping used by modules
+- Allow for single xpath references into module data
+  ~/[tags="igp"]/hello-timer/interval~
+** Open Issue [final slide]
+   - Tag access points
+     - r/o version in yang library?
+     - r/w in writable list of modules.
+     - r/w or r/o version in module?
+   - User can remove tags.
+     - Authors strongly support yes.
