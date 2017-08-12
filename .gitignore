@@ -1,0 +1,7 @@
+*.html
+*.txt
+*.prev
+*.next
+*.pdf
+*.tex
+auto/
