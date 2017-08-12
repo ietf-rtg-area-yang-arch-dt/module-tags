@@ -21,7 +21,7 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2017-02-09" {
+  revision "2017-08-12" {
     description
       "Initial revision.";
     reference "TBD";
@@ -68,26 +68,6 @@ module ietf-module-tags {
         "The YANG module or submodule revision date.
          A zero-length string is used if no revision statement
          is present in the YANG module or submodule.";
-    }
-  }
-
-  rpc add-tags {
-    description
-      "Add a list of tags to a given module.";
-
-    input {
-      uses yanglib-common-leafs;
-      uses module-tags;
-    }
-  }
-
-  rpc remove-tags {
-    description
-      "Remove a list of tags, if present, from a given module.";
-
-    input {
-      uses yanglib-common-leafs;
-      uses module-tags;
     }
   }
 

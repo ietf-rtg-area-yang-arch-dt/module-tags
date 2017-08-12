@@ -165,54 +165,23 @@
     </section>
     <section anchor="sec-admin-tags" title="Administrative Tagging">
       <t>
-        RPC statements are defined in this document to enable
-        administrative addition and removal of tags from a module by a
-        user. An additional rpc is defined to reset a module's tag
-        list to the implementation default.
+        Tags can be assigned and removed with normal configuration
+        mechanisms. Additionally we define an RPC to reset a module's
+        tag list to the implementation default.
       </t>
       <t>
-        Each rpc identifies the module on which the tag operation is to
-        be performed.  This identifications reuses the format of
-        the common-leafs (sub) grouping defined in <xref
-        target="RFC7895"/>.  The grouping itself is refined in <xref
-        target="sec-module" /> so that it is a stand-alone grouping.
-      </t>
-      <t>
-        Implementations that support the rpc statements defined in
-        this document MUST ensure that a specific module's tags leaf
+        Implementations MUST ensure that a specific module's tags leaf
         list is consistent across any location from which the list is
-        available.  Specifically this includes in the module itself, per
+        available. Specifically this includes in the module itself, per
         <xref target="sec-guide-mod" />, or in yang library, per <xref
         target="sec-lib" />.
       </t>
       <t>
-        Implementations that do not support the defined rpc statements
+        Implementations that do not support the reset rpc statement
         (whether at all, or just for a particular rpc or module) MUST
         respond with an YANG transport protocol-appropriate rpc layer
         error when such a statement is received.
       </t>
-      <section anchor="sec-add-tags" title="Adding Tags">
-        <t>
-          The "add-tags" rpc statement is defined to support the
-          addition of tags. This rpc statement takes as input module
-          identification information and the list of tags to add.
-        </t>
-        <t>
-          No restriction is placed on the tag values to add.
-        </t>
-      </section>
-      <section anchor="sec-rm-tags" title="Removing Tags">
-        <t>
-          The "remove-tags" rpc statement is defined to remove tags.
-          This rpc statement takes as input module identification
-          information and the list of tags to remove.
-        </t>
-        <t>
-          No restriction is placed on the tag values to remove.  This
-          means that tags associated based on a module's definition or
-          implementation MUST be removable. 
-        </t>
-      </section>
       <section anchor="sec-reset-tags" title="Resetting Tags">
         <t>
           The "reset-tags" rpc statement is defined to reset a module's
@@ -233,16 +202,6 @@
           <artwork><![CDATA[
 module: ietf-module-tags
   rpcs:
-    +---x add-tags
-    |  +---w input
-    |     +---w name        yang:yang-identifier
-    |     +---w revision?   union
-    |     +---w tags*       string
-    +---x remove-tags
-    |  +---w input
-    |     +---w name        yang:yang-identifier
-    |     +---w revision?   union
-    |     +---w tags*       string
     +---x reset-tags
        +---w input
        |  +---w name        yang:yang-identifier
@@ -258,7 +217,7 @@ module: ietf-module-tags
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-module-tags@2017-02-09.yang"
+<CODE BEGINS> file "ietf-module-tags@2017-08-12.yang"
 module ietf-module-tags {
   yang-version "1.1";
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -282,7 +241,7 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2017-02-09" {
+  revision "2017-08-12" {
     description
       "Initial revision.";
     reference "TBD";
@@ -329,26 +288,6 @@ module ietf-module-tags {
         "The YANG module or submodule revision date.
          A zero-length string is used if no revision statement
          is present in the YANG module or submodule.";
-    }
-  }
-
-  rpc add-tags {
-    description
-      "Add a list of tags to a given module.";
-
-    input {
-      uses yanglib-common-leafs;
-      uses module-tags;
-    }
-  }
-
-  rpc remove-tags {
-    description
-      "Remove a list of tags, if present, from a given module.";
-
-    input {
-      uses yanglib-common-leafs;
-      uses module-tags;
     }
   }
 
@@ -400,7 +339,7 @@ module: ietf-library-tags
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-library-tags@2017-02-09.yang"
+<CODE BEGINS> file "ietf-library-tags@2017-08-12.yang"
 module ietf-library-tags {
   // namespace
   namespace "urn:ietf:params:xml:ns:yang:ietf-library-tags";
@@ -425,7 +364,7 @@ module ietf-library-tags {
     classfication tags.  Tags may be IANA or privately defined
     types.";
 
-  revision "2017-02-09" {
+  revision "2017-08-12" {
     description
       "Initial revision.";
     reference "RFC TBD";
