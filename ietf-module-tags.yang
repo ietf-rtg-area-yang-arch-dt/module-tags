@@ -21,7 +21,7 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2017-10-22" {
+  revision "2017-10-25" {
     description
       "Initial revision.";
     reference "TBD";
@@ -74,7 +74,6 @@ module ietf-module-tags {
     key "name revision";
     description
       "A list of modules and their tags";
-    config true;
     uses yanglib-common-leafs; // uses yanglib:common-leafs;
     uses module-tags;
   }

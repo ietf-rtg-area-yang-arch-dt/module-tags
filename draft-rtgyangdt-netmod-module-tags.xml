@@ -213,7 +213,7 @@ module: ietf-module-tags
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-module-tags@2017-10-22.yang"
+<CODE BEGINS> file "ietf-module-tags@2017-10-25.yang"
 module ietf-module-tags {
   yang-version "1";
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -237,7 +237,7 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2017-10-22" {
+  revision "2017-10-25" {
     description
       "Initial revision.";
     reference "TBD";
@@ -290,7 +290,6 @@ module ietf-module-tags {
     key "name revision";
     description
       "A list of modules and their tags";
-    config true;
     uses yanglib-common-leafs; // uses yanglib:common-leafs;
     uses module-tags;
   }
