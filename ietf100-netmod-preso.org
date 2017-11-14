@@ -1,0 +1,86 @@
+# -*- org-latex-listings: t -*-
+#+TITLE: Module Tags
+# #+AUTHOR: \href{mailto:chopps@chopps.org}{Christian E. Hopps}
+#+EMAIL: chopps@chopps.org
+#+STARTUP: beamer content indent
+#+OPTIONS: author:t date:nil h:2 toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+
+#+LATEX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger, aspectratio=43]
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+BEAMER_HEADER: \subtitle{draft-rtgyangdt-netmod-module-tags}
+#+BEAMER_HEADER: \author{\texorpdfstring{Christian E. Hopps \textit{\scriptsize{<chopps@chopps.org>}}\newline Lou Berger \textit{\scriptsize{<lberger@labn.net>}}\newline Dean Bogdanovic \textit{\scriptsize{<ivandean@gmail.com>}}}{Some Long Name??????}}
+#+BEAMER_THEME: metropolis [everytitleformat=regular]
+
+#+MACRO: mkbold @@latex:\textbf{@@$1@@latex:}@@
+
+* Module Tags
+** Update since IETF 98
+- 2 revisions
+- Removed per-module tag list
+- Removed add/del RPCs
+  - Use standard config mechanisms.
+** Tags Yang Module
+:PROPERTIES:
+   :BEAMER_opt: fragile
+   :END:
+#+begin_latex
+\small
+\begin{verbatim}
+module: ietf-module-tags
+  +--rw module-tags*    [name, revision]
+     +--rw name
+     +--rw revision
+     +--rw tags*        string
+  +--x reset-tags
+     +--w in
+     |  +--w name       yang:yang-identifier
+     |  +--w revision?  union
+     +--ro output
+        +--ro tags*     string
+\end{verbatim}
+#+end_latex
+** Example XML Global Tag List
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+#+begin_latex
+\small
+\begin{verbatim}
+
+<t:module-tags>
+  <t:name>isis</t:name>
+  <t:tags>ietf:routing</t:tags>
+  <t:tags>ietf:protocol</t:tags>
+</t:module-tags>
+<t:module-tags>
+  <t:name>ospf</t:name>
+  <t:tags>ietf:routing</t:tags>
+  <t:tags>ietf:protocol</t:tags>
+</t:module-tags>
+
+\end{verbatim}
+#+end_latex
+** Yang Library List Augment
+:PROPERTIES:
+   :BEAMER_opt: fragile
+   :END:
+#+begin_latex
+\small
+\begin{verbatim}
+module: ietf-library-tags
+  augment /yanglib:modules-state/yanglib:module:
+    +--ro tags*   string
+\end{verbatim}
+#+end_latex
+** Open Issue
+- Separate tag config from tag list?
+  - Config - add and delete tags
+  - Operational - has list of tags
+  - No reset RPC needed then.
+- Remove yang library augment?
+- Finalize initial standard tags.
+** Next Steps [final slide]
+- Positive Feedback.
+- WG Adoption?
