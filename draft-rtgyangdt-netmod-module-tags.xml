@@ -413,7 +413,7 @@ module ietf-library-tags {
           target="RFC2119"/> language for each tag.
           <figure>
             <artwork><![CDATA[
-        module sample-module {
+        module example-module {
           ...
           description
             "[Text describing the module...]
