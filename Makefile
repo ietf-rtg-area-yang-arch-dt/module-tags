@@ -4,9 +4,7 @@
 #This file is considered a hack and not production grade by the author
 
 DRAFT  = draft-rtgyangdt-netmod-module-tags
-MODELS = ietf-module-tags.yang \
-	 ietf-library-tags.yang \
-	 sample-module.yang
+MODELS = ietf-module-tags.yang
 
 #assumes standard yang modules installed in ../yang, customize as needed
 #  e.g., based on a 'cd .. ; git clone https://github.com/YangModels/yang.git'

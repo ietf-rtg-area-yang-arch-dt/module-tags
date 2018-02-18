@@ -7,11 +7,6 @@ module ietf-module-tags {
     prefix yang;
   }
 
-  import ietf-yang-library {
-    prefix yanglib;
-  }
-
-  // meta
   organization "IETF NetMod Working Group (NetMod)";
 
   contact
@@ -21,75 +16,46 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2017-10-25" {
+  revision "2018-02-18" {
     description
       "Initial revision.";
     reference "TBD";
   }
 
-  grouping module-tags {
+  list module-tags {
+    key "name";
+
     description
-      "A grouping that may be used to classify a module.";
-
-    leaf-list tags {
-      type string;
-
-      description
-        "The module associated tags. See the IANA 'YANG Module Tag
-        Prefix' registry for reserved prefixes and the IANA 'YANG
-        Module IETF Tag' registry for IETF standard tags";
-    }
-  }
-
-  grouping yanglib-common-leafs {
-    description
-      "Common parameters for YANG modules and submodules.
-       This definition extract from RFC7895 as it is defined as
-       a grouping within a grouping.
-
-       TBD is there a legal way to use a grouping defined within
-       another grouping without using the parent? If so, should change
-       to that.";
+      "A list of modules and their associated tags";
 
     leaf name {
-      type yang:yang-identifier;
-      mandatory true;
-      description
-        "The YANG module or submodule name.";
-    }
-    leaf revision {
-      type union {
-        type yanglib:revision-identifier;
-        type string { length 0; }
-      }
-      mandatory true;
-      description
-        "The YANG module or submodule revision date.
-         A zero-length string is used if no revision statement
-         is present in the YANG module or submodule.";
-    }
-  }
-
-  list module-tags {
-    key "name revision";
-    description
-      "A list of modules and their tags";
-    uses yanglib-common-leafs; // uses yanglib:common-leafs;
-    uses module-tags;
-  }
-
-  rpc reset-tags {
-    description
-      "Reset a list of tags for a given module to the list of module
-       and implementation time defiend tags. It provides the list of
-       tags associated with the module post reset.";
-
-    input {
-      uses yanglib-common-leafs; // uses yanglib:common-leafs;
+        type yang:yang-identifier;
+        mandatory true;
+        description
+            "The YANG module or submodule name.";
     }
 
-    output {
-       uses module-tags;
+    leaf-list tag {
+        type string;
+
+        description
+            "A tag associated with the module. See the IANA 'YANG Module Tag
+             Prefix' registry for reserved prefixes and the IANA 'YANG Module
+             IETF Tag' registry for IETF standard tags.
+
+             The operational view of this list will contain all user-configured
+             tags as well as any predefined tags that have not been masked by
+             the user using the masked-tag leaf list below.";
+    }
+
+    leaf-list masked-tag {
+        type string;
+
+        description
+            "The list of tags that should not be associated with this module.
+             This user can remove (mask) predefined tags by adding them to this
+             list. It is not an error to add tags to this list that are not
+             predefined for the module.";
     }
   }
 }

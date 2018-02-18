@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- -*- mode: xml; fill-column: 72; -*- -->
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
   ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -36,12 +37,12 @@
         This document provides for the association of tags with YANG
         modules. The expectation is for such tags to be used to help
         classify and organize modules. A method for defining, reading
-        and writing a modules tags is provided, as well as an
-        augmentation to YANG library. Tags may be standardized and
-        assigned during module definition; assigned by implementations;
-        or dynamically defined and set by users. This document provides
-        guidance to future model writers and, as such, this document
-        updates <xref target="I-D.ietf-netmod-rfc6087bis"/>.
+        and writing a modules tags is provided. Tags may be standardized
+        and assigned during module definition; assigned by
+        implementations; or dynamically defined and set by users. This
+        document provides guidance to future model writers and, as such,
+        this document updates <xref
+        target="I-D.ietf-netmod-rfc6087bis"/>.
       </t>
     </abstract>
   </front>
@@ -59,12 +60,9 @@
         users.
       </t>
       <t>
-        This document defines two modules. The first module defines a
-        list of module entries to allow for adding or removing of tags.
-        It also defines an RPC to reset a modules tags to the original
-        values. The second module defines an augmentation to YANG
-        Library <xref target="RFC7895"/> to allow for reading a modules
-        tags.
+        This document defines a module which provides a
+        list of module entries to allow for adding or removing of tags
+        as well as viewing the set of tags associated with a module.
       </t>
       <t>
         This document also defines an IANA registry for tag prefixes
@@ -86,18 +84,6 @@
         Note that lower case versions of these key words are used in
         section <xref target="sec-guide"/> where guidance is provided to
         future document authors.
-      </t>
-    </section>
-    <section anchor="sec-tag-location" title="Tag Locations">
-      <t>
-        Each module has only one logical tag list; however, that tag
-        list may be accessed from multiple locations.
-      </t>
-      <t>
-        We define two tag list locations. The first location is used
-        for configuration and is a top level list of module entries
-        where each entry contain the list of tags. The second read-only
-        location is through the yang library under the module entry.
       </t>
     </section>
     <section anchor="sec-prefixes" title="Tag Prefixes">
@@ -162,32 +148,15 @@
     <section anchor="sec-admin-tags" title="Administrative Tagging">
       <t>
         Tags of any kind can be assigned and removed with normal
-        configuration mechanisms. Additionally we define an RPC to reset
-        a module's tag list to the implementation default.
+        configuration mechanisms.
       </t>
       <t>
         Implementations MUST ensure that a modules tag list is
         consistent across any location from which the list is
         accessible. So if a user adds a tag through configuration that
-        tag should also be seen when using the yang library
-        augmentation.
+        tag should also be seen when using any augmentation that exposes
+        the modules tag list.
       </t>
-      <t>
-        Implementations that do not support the reset rpc statement
-        (whether at all, or just for a particular rpc or module) MUST
-        respond with an YANG transport protocol-appropriate rpc layer
-        error when such a statement is received.
-      </t>
-      <section anchor="sec-reset-tags" title="Resetting Tags">
-        <t>
-          The "reset-tags" rpc statement is defined to reset a module's
-          tag list to the implementation default, i.e. the tags that are
-          present based on module definition and any that are added
-          during implementation time. This rpc statement takes module
-          identification information as input, and provides the list of
-          tags that are present after the reset.
-        </t>
-      </section>
     </section>
  </section>
     <section anchor="sec-module" title="Tags Module Structure">
@@ -197,13 +166,10 @@
         <figure>
           <artwork><![CDATA[
 module: ietf-module-tags
-  rpcs:
-    +---x reset-tags
-       +---w input
-       |  +---w name        yang:yang-identifier
-       |  +---w revision?   union
-       +--ro output
-          +--ro tags*   string
+    +--rw module-tags* [name]
+       +--rw name          yang:yang-identifier
+       +--rw tag*          string
+       +--rw masked-tag*   string
 ]]></artwork>
         </figure>
       </t>
@@ -213,7 +179,7 @@ module: ietf-module-tags
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-module-tags@2017-10-25.yang"
+<CODE BEGINS> file "ietf-module-tags@2018-02-18.yang"
 module ietf-module-tags {
   yang-version "1";
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -223,11 +189,6 @@ module ietf-module-tags {
     prefix yang;
   }
 
-  import ietf-yang-library {
-    prefix yanglib;
-  }
-
-  // meta
   organization "IETF NetMod Working Group (NetMod)";
 
   contact
@@ -237,75 +198,46 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2017-10-25" {
+  revision "2018-02-18" {
     description
       "Initial revision.";
     reference "TBD";
   }
 
-  grouping module-tags {
+  list module-tags {
+    key "name";
+
     description
-      "A grouping that may be used to classify a module.";
-
-    leaf-list tags {
-      type string;
-
-      description
-        "The module associated tags. See the IANA 'YANG Module Tag
-        Prefix' registry for reserved prefixes and the IANA 'YANG
-        Module IETF Tag' registry for IETF standard tags";
-    }
-  }
-
-  grouping yanglib-common-leafs {
-    description
-      "Common parameters for YANG modules and submodules.
-       This definition extract from RFC7895 as it is defined as
-       a grouping within a grouping.
-
-       TBD is there a legal way to use a grouping defined within
-       another grouping without using the parent? If so, should change
-       to that.";
+      "A list of modules and their associated tags";
 
     leaf name {
-      type yang:yang-identifier;
-      mandatory true;
-      description
-        "The YANG module or submodule name.";
-    }
-    leaf revision {
-      type union {
-        type yanglib:revision-identifier;
-        type string { length 0; }
-      }
-      mandatory true;
-      description
-        "The YANG module or submodule revision date.
-         A zero-length string is used if no revision statement
-         is present in the YANG module or submodule.";
-    }
-  }
-
-  list module-tags {
-    key "name revision";
-    description
-      "A list of modules and their tags";
-    uses yanglib-common-leafs; // uses yanglib:common-leafs;
-    uses module-tags;
-  }
-
-  rpc reset-tags {
-    description
-      "Reset a list of tags for a given module to the list of module
-       and implementation time defiend tags. It provides the list of
-       tags associated with the module post reset.";
-
-    input {
-      uses yanglib-common-leafs; // uses yanglib:common-leafs;
+        type yang:yang-identifier;
+        mandatory true;
+        description
+            "The YANG module or submodule name.";
     }
 
-    output {
-       uses module-tags;
+    leaf-list tag {
+        type string;
+
+        description
+            "A tag associated with the module. See the IANA 'YANG Module Tag
+             Prefix' registry for reserved prefixes and the IANA 'YANG Module
+             IETF Tag' registry for IETF standard tags.
+
+             The operational view of this list will contain all user-configured
+             tags as well as any predefined tags that have not been masked by
+             the user using the masked-tag leaf list below.";
+    }
+
+    leaf-list masked-tag {
+        type string;
+
+        description
+            "The list of tags that should not be associated with this module.
+             This user can remove (mask) predefined tags by adding them to this
+             list. It is not an error to add tags to this list that are not
+             predefined for the module.";
     }
   }
 }
@@ -314,78 +246,6 @@ module ietf-module-tags {
         </figure>
       </t>
     </section>
-    </section>
-
-    <section anchor="sec-lib" title="Library Augmentation">
-      <t>
-        A modules tags can also be read using the yang library <xref
-        target="RFC7895"/> if a server supports both YANG library and
-        the augmentation defined below. If a server supports
-        ietf-module-tags and the YANG library it SHOULD also support the
-        ietf-library-tags module.
-      </t>
-      <t>
-        The tree associated with the defined augmentation is:
-        <figure>
-          <artwork><![CDATA[
-module: ietf-library-tags
-  augment /yanglib:modules-state/yanglib:module:
-    +--ro tags*   string
-]]>
-          </artwork>
-        </figure>
-      </t>
-    <section anchor="sec-lib-module" title="Library Augmentation Module">
-      <t>
-        <figure>
-          <artwork><![CDATA[
-<CODE BEGINS> file "ietf-library-tags@2017-08-12.yang"
-module ietf-library-tags {
-  // namespace
-  namespace "urn:ietf:params:xml:ns:yang:ietf-library-tags";
-
-  prefix ylibtags;
-
-  import ietf-yang-library {
-     prefix yanglib;
-  }
-  import ietf-module-tags {
-     prefix mtags;
-  }
-
-  // meta
-  organization "IETF NetMod Working Group (NetMod)";
-
-  contact
-      "NetMod Working Group - <netmod@ietf.org>";
-
-  description
-    "This module augments ietf-yang-library with searchable
-    classfication tags.  Tags may be IANA or privately defined
-    types.";
-
-  revision "2017-08-12" {
-    description
-      "Initial revision.";
-    reference "RFC TBD";
-  }
-
-  augment "/yanglib:modules-state/yanglib:module" {
-    description
-      "The yang library structure is augmented with a module tags
-       list. This allows operators to tag modules regardless of
-       whether the modules included tag support or not";
-
-    uses mtags:module-tags;
-
-  }
-}
-<CODE ENDS>
-]]></artwork>
-        </figure>
-      </t>
-    </section>
-    
     </section>
     <section anchor="sec-other" title="Other Classifications">
       <t>
@@ -581,7 +441,6 @@ module ietf-library-tags {
     <references title="Normative References">
       <?rfc include="reference.RFC.2119"?>
       <?rfc include="reference.RFC.5226"?>
-      <?rfc include="reference.RFC.7895"?>
       <?rfc include="reference.RFC.8199"?>
       <?rfc include="reference.I-D.ietf-netmod-rfc6087bis.xml"?>
     </references>

@@ -1,3 +1,0 @@
-module: ietf-library-tags
-  augment /yanglib:modules-state/yanglib:module:
-    +--ro tags*   string
