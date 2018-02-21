@@ -19,7 +19,7 @@ module sample-module {
     "This is a sample module to demonstrate the proper way to
      include searchable classfication tags in a module.";
 
-  revision "2017-08-12" {
+  revision "2017-10-22" {
     description
       "Initial revision.";
     reference "RFC TBD";

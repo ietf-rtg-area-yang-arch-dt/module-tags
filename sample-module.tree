@@ -1,4 +1,4 @@
 module: sample-module
     +--rw module-tags
-    |  +--ro tags*   string
+    |  +--rw tags*   string
     +--rw real-stuff

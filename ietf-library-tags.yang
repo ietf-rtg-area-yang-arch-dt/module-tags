@@ -22,7 +22,7 @@ module ietf-library-tags {
     classfication tags.  Tags may be IANA or privately defined
     types.";
 
-  revision "2017-08-12" {
+  revision "2017-10-22" {
     description
       "Initial revision.";
     reference "RFC TBD";
