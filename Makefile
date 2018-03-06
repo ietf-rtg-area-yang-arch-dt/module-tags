@@ -3,7 +3,7 @@
 #The author makes no claim/restriction on use.  It is provided "AS IS".
 #This file is considered a hack and not production grade by the author
 
-DRAFT  = draft-rtgyangdt-netmod-module-tags
+DRAFT  = draft-ietf-netmod-module-tags
 MODELS = ietf-module-tags.yang
 
 #assumes standard yang modules installed in ../yang, customize as needed

@@ -9,7 +9,7 @@
 <?rfc iprnotified="no" ?>
 <?rfc strict="yes" ?>
 <rfc category="std" ipr="trust200902"
-     docName="draft-ietf-netmod-module-tags-00"
+     docName="draft-ietf-netmod-module-tags-01"
      updates="rfc6087bis">
   <front>
     <title abbrev="YANG Module Tags">YANG Module Tags</title>
@@ -60,9 +60,9 @@
         users.
       </t>
       <t>
-        This document defines a module which provides a
-        list of module entries to allow for adding or removing of tags
-        as well as viewing the set of tags associated with a module.
+        This document defines a module which provides a list of module
+        entries to allow for adding or removing of tags as well as
+        viewing the set of tags associated with a module.
       </t>
       <t>
         This document also defines an IANA registry for tag prefixes
@@ -163,6 +163,8 @@
       <section anchor="sec-module-tree" title="Tags Module Tree">
       <t>
         The tree associated with the tags module is:
+      </t>
+      <t>
         <figure>
           <artwork><![CDATA[
 module: ietf-module-tags
@@ -179,7 +181,7 @@ module: ietf-module-tags
       <t>
         <figure>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-module-tags@2018-02-18.yang"
+<CODE BEGINS> file "ietf-module-tags@2018-03-06.yang"
 module ietf-module-tags {
   yang-version "1";
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -198,7 +200,7 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2018-02-18" {
+  revision "2018-03-06" {
     description
       "Initial revision.";
     reference "TBD";
@@ -221,23 +223,24 @@ module ietf-module-tags {
         type string;
 
         description
-            "A tag associated with the module. See the IANA 'YANG Module Tag
-             Prefix' registry for reserved prefixes and the IANA 'YANG Module
-             IETF Tag' registry for IETF standard tags.
+            "A tag associated with the module. See the IANA 'YANG Module
+             Tag Prefix' registry for reserved prefixes and the IANA
+             'YANG Module IETF Tag' registry for IETF standard tags.
 
-             The operational view of this list will contain all user-configured
-             tags as well as any predefined tags that have not been masked by
-             the user using the masked-tag leaf list below.";
+             The operational view of this list will contain all
+             user-configured tags as well as any predefined tags that
+             have not been masked by the user using the masked-tag leaf
+             list below.";
     }
 
     leaf-list masked-tag {
         type string;
 
         description
-            "The list of tags that should not be associated with this module.
-             This user can remove (mask) predefined tags by adding them to this
-             list. It is not an error to add tags to this list that are not
-             predefined for the module.";
+            "The list of tags that should not be associated with this
+             module. This user can remove (mask) predefined tags by
+             adding them to this list. It is not an error to add tags to
+             this list that are not predefined for the module.";
     }
   }
 }
