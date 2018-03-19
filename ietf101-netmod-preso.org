@@ -1,0 +1,94 @@
+# -*- org-latex-listings: t -*-
+#+TITLE: Module Tags - 01
+# #+AUTHOR: \href{mailto:chopps@chopps.org}{Christian E. Hopps}
+#+EMAIL: chopps@chopps.org
+#+STARTUP: beamer content indent
+#+OPTIONS: author:t date:nil h:2 toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+
+#+LATEX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger, aspectratio=43]
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+BEAMER_HEADER: \subtitle{draft-rtgyangdt-netmod-module-tags}
+#+BEAMER_HEADER: \author{\texorpdfstring{Christian E. Hopps \textit{\scriptsize{<chopps@chopps.org>}}\newline Lou Berger \textit{\scriptsize{<lberger@labn.net>}}\newline Dean Bogdanovic \textit{\scriptsize{<ivandean@gmail.com>}}}{Some Long Name??????}}
+#+BEAMER_THEME: metropolis [everytitleformat=regular]
+#+BEAMER_HEADER: \usepackage{fancyvrb}
+#+BEAMER_HEADER: \usepackage[x11name,dvipsnames]{xcolor}
+#+BEAMER_HEADER: \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+#+MACRO: mkbold @@latex:\textbf{@@$1@@latex:}@@
+
+* Module Tags - 01
+** Update since IETF 100
+- Adopted by WG
+- 1 revision since.
+- Use configuration - no RPCs.
+- Removed reset-tags RPC.
+- Removed module revision from list keys.
+- Remove YL augment.
+** Old Yang Module
+:PROPERTIES:
+   :BEAMER_opt: fragile
+   :END:
+#+begin_latex
+\small
+\begin{verbatim}
+module: ietf-module-tags
+  +--rw module-tags*    [name, revision]
+     +--rw name
+     +--rw revision
+     +--rw tags*        string
+  +--x reset-tags
+     +--w in
+     |  +--w name       yang:yang-identifier
+     |  +--w revision?  union
+     +--ro output
+        +--ro tags*     string
+\end{verbatim}
+#+end_latex
+** New Yang Module
+:PROPERTIES:
+   :BEAMER_opt: fragile
+   :END:
+#+begin_latex
+\small
+\begin{verbatim}
+module: ietf-module-tags
+     +--rw module-tags* [name]
+        +--rw name          yang:yang-identifier
+        +--rw tag*          string
+        +--rw masked-tag*   string
+\end{verbatim}
+#+end_latex
+** Example XML Module Tags List
+:PROPERTIES:
+:BEAMER_opt: fragile,shrink=1
+:END:
+#+begin_latex
+\small
+\begin{Verbatim}[commandchars=\\\{\}]
+
+<t:module-tags>
+  <t:name>isis</t:name>
+  <t:tags>ietf:protocol</t:tags>
+  <t:tags>\textcolor{blue}{ietf:routing}</t:tags>
+  <t:tags>\textcolor{cyan}{ietf:routing:igp}</t:tags>
+</t:module-tags>
+<t:module-tags>
+  <t:name>bgp</t:name>
+  <t:tags>ietf:protocol</t:tags>
+  <t:tags>\textcolor{blue}{ietf:routing}</t:tags>
+  <t:tags>\textcolor{airforceblue}{ietf:routing:egp}</t:tags>
+</t:module-tags>
+<t:module-tags>
+  <t:name>netconf</t:name>
+  <t:tags>ietf:protocol</t:tags>
+  <t:tags>\textcolor{red}{ietf:system-management}</t:tags>
+</t:module-tags>
+
+\end{Verbatim}
+#+end_latex
+** Open Issue [final slide]
+- Finalize initial standard tags.
+- More examples?
+- Clarify problem being solved?
+  - We like to organize groups of "stuff", right?
