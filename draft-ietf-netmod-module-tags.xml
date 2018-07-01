@@ -103,9 +103,11 @@
         <t>
           A vendor tag is a tag that has the prefix "vendor:". These
           tags are defined by the vendor that implements the module, and
-          are not standardized; however, it is recommended that the
-          vendor consider including extra identification in the tag name
-          to avoid collisions (e.g., vendor:super-duper-company:...).
+          are not standardized; however, it is RECOMMENDED that the
+          vendor include extra identification in the tag name to avoid
+          collisions such as using the enterpise or organization name in
+          the second field (e.g.,
+          vendor:example.com:system-management:...).
         </t>
       </section>
       <section anchor="sec-local-tags" title="Local Tags">
@@ -133,10 +135,11 @@
     <section anchor="sec-module-tags" title="Module Definition Association">
       <t>
         A module definition SHOULD indicate a set of tags to be
-        automatically added by the module implementer. These tags MUST
-        be standard tags (<xref target="sec-std-tags"/>). This does
-        imply that new modules may also drive the addition of new
-        standard tags to the IANA registry.
+        automatically added by the module implementer. If the module
+        definition will be standard the tags MUST also be standard tags
+        (Section 3.1). Thus, new modules can drive the addition of new
+        standard tags to the IANA registry, and the IANA registry can
+        serve as a check against duplication.
       </t>
     </section>
     <section anchor="sec-imp-tags" title="Implementation Association">
