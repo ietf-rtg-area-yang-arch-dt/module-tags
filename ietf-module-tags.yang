@@ -16,7 +16,7 @@ module ietf-module-tags {
     "This module describes a tagging mechanism for yang module.
      Tags may be IANA assigned or privately defined types.";
 
-  revision "2018-03-06" {
+  revision "2018-07-01" {
     description
       "Initial revision.";
     reference "TBD";
