@@ -3,6 +3,7 @@
 #The author makes no claim/restriction on use.  It is provided "AS IS".
 #This file is considered a hack and not production grade by the author
 
+SHELL := /bin/bash
 DRAFT  = draft-ietf-netmod-module-tags
 MODELS = ietf-module-tags.yang
 
@@ -36,12 +37,12 @@ TREES := $(MODELS:.yang=.tree)
 
 %.txt: %.xml
 	rm -f $@.prev
-	if [ -f $@ ]; then cp -pf $@ $@.prev; fi
+	if [[ -f $@ ]]; then cp -pf $@ $@.prev; fi
 	xml2rfc $<
-	if [ -f $@.prev ]; then diff $@.prev $@; fi || exit 0
+	if [[ -f $@.prev ]]; then diff $@.prev $@; fi || exit 0
 
 %.html: %.xml
-	@if [ $(WITHXML2RFC) == 0 ] ; then 	\
+	@if [[ $(WITHXML2RFC) == 0 ]] ; then 	\
 		rm -f $@.prev; cp -pf $@ $@.prev ; \
 		xml2rfc --html $< 		; \
 	fi
@@ -71,7 +72,7 @@ $(DRAFT).xml: $(MODELS)
 				{pout=1; print NR;}			\
                         END{print "0 0"}' $@.tmp`) 		; \
 		echo start_stop=$${start_stop[0]},$${start_stop[1]} ; \
-		if [ $${start_stop[0]} -gt 0 ] ; then \
+		if [[ $${start_stop[0]} -gt 0 ]] ; then \
 			head -$${start_stop[0]}    $@.tmp    		> $@	; \
 			echo '<CODE BEGINS> file "'$${base}'@'`date +%F`'.yang"'>> $@;\
 			cat $$model					>> $@	; \
@@ -79,19 +80,19 @@ $(DRAFT).xml: $(MODELS)
 			rm -f $@.tmp 		 				; \
 		fi ; \
 	done
-	@if [ -f $@.prev ]; then diff -bw $@.prev $@; fi || exit 0
+	@if [[ -f $@.prev ]]; then diff -bw $@.prev $@; fi || exit 0
 
 
 $(DRAFT)-diff.txt: $(DRAFT).txt 
 	@echo "Generating diff of $(OLD).txt and $(DRAFT).txt > $@..."
-	if [ -f  $(OLD).txt ] ; then \
+	if [[ -f  $(OLD).txt ]] ; then \
 		sdiff --ignore-space-change --expand-tabs -w 168 $(OLD).txt $(DRAFT).txt | \
 		cut -c84-170 | sed 's/. *//'  \
 		| grep -v '^ <$$' | grep -v '^<$$' > $@ ;\
 	fi
 
 idnits: $(DRAFT).txt
-	@if [ ! -f idnits ] ; then \
+	@if [[ ! -f idnits ]] ; then \
 		-rm -f $@ 					;\
 		wget http://tools.ietf.org/tools/idnits/idnits	;\
 		chmod 755 idnits				;\
@@ -99,12 +100,12 @@ idnits: $(DRAFT).txt
 	idnits $(DRAFT).txt
 
 id: $(DRAFT).txt $(DRAFT).html
-	@if [ ! -e $(ID_DIR) ] ; then \
+	@if [[ ! -e $(ID_DIR) ]] ; then \
 		echo "Creating $(ID_DIR) directory" 	;\
 		mkdir $(ID_DIR) 			;\
 		git add $(ID_DIR)			;\
 	fi
-	@if [ -f "$(NEW).xml" ] ; then \
+	@if [[ -f "$(NEW).xml" ]] ; then \
 		echo "" 				;\
 		echo "$(NEW).xml already exists, not overwriting!" ;\
 		diff -sq $(DRAFT).xml  $(NEW).xml 	;\

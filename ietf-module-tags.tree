@@ -1,5 +1,6 @@
 module: ietf-module-tags
-  +--rw module-tags* [name]
-     +--rw name          yang:yang-identifier
-     +--rw tag*          string
-     +--rw masked-tag*   string
+  +--rw module-tags
+     +--rw module* [name]
+        +--rw name          yang:yang-identifier
+        +--rw tag*          tag
+        +--rw masked-tag*   tag
