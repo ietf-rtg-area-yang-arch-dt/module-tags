@@ -1,0 +1,49 @@
+# -*- org-latex-listings: t -*-
+#+TITLE: Module Tags - 02
+# #+AUTHOR: \href{mailto:chopps@chopps.org}{Christian E. Hopps}
+#+EMAIL: chopps@chopps.org
+#+STARTUP: beamer content indent
+#+OPTIONS: author:t date:nil h:2 toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+
+#+LATEX_CLASS: beamer
+#+OPTIONS: author:t date:nil h:2 toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+# #+LaTeX_CLASS_OPTIONS: [24pt,presentation]
+#+LATEX_CLASS_OPTIONS: [bigger, aspectratio=169]
+# #+LATEX_CLASS_OPTIONS: [24pt, aspectratio=169]
+# #+LATEX_CLASS_OPTIONS: [24pt]
+#+STARTUP: beamer content
+
+#+BEAMER_HEADER: \author{\texorpdfstring{Christian E. Hopps \textit{\scriptsize{<chopps@chopps.org>}}\newline Lou Berger \textit{\scriptsize{<lberger@labn.net>}}\newline Dean Bogdanovic \textit{\scriptsize{<ivandean@gmail.com>}}}{Some Long Name??????}}
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+#+BEAMER_THEME: metropolis [everytitleformat=regular]
+
+#+MACRO: mkbold @@latex:\textbf{@@$1@@latex:}@@
+#+MACRO: mkitalic @@latex:\textit{@@$1@@latex:}@@
+#+MACRO: mkcode @@latex:\texttt{@@$1@@latex:}@@
+#+MACRO: mkred @@latex:{\color{red}@@$1@@latex:}@@
+#+MACRO: mkblue @@latex:{\color{blue}@@$1@@latex:}@@
+
+# XXX this doesn't seem to work
+#+LaTeX_HEADER: \defbeamertemplate{footline}{plain}{\begin{beamercolorbox}[wd=\textwidth, sep=3ex]{footline}\usebeamerfont{page number in head/foot}\usebeamertemplate*{frame footer}
+#+LaTeX_HEADER: \tiny\color{blue}{IETF-102}\hfill\usebeamertemplate*{frame numbering}
+#+LaTeX_HEADER: \end{beamercolorbox}}
+
+* Module Tags - 02
+** Update since IETF 101
+- Adopted a couple comments received since last IETF:
+- Recommend vendors take steps to be unique (e.g., org name).
+- Clarify module definitions don't require standardized tags.
+  - Only *standardized* module definitions.
+- Did not adopt use of extension for module specified tags
+  - Tags come from many places not just in a specification.
+  - The pre-defined tags are directions/suggestions for the implementer.
+  - Adds extra complexity / requirements.
+** Done
+- Working Group Last Call?
+
+** Backup Slides
+- "How installed tags found?", config vs opstate.
+- "What tags are allowed" Server accepts all tags as user is final authority.
+- "How tags are defined?" it's enough to identify the standards
+  org and then let them pick. In IETF ("ietf:") we define an IANA registry and
+  entries are "specification required".

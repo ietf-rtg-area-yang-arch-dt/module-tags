@@ -1,0 +1,133 @@
+# -*- org-latex-listings: t -*-
+#+TITLE: Module Tags - 03
+# #+AUTHOR: \href{mailto:chopps@chopps.org}{Christian E. Hopps}
+#+EMAIL: chopps@chopps.org
+#+STARTUP: beamer content indent
+#+OPTIONS: author:t date:nil h:2 toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+
+#+LATEX_CLASS: beamer
+#+OPTIONS: author:t date:nil h:2 toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+# #+LaTeX_CLASS_OPTIONS: [24pt,presentation]
+#+LATEX_CLASS_OPTIONS: [bigger, aspectratio=169]
+# #+LATEX_CLASS_OPTIONS: [24pt, aspectratio=169]
+# #+LATEX_CLASS_OPTIONS: [24pt]
+#+STARTUP: beamer content
+
+#+BEAMER_HEADER: \author{\texorpdfstring{Christian E. Hopps \textit{\scriptsize{<chopps@chopps.org>}}\newline Lou Berger \textit{\scriptsize{<lberger@labn.net>}}\newline Dean Bogdanovic \textit{\scriptsize{<ivandean@gmail.com>}}}{Some Long Name??????}}
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+#+BEAMER_THEME: metropolis [everytitleformat=regular]
+
+#+MACRO: mkbold @@latex:\textbf{@@$1@@latex:}@@
+#+MACRO: mkitalic @@latex:\textit{@@$1@@latex:}@@
+#+MACRO: mkcode @@latex:\texttt{@@$1@@latex:}@@
+#+MACRO: mkred @@latex:{\color{red}@@$1@@latex:}@@
+#+MACRO: mkblue @@latex:{\color{blue}@@$1@@latex:}@@
+
+# XXX this doesn't seem to work
+#+LaTeX_HEADER: \defbeamertemplate{footline}{plain}{\begin{beamercolorbox}[wd=\textwidth, sep=3ex]{footline}\usebeamerfont{page number in head/foot}\usebeamertemplate*{frame footer}
+#+LaTeX_HEADER: \tiny\color{blue}{IETF-102}\hfill\usebeamertemplate*{frame numbering}
+#+LaTeX_HEADER: \end{beamercolorbox}}
+
+* Module Tags - 03
+** Update since IETF 102
+- Adopted all suggestions from WGLC
+  - Added extension statement for pre-defined tags
+  - Minimally constrain tag value to string w/o control chars (tab, ff, nl, cr)
+  - Clarify minimal structure of tag (std prefix only)
+  - Tree structure slightly modified.
+  - Nits
+** Extension Statement
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+
+- Replace defining tags in module description text.
+
+- "This extension statement is used by module authors to indicate the tags that SHOULD be added automatically by the system. As such the origin of the value for the pre-defined tags should be set to 'system'.";
+
+#+begin_latex
+\scriptsize
+\begin{verbatim}
+
+      extension module-tag {
+        argument tag;
+        description
+          "The argument 'tag' is of type 'tag' [...]";
+      }
+\end{verbatim}
+#+end_latex
+** Module Changes
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+*** Old Yang Module                                                 :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.50
+:BEAMER_opt: [t]
+:END:
+Old Yang
+\newline
+#+begin_latex
+\scriptsize
+\begin{verbatim}
+
+module: ietf-module-tags
+   +--rw module-tags* [name]
+      +--rw name      yang:yang-identifier
+      +--rw tag*        string
+      +--rw masked-tag* string
+\end{verbatim}
+#+end_latex
+*** New Yang Module :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.50
+:BEAMER_opt: [t]
+:END:
+New Yang
+\newline
+#+begin_latex
+\scriptsize
+\begin{verbatim}
+
+module: ietf-module-tags
+  +--rw module-tags
+     +--rw module* [name]
+        +--rw name yang:yang-identifier
+        +--rw tag*        tag
+        +--rw masked-tag* tag
+\end{verbatim}
+#+end_latex
+** WGLC
+- A request for non-NMDA appendix -- with a couple disagree.
+  - This is really new work, don't see the need.
+  - The more modules that require NMDA, more pressure for deployment.
+- An email exchange clarifying/justifying use.
+
+- Done?
+** Backup Slides (Ex 1)
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+- server-side mutually exclusive modules (ietf, openconfig)
+- client-side "dontuse" inform NMS to not use b/c buggy.
+** Backup Slides (Ex 2)
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+- replace device meta-module tree with flat tags
+#+begin_latex
+\scriptsize
+\begin{verbatim}
+       module: meta-module
+          +--device
+             +--system-management
+                +--system-management-protocol
+                   +--ssh
+
+       module: ietf-ssh-server
+       [...]
+       "ietf:software"
+       "ietf:protocol"
+       "ietf:system-management"
+\end{verbatim}
+#+end_latex
