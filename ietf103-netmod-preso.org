@@ -25,11 +25,11 @@
 
 # XXX this doesn't seem to work
 #+LaTeX_HEADER: \defbeamertemplate{footline}{plain}{\begin{beamercolorbox}[wd=\textwidth, sep=3ex]{footline}\usebeamerfont{page number in head/foot}\usebeamertemplate*{frame footer}
-#+LaTeX_HEADER: \tiny\color{blue}{IETF-102}\hfill\usebeamertemplate*{frame numbering}
+#+LaTeX_HEADER: \tiny\color{blue}{IETF-103}\hfill\usebeamertemplate*{frame numbering}
 #+LaTeX_HEADER: \end{beamercolorbox}}
 
 * Module Tags - 03
-** Update since IETF 102
+** Update since IETF 103
 - Adopted all suggestions from WGLC
   - Added extension statement for pre-defined tags
   - Minimally constrain tag value to string w/o control chars (tab, ff, nl, cr)
@@ -54,6 +54,25 @@
         description
           "The argument 'tag' is of type 'tag' [...]";
       }
+\end{verbatim}
+#+end_latex
+** Minimally Constrain Tag Value
+:PROPERTIES:
+:BEAMER_opt: fragile
+:END:
+#+begin_latex
+\scriptsize
+\begin{verbatim}
+  typedef tag {
+    type string {
+      length "1..max";
+      pattern '[a-zA-Z_][a-zA-Z0-9\-_]*:[\S ]+';
+    }
+    description
+      "A tag value is composed of a standard prefix followed by any type
+       'string' value that does not include carriage return, newline or
+       tab characters.";
+  }
 \end{verbatim}
 #+end_latex
 ** Module Changes
@@ -97,7 +116,7 @@ module: ietf-module-tags
         +--rw masked-tag* tag
 \end{verbatim}
 #+end_latex
-** WGLC
+** Other WGLC
 - A request for non-NMDA appendix -- with a couple disagree.
   - This is really new work, don't see the need.
   - The more modules that require NMDA, more pressure for deployment.
