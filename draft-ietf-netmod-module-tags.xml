@@ -182,27 +182,29 @@
       main consumer of tags are users, users may also remove any tag, no
       matter how the tag became associated with a module.
     </t>
-    <section anchor="sec-module-tags" title="Module Definition Association">
+    <section anchor="sec-module-tags" title="Module Definition Tagging">
       <t>
-        A module definition can indicate a set of tags to be added by
+        A module definition MAY indicate a set of tags to be added by
         the module implementer. These design time tags are indicated
-        using the module-tag extension statement. If the module
-        definition is IETF standards track, the tags MUST also be
-        IETF standard tags (Section 3.1). Thus, new modules can drive
-        the addition of new standard tags to the IANA registry, and the
-        IANA registry can serve as a check against duplication.
+        using the module-tag extension statement.
+      </t>
+      <t>
+        If the module definition is IETF standards track, the tags MUST
+        also be IETF standard tags (Section 3.1). Thus, new modules can
+        drive the addition of new standard tags to the IANA registry,
+        and the IANA registry can serve as a check against duplication.
       </t>
     </section>
-    <section anchor="sec-imp-tags" title="Implementation Association">
+    <section anchor="sec-imp-tags" title="Implementation Tagging">
       <t>
         An implementation MAY include additional tags associated with a
-        module.  These tags may be standard or vendor specific tags. 
+        module.  These tags SHOULD be standard or vendor specific tags.
       </t>
     </section>
-    <section anchor="sec-admin-tags" title="Administrative Tagging">
+    <section anchor="sec-user-tagging" title="User Tagging">
       <t>
-        Tags of any kind can be assigned and removed using normal
-        configuration mechanisms.
+        Tags of any kind can be assigned and removed by the user using
+        normal configuration mechanisms.
       </t>
     </section>
  </section>
@@ -419,8 +421,8 @@ module ietf-module-tags {
           </figure>
         </t>
         <t>
-          Other SDOs (standard organizations) wishing to standardize their
-          own set of tags could allocate a top level prefix from this
+          Other standards organizations (SDOs) wishing to standardize
+          their own set of tags should allocate a prefix from this
           registry.
         </t>
       </section>
