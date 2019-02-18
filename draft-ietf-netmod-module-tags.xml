@@ -9,7 +9,7 @@
 <?rfc iprnotified="no" ?>
 <?rfc strict="yes" ?>
 <rfc category="std" ipr="trust200902"
-     docName="draft-ietf-netmod-module-tags-05"
+     docName="draft-ietf-netmod-module-tags-06"
      updates="RFC8407">
   <front>
     <title abbrev="YANG Module Tags">YANG Module Tags</title>
