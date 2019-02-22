@@ -172,21 +172,21 @@ configuration mechanisms.
 ** Tags Module Tree
 
 The tree associated with the "ietf-module-tags" module follows. The
-meaning of the symbols can be found in [[RFC8340]]
+meaning of the symbols can be found in [[RFC8340]].
 
 #+NAME: YANG Module Tags Tree Diagram.
 #+begin_src bash  :var file=ietf-module-tags :results output verbatim replace :wrap example :exports results
-pyang --tree-print-groupings -f tree ${file}
+pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
 #+end_src
 
 #+RESULTS: YANG Module Tags Tree Diagram.
 #+begin_example
-module: ietf-module-tags
-  +--rw module-tags
-     +--rw module* [name]
-        +--rw name          yang:yang-identifier
-        +--rw tag*          tag
-        +--rw masked-tag*   tag
+  module: ietf-module-tags
+    +--rw module-tags
+       +--rw module* [name]
+          +--rw name          yang:yang-identifier
+          +--rw tag*          tag
+          +--rw masked-tag*   tag
 #+end_example
 
 ** YANG Module
@@ -195,7 +195,7 @@ module: ietf-module-tags
 #+header: :file ietf-module-tags.yang :results output code silent
 #+begin_src yang :exports code
   module ietf-module-tags {
-    yang-version 1;
+    yang-version 1.1;
     namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
     prefix tags;
 
@@ -329,7 +329,7 @@ A module MAY indicate, using module-tag extension statements, a set
 of tags that are to be automatically associated with it (i.e., not
 added through configuration).
 
-#+begin_src yang
+#+begin_src yang :preserve-indent t
   module example-module {
     //...
     import module-tags { prefix tags; }
@@ -353,7 +353,7 @@ This registry allocates tag prefixes. All YANG module tags SHOULD
 begin with one of the prefixes in this registry.
 
 The allocation policy for this registry is Specification Required
-[[RFC5226]]
+[[RFC5226]].
 
 The initial values for this registry are as follows.
 
@@ -372,7 +372,7 @@ This registry allocates prefixes that have the standard prefix
 "ietf:". New values should be well considered and not achievable
 through a combination of already existing standard tags.
 
-The allocation policy for this registry is IETF Review [[RFC5226]]
+The allocation policy for this registry is IETF Review [[RFC5226]].
 
 The initial values for this registry are as follows.
 
@@ -454,41 +454,6 @@ security implications of any actions they choose to define.
 The following is a fictional example result from a query of the
 module tags list. For the sake of brevity only a few module results
 are imagined.
-
-#+NAME: 2-validate-xml-example
-#+HEADER: :stdin xml-example :var module=ietf-module-tags
-#+begin_src sh :results output verbatim replace :exports none
-  cat
-#+end_src
-
-#+RESULTS: 2-validate-xml-example
-#+begin_example
-<ns0:config xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
-  <t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags">
-    <t:module>
-      <t:name>ietf-bfd</t:name>
-      <t:tag>ietf:network-element-class</t:tag>
-      <t:tag>ietf:oam</t:tag>
-      <t:tag>ietf:protocol</t:tag>
-      <t:tag>ietf:sdo-defined-class</t:tag>
-    </t:module>
-    <t:module>
-      <t:name>ietf-isis</t:name>
-      <t:tag>ietf:network-element-class</t:tag>
-      <t:tag>ietf:protocol</t:tag>
-      <t:tag>ietf:sdo-defined-class</t:tag>
-      <t:tag>ietf:routing</t:tag>
-    </t:module>
-    <t:module>
-      <t:name>ietf-ssh-server</t:name>
-      <t:tag>ietf:network-element-class</t:tag>
-      <t:tag>ietf:protocol</t:tag>
-      <t:tag>ietf:sdo-defined-class</t:tag>
-      <t:tag>ietf:system-management</t:tag>
-    </t:module>
-  </t:module-tags>
-</ns0:config>
-#+end_example
 
 #+NAME: validate-xml-example
 #+HEADER: :stdin xml-example :var module=ietf-module-tags
