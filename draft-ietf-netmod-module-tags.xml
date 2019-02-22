@@ -15,7 +15,8 @@
   <front>
     <title abbrev="YANG Module Tags">YANG Module Tags</title>
 <author fullname="Christian E. Hopps"><organization>LabN Consulting, L.L.C.</organization><address><email>chopps@labn.net</email></address></author>
-<author fullname="Lou Berger"><organization>LabN Consulting, LLC.</organization><address><email>lberger@labn.net</email></address></author>  <date/><abstract><t>This document provides for the association of tags with YANG modules.
+<author fullname="Lou Berger"><organization>LabN Consulting, LLC.</organization><address><email>lberger@labn.net</email></address></author>
+<author fullname="Dean Bogdanovic"><organization>Volta Networks</organization><address><email>ivandean@gmail.com</email></address></author>  <date/><abstract><t>This document provides for the association of tags with YANG modules.
 The expectation is for such tags to be used to help classify and
 organize modules. A method for defining, reading and writing a
 modules tags is provided. Tags may be standardized and assigned
@@ -47,7 +48,7 @@ tags that SHOULD be added by the module implementation automatically
 <t>This document also defines an IANA registry for tag prefixes as well
 as a set of globally assigned tags.</t>
 
-<t><xref target="orga839c2f"></xref> provides guidelines for authors of YANG
+<t><xref target="org058d82d"></xref> provides guidelines for authors of YANG
 data models.</t>
 
 <t>This document updates <xref target="RFC8407"/>.</t>
@@ -111,7 +112,7 @@ that designers, implementers and users can use. As a result of this
 choice, designers, implementers, and users are free to add or not
 add any structure they may require to their own tag values.</t>
 
-<section title="IETF Standard Tags" anchor="org2235979">
+<section title="IETF Standard Tags" anchor="org5b2f0d1">
 <t>An IETF standard tag is a tag that has the prefix "ietf:". All IETF
 standard tags are registered with IANA in a registry defined later in
 this document.</t>
@@ -155,7 +156,7 @@ module implementer. These design time tags are indicated using the
 module-tag extension statement.</t>
 
 <t>If the module definition is IETF standards track, the tags MUST also
-be <xref target="org2235979"></xref>. Thus, new modules can drive the addition of
+be <xref target="org5b2f0d1"></xref>. Thus, new modules can drive the addition of
 new standard tags to the IANA registry, and the IANA registry can
 serve as a check against duplication.</t>
 
@@ -182,14 +183,13 @@ meaning of the symbols can be found in <xref target="RFC8340"/>.</t>
 
 <t>
 <figure>
-
 <artwork><![CDATA[
-module: ietf-module-tags
-  +--rw module-tags
-     +--rw module* [name]
-        +--rw name          yang:yang-identifier
-        +--rw tag*          tag
-        +--rw masked-tag*   tag
+  module: ietf-module-tags
+    +--rw module-tags
+       +--rw module* [name]
+          +--rw name          yang:yang-identifier
+          +--rw tag*          tag
+          +--rw masked-tag*   tag
 ]]></artwork></figure>
 </t>
 
@@ -198,7 +198,6 @@ module: ietf-module-tags
 <section title="YANG Module">
 <t>
 <figure>
-
 <artwork><![CDATA[
 module ietf-module-tags {
   yang-version 1.1;
@@ -331,7 +330,7 @@ classification.</t>
 
 </section>
 
-<section title="Guidelines to Model Writers" anchor="orga839c2f">
+<section title="Guidelines to Model Writers" anchor="org058d82d">
 <t>This section updates <xref target="RFC8407"/>.</t>
 
 <section title="Define Standard Tags">
@@ -341,7 +340,6 @@ added through configuration).</t>
 
 <t>
 <figure>
-
 <artwork><![CDATA[
 module example-module {
   //...
@@ -357,7 +355,7 @@ module example-module {
 <t>The module writer can use existing standard tags, or use new tags
 defined in the model definition, as appropriate. For standardized
 modules new tags MUST be assigned in the IANA registry defined below,
-see <xref target="orge791608"></xref>.</t>
+see <xref target="orgcc9a4db"></xref>.</t>
 
 </section>
 
@@ -369,7 +367,7 @@ see <xref target="orge791608"></xref>.</t>
 begin with one of the prefixes in this registry.</t>
 
 <t>The allocation policy for this registry is Specification Required
-<xref target="RFC5226"/></t>
+<xref target="RFC5226"/>.</t>
 
 <t>The initial values for this registry are as follows.</t>
 
@@ -385,12 +383,12 @@ set of tags should allocate a prefix from this registry.</t>
 
 </section>
 
-<section title="YANG Module IETF Tag Registry" anchor="orge791608">
+<section title="YANG Module IETF Tag Registry" anchor="orgcc9a4db">
 <t>This registry allocates prefixes that have the standard prefix
 "ietf:". New values should be well considered and not achievable
 through a combination of already existing standard tags.</t>
 
-<t>The allocation policy for this registry is IETF Review <xref target="RFC5226"/></t>
+<t>The allocation policy for this registry is IETF Review <xref target="RFC5226"/>.</t>
 
 <t>The initial values for this registry are as follows.</t>
 
@@ -634,7 +632,6 @@ are imagined.</t>
 
 <t>
 <figure>
-
 <artwork><![CDATA[
 <ns0:config xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
   <t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags">

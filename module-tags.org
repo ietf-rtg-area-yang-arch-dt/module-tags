@@ -5,7 +5,7 @@
 #+EMAIL: chopps@labn.net
 #+AFFILIATION: LabN Consulting, L.L.C.
 #+RFC_ADD_AUTHOR: ("Lou Berger" "lberger@labn.net" "LabN Consulting, LLC.")
-# #+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
+#+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
 #+RFC_NAME: draft-ietf-netmod-module-tags
 #+RFC_UPDATES: RFC8407
 #+RFC_VERSION: 07
