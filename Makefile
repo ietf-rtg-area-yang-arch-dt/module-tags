@@ -3,7 +3,7 @@ BASE := $(shell sed -e '/^\#+RFC_NAME:/!d;s/\#+RFC_NAME: *\(.*\)/\1/' $(ORG))
 VERSION := $(shell sed -e '/^\#+RFC_VERSION:/!d;s/\#+RFC_VERSION: *\([0-9]*\)/\1/' $(ORG))
 OUTPUT_BASE := ${BASE}-${VERSION}
 
-all: $(OUTPUT_BASE).xml $(OUTPUT_BASE).txt $(OUTPUT_BASE).html $(OUTPUT_BASE).pdf
+all: $(BASE).xml $(OUTPUT_BASE).txt $(OUTPUT_BASE).html $(OUTPUT_BASE).pdf
 
 clean:
 	rm ${BASE}-*.{xml,txt,html,pdf}
@@ -12,16 +12,17 @@ clean:
 # Building
 # --------
 
-$(OUTPUT_BASE).xml: $(ORG) ox-rfc.el
+$(BASE).xml: $(ORG) ox-rfc.el
 	emacs -Q --batch --eval '(setq org-confirm-babel-evaluate nil)' -l ./ox-rfc.el $< -f ox-rfc-export-to-xml
+	mv $(OUTPUT_BASE).xml $(BASE).xml
 
-%.txt: %.xml
+%-$(VERSION).txt: %.xml
 	xml2rfc --text -o $@ $<
 
-%.html: %.xml
+%-$(VERSION).html: %.xml
 	xml2rfc --html -o $@ $<
 
-%.pdf: %.xml
+%-$(VERSION).pdf: %.xml
 	xml2rfc --pdf -o $@ $<
 
 # ------------
