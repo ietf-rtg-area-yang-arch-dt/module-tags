@@ -46,7 +46,8 @@ module ietf-module-tags {
   revision 2018-10-17 {
     description
       "Initial revision.";
-    reference "RFC XXXX: YANG Module Tags";
+    reference
+      "RFC XXXX: YANG Module Tags";
   }
 
   typedef tag {
