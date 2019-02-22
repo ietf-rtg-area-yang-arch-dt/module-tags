@@ -41,7 +41,7 @@ flexible manner. In particular, tags may be standardized as well as
 assigned during module definition; assigned by implementations; or
 dynamically defined and set by users.
 
-This document defines a YANG module <xref target="RFC7950"/> which
+This document defines a YANG module [[RFC7950]] which
 provides a list of module entries to allow for adding or removing of
 tags as well as viewing the set of tags associated with a module.
 

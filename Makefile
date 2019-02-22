@@ -13,7 +13,7 @@ clean:
 # --------
 
 $(OUTPUT_BASE).xml: $(ORG) ox-rfc.el
-	emacs -Q --batch --eval '(setq org-confirm-babel-evaluate nil debug-on-error t)' -l ./ox-rfc.el $< -f ox-rfc-export-to-xml
+	emacs -Q --batch --eval '(setq org-confirm-babel-evaluate nil)' -l ./ox-rfc.el $< -f ox-rfc-export-to-xml
 
 %.txt: %.xml
 	xml2rfc --text -o $@ $<
