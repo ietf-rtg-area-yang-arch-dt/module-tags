@@ -29,7 +29,8 @@ $(BASE).xml: $(ORG) ox-rfc.el
 # Verification
 # ------------
 
-nits: idnits $(OUTPUT_BASE).txt
+idnits: $(OUTPUT_BASE).txt
+	if [ ! -e idnits ]; then curl -fLO 'http://tools.ietf.org/tools/idnits/idnits'; chmod 755 idnits; fi
 	./idnits $(OUTPUT_BASE).txt
 
 # -----
@@ -38,60 +39,3 @@ nits: idnits $(OUTPUT_BASE).txt
 
 ox-rfc.el:
 	curl -fLO 'https://raw.githubusercontent.com/choppsv1/org-rfc-export/master/ox-rfc.el'
-
-idnits:
-	curl -fLO 'http://tools.ietf.org/tools/idnits/idnits'
-	chmod 755 idnits
-
-OBJDIR ?= build
-PROJPATH := $(shell pwd)
-YMB := ietf-module-tags
-YMD := $(OBJDIR)/$(YMB)-data
-YMC := $(OBJDIR)/$(YMB)-config
-XMLC := $(wildcard tests/*.xml)
-XMLD := test-data-tags.xml
-TIDY := (which tidy > /dev/null 2> /dev/null && tidy -q -xml -indent || cat)
-YMODULES := ietf-module-tags.yang ietf-library-tags.yang
-XSLS  := $(YMODULES:%.yang=$(OBJDIR)/%.xsl)
-
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
-
-$(OBJDIR)/%-config.rng $(OBJDIR)/%-config.sch $(OBJDIR)/%-config.dsrl: %.yang
-	yang2dsdl -t config -d $(OBJDIR) $<
-
-$(OBJDIR)/%-data.rng $(OBJDIR)/%-data.sch $(OBJDIR)/%-data.dsrl: %.yang
-	yang2dsdl -t data -d $(OBJDIR)  $<
-
-test-yang: $(YMODULES)
-	pyang --ietf $<
-
-test-config: $(OBJDIR) $(XMLC) $(YMC).rng $(YMC).sch $(YMC).dsrl
-
-test-xml-config: test-config
-	set -e; for t in $(XMLC); do \
-		if [[ $${t##tests/test-bad} == $${t} ]]; then \
-			echo "Running positive test $$(basename $$t)"; \
-			yang2dsdl -t config -d $(OBJDIR) -b $(YMB) -s -v $$t >/dev/null 2>/dev/null; \
-		else \
-			echo "Running negative test $$(basename $$t)"; \
-			not yang2dsdl -t config -d $(OBJDIR) -b $(YMB) -s -v $$t >/dev/null 2>/dev/null; \
-		fi; \
-	done;
-
-test-data:  $(OBJDIR) $(XMLD) $(YMD).rng $(YMD).sch $(YMD).dsrl
-
-test-xml-data: test-data
-	yang2dsdl -t data -d $(OBJDIR) -b $(YMB) -s -v $(XMLD) # > /dev/null 2>/dev/null
-
-# test-xml: test-xml-config test-xml-data test-yang
-test: test-yang test-xml-config test-xml-data
-
-extra: $(XSLS)
-
-
-# export YANGBASE=$$(dirname $$(which yang2dsdl))/../share/yang;
-# export PYANG_XSLT_DIR=$${YANGBASE}/xslt;
-# export PYANG_RNG_LIBDIR=$${YANGBASE}/schema;
-# echo $${PYANG_XSLT_DIR};
-# echo $${PYANG_RNG_LIBDIR};

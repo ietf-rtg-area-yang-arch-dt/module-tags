@@ -48,7 +48,7 @@ tags that SHOULD be added by the module implementation automatically
 <t>This document also defines an IANA registry for tag prefixes as well
 as a set of globally assigned tags.</t>
 
-<t><xref target="orgb914299"></xref> provides guidelines for authors of YANG
+<t><xref target="orgab6e1ce"></xref> provides guidelines for authors of YANG
 data models.</t>
 
 <t>This document updates <xref target="RFC8407"/>.</t>
@@ -112,7 +112,7 @@ that designers, implementers and users can use. As a result of this
 choice, designers, implementers, and users are free to add or not
 add any structure they may require to their own tag values.</t>
 
-<section title="IETF Standard Tags" anchor="org6fa9f0a">
+<section title="IETF Standard Tags" anchor="orgfe7edc5">
 <t>An IETF standard tag is a tag that has the prefix "ietf:". All IETF
 standard tags are registered with IANA in a registry defined later in
 this document.</t>
@@ -156,7 +156,7 @@ module implementer. These design time tags are indicated using the
 module-tag extension statement.</t>
 
 <t>If the module definition is IETF standards track, the tags MUST also
-be <xref target="org6fa9f0a"></xref>. Thus, new modules can drive the addition of
+be <xref target="orgfe7edc5"></xref>. Thus, new modules can drive the addition of
 new standard tags to the IANA registry, and the IANA registry can
 serve as a check against duplication.</t>
 
@@ -330,7 +330,7 @@ classification.</t>
 
 </section>
 
-<section title="Guidelines to Model Writers" anchor="orgb914299">
+<section title="Guidelines to Model Writers" anchor="orgab6e1ce">
 <t>This section updates <xref target="RFC8407"/>.</t>
 
 <section title="Define Standard Tags">
@@ -355,7 +355,7 @@ module example-module {
 <t>The module writer can use existing standard tags, or use new tags
 defined in the model definition, as appropriate. For standardized
 modules new tags MUST be assigned in the IANA registry defined below,
-see <xref target="orgab687b7"></xref>.</t>
+see <xref target="org47c03b1"></xref>.</t>
 
 </section>
 
@@ -386,7 +386,7 @@ set of tags should allocate a prefix from this registry.</t>
 
 </section>
 
-<section title="YANG Module IETF Tag Registry" anchor="orgab687b7">
+<section title="YANG Module IETF Tag Registry" anchor="org47c03b1">
 <t>This registry allocates prefixes that have the standard prefix
 "ietf:". New values should be well considered and not achievable
 through a combination of already existing standard tags.</t>

@@ -459,19 +459,19 @@ module tags list. For the sake of brevity only a few module results
 are imagined.
 
 #+NAME: validate-xml-example
-#+HEADER: :stdin xml-example :var module=ietf-module-tags
+#+HEADER: :var vfile=xml-example :var module=ietf-module-tags
 #+begin_src bash :results output verbatim replace :wrap example :exports none
-  yang2dsdl -t config -d .validate -v /dev/stdin $module > /dev/null
+    if ! yang2dsdl -t config -d .validate -v ${vfile} $module 2>&1 > /dev/null; then echo FAIL; fi
 #+end_src
 
 #+RESULTS: validate-xml-example
 #+begin_example
-/dev/stdin validates
-No errors found.
+DSDL plugin supports only YANG version 1.
+FAIL
 #+end_example
 
 #+NAME: xml-example
-#+begin_src xml :results output code silent :exports code
+#+begin_src xml :file tests/test-xml-example.xml :results output code silent :exports code
   <ns0:config xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
     <t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags">
       <t:module>
