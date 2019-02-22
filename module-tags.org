@@ -7,7 +7,7 @@
 #+RFC_ADD_AUTHOR: ("Lou Berger" "lberger@labn.net" "LabN Consulting, LLC.")
 #+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
 #+RFC_NAME: draft-ietf-netmod-module-tags
-#+RFC_UPDATES: RFC8407
+#+RFC_UPDATES: 8407
 #+RFC_VERSION: 07
 #+RFC_XML_VERSION: 2
 
@@ -24,7 +24,7 @@ organize modules. A method for defining, reading and writing a
 modules tags is provided. Tags may be standardized and assigned
 during module definition; assigned by implementations; or dynamically
 defined and set by users. This document also provides guidance to
-future model writers.
+future model writers, as such, this document updates RFC8407.
 #+end_abstract
 
 * Introduction
@@ -352,16 +352,19 @@ see [[YANG Module IETF Tag Registry]].
 This registry allocates tag prefixes. All YANG module tags SHOULD
 begin with one of the prefixes in this registry.
 
+Prefix entries in this registry should be short strings consisting of
+lowercase ASCII alpha-numeric characters and a final ":" character.
+
 The allocation policy for this registry is Specification Required
-[[RFC5226]].
+[[RFC8126]].
 
 The initial values for this registry are as follows.
 
- | Prefix | Description                                                            |
- |--------+------------------------------------------------------------------------|
- | ietf   | IETF Standard Tag allocated in the IANA YANG Module IETF Tag Registry. |
- | vendor | Non-standardized tags allocated by the module implementer.             |
- | user   | Non-standardized tags allocated by and for the user.                   |
+ | Prefix  | Description                                                            |
+ |---------+------------------------------------------------------------------------|
+ | ietf:   | IETF Standard Tag allocated in the IANA YANG Module IETF Tag Registry. |
+ | vendor: | Non-standardized tags allocated by the module implementer.             |
+ | user:   | Non-standardized tags allocated by and for the user.                   |
 
 Other standards organizations (SDOs) wishing to standardize their own
 set of tags should allocate a prefix from this registry.
@@ -372,7 +375,7 @@ This registry allocates prefixes that have the standard prefix
 "ietf:". New values should be well considered and not achievable
 through a combination of already existing standard tags.
 
-The allocation policy for this registry is IETF Review [[RFC5226]].
+The allocation policy for this registry is IETF Review [[RFC8126]].
 
 The initial values for this registry are as follows.
 
@@ -419,9 +422,9 @@ registration has been made:
 * Security Considerations
 
 The YANG module defined in this memo is designed to be accessed via
-the NETCONF protocol [[RFC4741]]. The lowest NETCONF layer is the
+the NETCONF protocol [[RFC6241]]. The lowest NETCONF layer is the
 secure transport layer and the mandatory-to-implement secure
-transport is SSH [[RFC4742]].
+transport is SSH [[RFC6242]].
 
 This document adds the ability to associate tag meta-data with YANG
 modules. This document does not define any actions based on these
@@ -436,14 +439,14 @@ security implications of any actions they choose to define.
 * References
 ** Normative References
 *** RFC2119
-*** RFC5226
 *** RFC7950
+*** RFC8126
 *** RFC8174
 ** Informative References
 *** RFC3688
-*** RFC4741
-*** RFC4742
 *** RFC6020
+*** RFC6241
+*** RFC6242
 *** RFC8199
 *** RFC8340
 *** RFC8342

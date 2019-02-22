@@ -10,7 +10,7 @@
 <?rfc strict="yes"?>
 <rfc ipr="trust200902"
      category="std"
-     docName="draft-ietf-netmod-module-tags-07"    updates="RFC8407"
+     docName="draft-ietf-netmod-module-tags-07"    updates="8407"
      submissionType="IETF">
   <front>
     <title abbrev="YANG Module Tags">YANG Module Tags</title>
@@ -22,7 +22,7 @@ organize modules. A method for defining, reading and writing a
 modules tags is provided. Tags may be standardized and assigned
 during module definition; assigned by implementations; or dynamically
 defined and set by users. This document also provides guidance to
-future model writers.</t></abstract>  </front>  <middle>
+future model writers, as such, this document updates RFC8407.</t></abstract>  </front>  <middle>
 
 <section title="Introduction">
 <t>The use of tags for classification and organization is fairly
@@ -48,7 +48,7 @@ tags that SHOULD be added by the module implementation automatically
 <t>This document also defines an IANA registry for tag prefixes as well
 as a set of globally assigned tags.</t>
 
-<t><xref target="org058d82d"></xref> provides guidelines for authors of YANG
+<t><xref target="orgb914299"></xref> provides guidelines for authors of YANG
 data models.</t>
 
 <t>This document updates <xref target="RFC8407"/>.</t>
@@ -112,7 +112,7 @@ that designers, implementers and users can use. As a result of this
 choice, designers, implementers, and users are free to add or not
 add any structure they may require to their own tag values.</t>
 
-<section title="IETF Standard Tags" anchor="org5b2f0d1">
+<section title="IETF Standard Tags" anchor="org6fa9f0a">
 <t>An IETF standard tag is a tag that has the prefix "ietf:". All IETF
 standard tags are registered with IANA in a registry defined later in
 this document.</t>
@@ -156,7 +156,7 @@ module implementer. These design time tags are indicated using the
 module-tag extension statement.</t>
 
 <t>If the module definition is IETF standards track, the tags MUST also
-be <xref target="org5b2f0d1"></xref>. Thus, new modules can drive the addition of
+be <xref target="org6fa9f0a"></xref>. Thus, new modules can drive the addition of
 new standard tags to the IANA registry, and the IANA registry can
 serve as a check against duplication.</t>
 
@@ -330,7 +330,7 @@ classification.</t>
 
 </section>
 
-<section title="Guidelines to Model Writers" anchor="org058d82d">
+<section title="Guidelines to Model Writers" anchor="orgb914299">
 <t>This section updates <xref target="RFC8407"/>.</t>
 
 <section title="Define Standard Tags">
@@ -355,7 +355,7 @@ module example-module {
 <t>The module writer can use existing standard tags, or use new tags
 defined in the model definition, as appropriate. For standardized
 modules new tags MUST be assigned in the IANA registry defined below,
-see <xref target="orgcc9a4db"></xref>.</t>
+see <xref target="orgab687b7"></xref>.</t>
 
 </section>
 
@@ -366,16 +366,19 @@ see <xref target="orgcc9a4db"></xref>.</t>
 <t>This registry allocates tag prefixes. All YANG module tags SHOULD
 begin with one of the prefixes in this registry.</t>
 
+<t>Prefix entries in this registry should be short strings consisting of
+lowercase ASCII alpha-numeric characters and a final ":" character.</t>
+
 <t>The allocation policy for this registry is Specification Required
-<xref target="RFC5226"/>.</t>
+<xref target="RFC8126"/>.</t>
 
 <t>The initial values for this registry are as follows.</t>
 
 <texttable>
 <ttcol>Prefix</ttcol><ttcol>Description</ttcol>
-<c>ietf</c><c>IETF Standard Tag allocated in the IANA YANG Module IETF Tag Registry.</c>
-<c>vendor</c><c>Non-standardized tags allocated by the module implementer.</c>
-<c>user</c><c>Non-standardized tags allocated by and for the user.</c>
+<c>ietf:</c><c>IETF Standard Tag allocated in the IANA YANG Module IETF Tag Registry.</c>
+<c>vendor:</c><c>Non-standardized tags allocated by the module implementer.</c>
+<c>user:</c><c>Non-standardized tags allocated by and for the user.</c>
 </texttable>
 
 <t>Other standards organizations (SDOs) wishing to standardize their own
@@ -383,12 +386,12 @@ set of tags should allocate a prefix from this registry.</t>
 
 </section>
 
-<section title="YANG Module IETF Tag Registry" anchor="orgcc9a4db">
+<section title="YANG Module IETF Tag Registry" anchor="orgab687b7">
 <t>This registry allocates prefixes that have the standard prefix
 "ietf:". New values should be well considered and not achievable
 through a combination of already existing standard tags.</t>
 
-<t>The allocation policy for this registry is IETF Review <xref target="RFC5226"/>.</t>
+<t>The allocation policy for this registry is IETF Review <xref target="RFC8126"/>.</t>
 
 <t>The initial values for this registry are as follows.</t>
 
@@ -444,9 +447,9 @@ registration has been made:</t>
 
 <section title="Security Considerations">
 <t>The YANG module defined in this memo is designed to be accessed via
-the NETCONF protocol <xref target="RFC4741"/>. The lowest NETCONF layer is the
+the NETCONF protocol <xref target="RFC6241"/>. The lowest NETCONF layer is the
 secure transport layer and the mandatory-to-implement secure
-transport is SSH <xref target="RFC4742"/>.</t>
+transport is SSH <xref target="RFC6242"/>.</t>
 
 <t>This document adds the ability to associate tag meta-data with YANG
 modules. This document does not define any actions based on these
@@ -478,19 +481,6 @@ security implications of any actions they choose to define.</t>
 </reference>
 
 
-<reference  anchor='RFC5226' target='https://www.rfc-editor.org/info/rfc5226'>
-<front>
-<title>Guidelines for Writing an IANA Considerations Section in RFCs</title>
-<author initials='T.' surname='Narten' fullname='T. Narten'><organization /></author>
-<author initials='H.' surname='Alvestrand' fullname='H. Alvestrand'><organization /></author>
-<date year='2008' month='May' />
-<abstract><t>Many protocols make use of identifiers consisting of constants and other well-known values.  Even after a protocol has been defined and deployment has begun, new values may need to be assigned (e.g., for a new option type in DHCP, or a new encryption or authentication transform for IPsec).  To ensure that such quantities have consistent values and interpretations across all implementations, their assignment must be administered by a central authority.  For IETF protocols, that role is provided by the Internet Assigned Numbers Authority (IANA).</t><t>In order for IANA to manage a given namespace prudently, it needs guidelines describing the conditions under which new values can be assigned or when modifications to existing values can be made.  If IANA is expected to play a role in the management of a namespace, IANA must be given clear and concise instructions describing that role.  This document discusses issues that should be considered in formulating a policy for assigning values to a namespace and provides guidelines for authors on the specific text that must be included in documents that place demands on IANA.</t><t>This document obsoletes RFC 2434.  This document specifies an Internet Best  Current Practices for the Internet Community, and requests discussion and  suggestions for improvements.</t></abstract>
-</front>
-<seriesInfo name='RFC' value='5226'/>
-<seriesInfo name='DOI' value='10.17487/RFC5226'/>
-</reference>
-
-
 <reference  anchor='RFC7950' target='https://www.rfc-editor.org/info/rfc7950'>
 <front>
 <title>The YANG 1.1 Data Modeling Language</title>
@@ -500,6 +490,21 @@ security implications of any actions they choose to define.</t>
 </front>
 <seriesInfo name='RFC' value='7950'/>
 <seriesInfo name='DOI' value='10.17487/RFC7950'/>
+</reference>
+
+
+<reference  anchor='RFC8126' target='https://www.rfc-editor.org/info/rfc8126'>
+<front>
+<title>Guidelines for Writing an IANA Considerations Section in RFCs</title>
+<author initials='M.' surname='Cotton' fullname='M. Cotton'><organization /></author>
+<author initials='B.' surname='Leiba' fullname='B. Leiba'><organization /></author>
+<author initials='T.' surname='Narten' fullname='T. Narten'><organization /></author>
+<date year='2017' month='June' />
+<abstract><t>Many protocols make use of points of extensibility that use constants to identify various protocol parameters.  To ensure that the values in these fields do not have conflicting uses and to promote interoperability, their allocations are often coordinated by a central record keeper.  For IETF protocols, that role is filled by the Internet Assigned Numbers Authority (IANA).</t><t>To make assignments in a given registry prudently, guidance describing the conditions under which new values should be assigned, as well as when and how modifications to existing values can be made, is needed.  This document defines a framework for the documentation of these guidelines by specification authors, in order to assure that the provided guidance for the IANA Considerations is clear and addresses the various issues that are likely in the operation of a registry.</t><t>This is the third edition of this document; it obsoletes RFC 5226.</t></abstract>
+</front>
+<seriesInfo name='BCP' value='26'/>
+<seriesInfo name='RFC' value='8126'/>
+<seriesInfo name='DOI' value='10.17487/RFC8126'/>
 </reference>
 
 
@@ -531,31 +536,6 @@ security implications of any actions they choose to define.</t>
 </reference>
 
 
-<reference  anchor='RFC4741' target='https://www.rfc-editor.org/info/rfc4741'>
-<front>
-<title>NETCONF Configuration Protocol</title>
-<author initials='R.' surname='Enns' fullname='R. Enns' role='editor'><organization /></author>
-<date year='2006' month='December' />
-<abstract><t>The Network Configuration Protocol (NETCONF) defined in this document provides mechanisms to install, manipulate, and delete the configuration of network devices.  It uses an Extensible Markup Language (XML)-based data encoding for the configuration data as well as the protocol messages.  The NETCONF protocol operations are realized on top of a simple Remote Procedure Call (RPC) layer.  [STANDARDS-TRACK]</t></abstract>
-</front>
-<seriesInfo name='RFC' value='4741'/>
-<seriesInfo name='DOI' value='10.17487/RFC4741'/>
-</reference>
-
-
-<reference  anchor='RFC4742' target='https://www.rfc-editor.org/info/rfc4742'>
-<front>
-<title>Using the NETCONF Configuration Protocol over Secure SHell (SSH)</title>
-<author initials='M.' surname='Wasserman' fullname='M. Wasserman'><organization /></author>
-<author initials='T.' surname='Goddard' fullname='T. Goddard'><organization /></author>
-<date year='2006' month='December' />
-<abstract><t>This document describes a method for invoking and running the Network Configuration Protocol (NETCONF) within a Secure Shell (SSH) session as an SSH subsystem.  [STANDARDS-TRACK]</t></abstract>
-</front>
-<seriesInfo name='RFC' value='4742'/>
-<seriesInfo name='DOI' value='10.17487/RFC4742'/>
-</reference>
-
-
 <reference  anchor='RFC6020' target='https://www.rfc-editor.org/info/rfc6020'>
 <front>
 <title>YANG - A Data Modeling Language for the Network Configuration Protocol (NETCONF)</title>
@@ -565,6 +545,33 @@ security implications of any actions they choose to define.</t>
 </front>
 <seriesInfo name='RFC' value='6020'/>
 <seriesInfo name='DOI' value='10.17487/RFC6020'/>
+</reference>
+
+
+<reference  anchor='RFC6241' target='https://www.rfc-editor.org/info/rfc6241'>
+<front>
+<title>Network Configuration Protocol (NETCONF)</title>
+<author initials='R.' surname='Enns' fullname='R. Enns' role='editor'><organization /></author>
+<author initials='M.' surname='Bjorklund' fullname='M. Bjorklund' role='editor'><organization /></author>
+<author initials='J.' surname='Schoenwaelder' fullname='J. Schoenwaelder' role='editor'><organization /></author>
+<author initials='A.' surname='Bierman' fullname='A. Bierman' role='editor'><organization /></author>
+<date year='2011' month='June' />
+<abstract><t>The Network Configuration Protocol (NETCONF) defined in this document provides mechanisms to install, manipulate, and delete the configuration of network devices.  It uses an Extensible Markup Language (XML)-based data encoding for the configuration data as well as the protocol messages.  The NETCONF protocol operations are realized as remote procedure calls (RPCs).  This document obsoletes RFC 4741.  [STANDARDS-TRACK]</t></abstract>
+</front>
+<seriesInfo name='RFC' value='6241'/>
+<seriesInfo name='DOI' value='10.17487/RFC6241'/>
+</reference>
+
+
+<reference  anchor='RFC6242' target='https://www.rfc-editor.org/info/rfc6242'>
+<front>
+<title>Using the NETCONF Protocol over Secure Shell (SSH)</title>
+<author initials='M.' surname='Wasserman' fullname='M. Wasserman'><organization /></author>
+<date year='2011' month='June' />
+<abstract><t>This document describes a method for invoking and running the Network Configuration Protocol (NETCONF) within a Secure Shell (SSH) session as an SSH subsystem.  This document obsoletes RFC 4742.  [STANDARDS-TRACK]</t></abstract>
+</front>
+<seriesInfo name='RFC' value='6242'/>
+<seriesInfo name='DOI' value='10.17487/RFC6242'/>
 </reference>
 
 
