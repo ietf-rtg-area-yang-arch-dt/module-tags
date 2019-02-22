@@ -1,0 +1,537 @@
+# -*- fill-column: 69; org-confirm-babel-evaluate: nil -*-
+
+#+TITLE: YANG Module Tags
+#+AUTHOR: Christian E. Hopps
+#+EMAIL: chopps@labn.net
+#+AFFILIATION: LabN Consulting, L.L.C.
+#+RFC_ADD_AUTHOR: ("Lou Berger" "lberger@labn.net" "LabN Consulting, LLC.")
+# #+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
+#+RFC_NAME: draft-ietf-netmod-module-tags
+#+RFC_UPDATES: RFC8407
+#+RFC_VERSION: 07
+#+RFC_XML_VERSION: 2
+
+# Do: title, table-of-contents ::fixed-width-sections |tables
+# Do: ^:sup/sub with curly -:special-strings *:emphasis
+# Don't: prop:no-prop-drawers \n:preserve-linebreaks ':use-smart-quotes
+#+OPTIONS: prop:nil title:t toc:t \n:nil ::t |:t ^:{} -:t *:t ':nil
+#+STARTUP: noalign entitiespretty hidestars noindent showall
+
+#+begin_abstract
+This document provides for the association of tags with YANG modules.
+The expectation is for such tags to be used to help classify and
+organize modules. A method for defining, reading and writing a
+modules tags is provided. Tags may be standardized and assigned
+during module definition; assigned by implementations; or dynamically
+defined and set by users. This document also provides guidance to
+future model writers.
+#+end_abstract
+
+* Introduction
+
+The use of tags for classification and organization is fairly
+ubiquitous not only within IETF protocols, but in the internet itself
+(e.g., =#hashtags=). One benefit of using tags for organization over
+a rigid structure is that it is more flexible and can more easily
+adapt over time as technologies evolve. Tags can be usefully
+standardized, but they can also serve as a non-standardized mechanism
+available for users to define themselves. This document provides a
+mechanism to define tags and associate them with YANG modules in a
+flexible manner. In particular, tags may be standardized as well as
+assigned during module definition; assigned by implementations; or
+dynamically defined and set by users.
+
+This document defines a YANG module <xref target="RFC7950"/> which
+provides a list of module entries to allow for adding or removing of
+tags as well as viewing the set of tags associated with a module.
+
+This document defines an extension statement to be used to indicate
+tags that SHOULD be added by the module implementation automatically
+(i.e., outside of configuration).
+
+This document also defines an IANA registry for tag prefixes as well
+as a set of globally assigned tags.
+
+[[Guidelines to Model Writers]] provides guidelines for authors of YANG
+data models.
+
+This document updates [[RFC8407]].
+
+The YANG data model in this document conforms to the Network
+Management Datastore Architecture defined in [[RFC8342]].
+
+** Some possible use cases of YANG module tags
+
+During this documents progression there were requests for example
+uses of module tags. The following are a few example use cases for
+tags. This list is certainly not exhaustive.
+
+One example use of tags would be to help filter different discrete
+categories of YANG modules supported by a device. E.g., if modules
+are suitably tagged, then an XPath query can be used to list all of
+the vendor modules supported by a device.
+
+Tags can also be used to help coordination when multiple
+semi-independent clients are interacting with the same devices. E.g.,
+one management client could mark that some modules should not be used
+because they have not been verified to behave correctly, so that
+other management clients avoid querying the data associated with
+those modules.
+
+Tag classification is useful for users searching module repositories
+(e.g. YANG catalog). A query restricted to the 'ietf:routing' module
+tag could be used to return only the IETF YANG modules associated
+with routing. Without tags, a user would need to know the name of all
+the IETF routing protocol YANG modules.
+
+Future management protocol extensions could allow for filtering
+queries of configuration or operational state on a server based on
+tags. E.g., return all operational state related to
+system-management.
+
+** Conventions Used in This Document
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+"OPTIONAL" in this document are to be interpreted as described in
+[[RFC2119]] [[RFC8174]] when, and only when, they appear in all capitals, as
+shown here.
+
+* Tag Values
+
+All tags SHOULD begin with a prefix indicating who owns their
+definition. An IANA registry is used to support standardizing tag
+prefixes. Currently 3 prefixes are defined with all others reserved.
+No further structure is imposed by this document on the value
+following the standard prefix, and the value can contain any yang
+type 'string' characters except carriage-returns, newlines and tabs.
+
+Again, except for the conflict-avoiding prefix, this document is not
+specifying any structure on (i.e., restricting) the tag values on
+purpose. The intent is to avoid arbitrarily restricting the values
+that designers, implementers and users can use. As a result of this
+choice, designers, implementers, and users are free to add or not
+add any structure they may require to their own tag values.
+
+** IETF Standard Tags
+
+An IETF standard tag is a tag that has the prefix "ietf:". All IETF
+standard tags are registered with IANA in a registry defined later in
+this document.
+
+** Vendor Tags
+
+A vendor tag is a tag that has the prefix "vendor:". These tags are
+defined by the vendor that implements the module, and are not
+standardized; however, it is RECOMMENDED that the vendor include
+extra identification in the tag to avoid collisions such as using the
+enterpise or organization name follwing the "vendor:" prefix (e.g.,
+vendor:example.com:vendor-defined-classifier).
+
+** User Tags
+
+A user tag is any tag that has the prefix "user:". These tags are
+defined by the user/administrator and will never be standardized.
+
+** Reserved Tags
+
+Any tag not starting with the prefix "ietf:", "vendor:" or "user:" is
+reserved for future standardization.
+
+* Tag Management
+
+Tags can become associated with a module in a number of ways. Tags
+may be defined and associated at module design time, at
+implementation time, or via user administrative control. As the main
+consumer of tags are users, users may also remove any tag, no matter
+how the tag became associated with a module.
+
+** Module Definition Tagging
+
+A module definition MAY indicate a set of tags to be added by the
+module implementer. These design time tags are indicated using the
+module-tag extension statement.
+
+If the module definition is IETF standards track, the tags MUST also
+be [[IETF Standard Tags]]. Thus, new modules can drive the addition of
+new standard tags to the IANA registry, and the IANA registry can
+serve as a check against duplication.
+
+** Implementation Tagging
+
+An implementation MAY include additional tags associated with a
+module. These tags SHOULD be standard or vendor specific tags.
+
+** User Tagging
+
+Tags of any kind can be assigned and removed by the user using normal
+configuration mechanisms.
+
+* Tags Module Structure
+
+** Tags Module Tree
+
+The tree associated with the "ietf-module-tags" module follows. The
+meaning of the symbols can be found in [[RFC8340]]
+
+#+NAME: YANG Module Tags Tree Diagram.
+#+begin_src bash  :var file=ietf-module-tags :results output verbatim replace :wrap example :exports results
+pyang --tree-print-groupings -f tree ${file}
+#+end_src
+
+#+RESULTS: YANG Module Tags Tree Diagram.
+#+begin_example
+module: ietf-module-tags
+  +--rw module-tags
+     +--rw module* [name]
+        +--rw name          yang:yang-identifier
+        +--rw tag*          tag
+        +--rw masked-tag*   tag
+#+end_example
+
+** YANG Module
+
+#+NAME: ietf-module-tags
+#+header: :file ietf-module-tags.yang :results output code silent
+#+begin_src yang :exports code
+  module ietf-module-tags {
+    yang-version 1;
+    namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
+    prefix tags;
+
+    import ietf-yang-types {
+      prefix yang;
+    }
+
+    organization
+      "IETF NetMod Working Group (NetMod)";
+    contact
+      "NetMod Working Group - <netmod@ietf.org>";
+
+    // RFC Ed.: replace XXXX with actual RFC number and
+    // remove this note.
+
+    description
+      "This module describes a mechanism associating tags with YANG
+       modules. Tags may be IANA assigned or privately defined.
+
+       Copyright (c) 2018 IETF Trust and the persons identified as
+       authors of the code. All rights reserved.
+
+       Redistribution and use in source and binary forms, with or
+       without modification, is permitted pursuant to, and subject to
+       the license terms contained in, the Simplified BSD License set
+       forth in Section 4.c of the IETF Trust's Legal Provisions
+       Relating to IETF Documents
+       (https://trustee.ietf.org/license-info).
+
+       The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+       NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+       'MAY', and 'OPTIONAL' in this document are to be interpreted as
+       described in BCP 14 [RFC2119] [RFC8174] when, and only when,
+       they appear in all capitals, as shown here.
+
+
+       This version of this YANG module is part of RFC XXXX
+       (https://tools.ietf.org/html/rfcXXXX); see the RFC itself for
+       full legal notices.";
+
+    // RFC Ed.: update the date below with the date of RFC publication
+    // and RFC number and remove this note.
+
+    revision 2018-10-17 {
+      description
+        "Initial revision.";
+      reference "RFC XXXX: YANG Module Tags";
+    }
+
+    typedef tag {
+      type string {
+        length "1..max";
+        pattern '[a-zA-Z_][a-zA-Z0-9\-_]*:[\S ]+';
+      }
+      description
+        "A tag value is composed of a standard prefix followed by any
+         type 'string' value that does not include carriage return,
+         newline or tab characters.";
+    }
+
+    extension module-tag {
+      argument tag;
+      description
+        "The argument 'tag' is of type 'tag'. This extension statement
+         is used by module authors to indicate the tags that SHOULD be
+         added automatically by the system. As such the origin of the
+         value for the pre-defined tags should be set to 'system'.";
+    }
+
+    container module-tags {
+      description
+        "Contains the list of modules and their associated tags";
+      list module {
+        key "name";
+        description
+          "A list of modules and their associated tags";
+        leaf name {
+          type yang:yang-identifier;
+          mandatory true;
+          description
+            "The YANG module name.";
+        }
+        leaf-list tag {
+          type tag;
+          description
+            "Tags associated with the module. See the IANA 'YANG Module
+             Tag Prefix' registry for reserved prefixes and the IANA
+             'YANG Module IETF Tag' registry for IETF standard tags.
+
+             The 'operational' state [RFC8342] view of this list is
+             constructed using the following steps:
+
+             1) System tags (i.e., tags of 'system' origin) are added.
+             2) User configured tags (i.e., tags of 'intended' origin)
+             are added.
+             3) Any tag that is equal to a masked-tag is removed.";
+        }
+        leaf-list masked-tag {
+          type tag;
+          description
+            "The list of tags that should not be associated with this
+             module. The user can remove (mask) tags from the
+             operational state datastore [RFC8342] by adding them to
+             this list. It is not an error to add tags to this list
+             that are not associated with the module, but they have no
+             operational effect.";
+        }
+      }
+    }
+  }
+#+end_src
+
+* Other Classifications
+
+It is worth noting that a different YANG module classification
+document exists [[RFC8199]]. That document only classifies modules in a
+logical manner and does not define tagging or any other mechanisms.
+It divides YANG modules into two categories (service or element) and
+then into one of three origins: standard, vendor or user. It does
+provide a good way to discuss and identify modules in general. This
+document defines standard tags to support [[RFC8199]] style
+classification.
+
+* Guidelines to Model Writers
+
+This section updates [[RFC8407]].
+
+** Define Standard Tags
+
+A module MAY indicate, using module-tag extension statements, a set
+of tags that are to be automatically associated with it (i.e., not
+added through configuration).
+
+#+begin_src yang
+  module example-module {
+    //...
+    import module-tags { prefix tags; }
+
+    tags:module-tag "ietf:some-new-tag";
+    tags:module-tag "ietf:some-other-tag";
+    // ...
+  }
+#+end_src
+
+The module writer can use existing standard tags, or use new tags
+defined in the model definition, as appropriate. For standardized
+modules new tags MUST be assigned in the IANA registry defined below,
+see [[YANG Module IETF Tag Registry]].
+
+* IANA Considerations
+
+** YANG Module Tag Prefix Registry
+
+This registry allocates tag prefixes. All YANG module tags SHOULD
+begin with one of the prefixes in this registry.
+
+The allocation policy for this registry is Specification Required
+[[RFC5226]]
+
+The initial values for this registry are as follows.
+
+ | Prefix | Description                                                            |
+ |--------+------------------------------------------------------------------------|
+ | ietf   | IETF Standard Tag allocated in the IANA YANG Module IETF Tag Registry. |
+ | vendor | Non-standardized tags allocated by the module implementer.             |
+ | user   | Non-standardized tags allocated by and for the user.                   |
+
+Other standards organizations (SDOs) wishing to standardize their own
+set of tags should allocate a prefix from this registry.
+
+** YANG Module IETF Tag Registry
+
+This registry allocates prefixes that have the standard prefix
+"ietf:". New values should be well considered and not achievable
+through a combination of already existing standard tags.
+
+The allocation policy for this registry is IETF Review [[RFC5226]]
+
+The initial values for this registry are as follows.
+
+#+NAME: IETF Module Tag Registry
+| Tag                        | Description                                                                                                   | Reference       |
+|----------------------------+---------------------------------------------------------------------------------------------------------------+-----------------|
+| ietf:network-element-class | [[RFC8199]] network element.                                                                                      | [[RFC8199]]         |
+| ietf:network-service-class | [[RFC8199]] network service.                                                                                      | [[RFC8199]]         |
+| ietf:sdo-defined-class     | Module is defined by a standards organization.                                                                | [[RFC8199]]         |
+| ietf:vendor-defined-class  | Module is defined by a vendor.                                                                                | [[RFC8199]]         |
+| ietf:user-defined-class    | Module is defined by the user.                                                                                | [[RFC8199]]         |
+| ietf:hardware              | Relates to hardware (e.g., inventory).                                                                        | [This document] |
+| ietf:software              | Relates to software (e.g., installed OS).                                                                     | [This document] |
+| ietf:protocol              | Represents a protocol (often combined with another tag to refine).                                            | [This document] |
+| ietf:qos                   | Relates to quality of service.                                                                                | [This document] |
+| ietf:network-service-app   | Relates to a network service application (e.g., an NTP server, DNS server, DHCP server, etc).                 | [This document] |
+| ietf:system-management     | Relates to system management (e.g., a system management protocol such as syslog, TACAC+, SNMP, netconf, ...). | [This document] |
+| ietf:oam                   | Relates to Operations, Administration, and Maintenance (e.g., BFD).                                           | [This document] |
+| ietf:routing               | Relates to routing.                                                                                           | [This document] |
+| ietf:signaling             | Relates to control plane signaling.                                                                           | [This document] |
+| ietf:link-management       | Relates to link management.                                                                                   | [This document] |
+
+** Updates to the IETF XML Registry
+
+This document registers a URI in the "IETF XML Registry" [[RFC3688]].
+Following the format in [[RFC3688]], the following registration has been
+made:
+
+- URI :: urn:ietf:params:xml:ns:yang:ietf-module-tags
+- Registrant Contact :: The IESG.
+- XML :: N/A; the requested URI is an XML namespace.
+
+** Updates to the YANG Module Names Registry
+
+This document registers one YANG module in the "YANG Module Names"
+registry [[RFC6020]]. Following the format in [[RFC6020]], the following
+registration has been made:
+
+- name :: ietf-module-tags
+- namespace :: urn:ietf:params:xml:ns:yang:ietf-module-tags
+- prefix :: tags
+- reference :: RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove this note.)
+
+* Security Considerations
+
+The YANG module defined in this memo is designed to be accessed via
+the NETCONF protocol [[RFC4741]]. The lowest NETCONF layer is the
+secure transport layer and the mandatory-to-implement secure
+transport is SSH [[RFC4742]].
+
+This document adds the ability to associate tag meta-data with YANG
+modules. This document does not define any actions based on these
+associations, and none are yet defined, and therefore it does not
+by itself introduce any new security considerations.
+
+Users of the tag-meta data may define various actions to be taken
+based on the tag meta-data. These actions and their definitions are
+outside the scope of this document. Users will need to consider the
+security implications of any actions they choose to define.
+
+* References
+** Normative References
+*** RFC2119
+*** RFC5226
+*** RFC7950
+*** RFC8174
+** Informative References
+*** RFC3688
+*** RFC4741
+*** RFC4742
+*** RFC6020
+*** RFC8199
+*** RFC8340
+*** RFC8342
+*** RFC8407
+
+* Examples
+
+The following is a fictional example result from a query of the
+module tags list. For the sake of brevity only a few module results
+are imagined.
+
+#+NAME: 2-validate-xml-example
+#+HEADER: :stdin xml-example :var module=ietf-module-tags
+#+begin_src sh :results output verbatim replace :exports none
+  cat
+#+end_src
+
+#+RESULTS: 2-validate-xml-example
+#+begin_example
+<ns0:config xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags">
+    <t:module>
+      <t:name>ietf-bfd</t:name>
+      <t:tag>ietf:network-element-class</t:tag>
+      <t:tag>ietf:oam</t:tag>
+      <t:tag>ietf:protocol</t:tag>
+      <t:tag>ietf:sdo-defined-class</t:tag>
+    </t:module>
+    <t:module>
+      <t:name>ietf-isis</t:name>
+      <t:tag>ietf:network-element-class</t:tag>
+      <t:tag>ietf:protocol</t:tag>
+      <t:tag>ietf:sdo-defined-class</t:tag>
+      <t:tag>ietf:routing</t:tag>
+    </t:module>
+    <t:module>
+      <t:name>ietf-ssh-server</t:name>
+      <t:tag>ietf:network-element-class</t:tag>
+      <t:tag>ietf:protocol</t:tag>
+      <t:tag>ietf:sdo-defined-class</t:tag>
+      <t:tag>ietf:system-management</t:tag>
+    </t:module>
+  </t:module-tags>
+</ns0:config>
+#+end_example
+
+#+NAME: validate-xml-example
+#+HEADER: :stdin xml-example :var module=ietf-module-tags
+#+begin_src bash :results output verbatim replace :wrap example :exports none
+  yang2dsdl -t config -d .validate -v /dev/stdin $module > /dev/null
+#+end_src
+
+#+RESULTS: validate-xml-example
+#+begin_example
+/dev/stdin validates
+No errors found.
+#+end_example
+
+#+NAME: xml-example
+#+begin_src xml :results output code silent :exports code
+  <ns0:config xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags">
+      <t:module>
+        <t:name>ietf-bfd</t:name>
+        <t:tag>ietf:network-element-class</t:tag>
+        <t:tag>ietf:oam</t:tag>
+        <t:tag>ietf:protocol</t:tag>
+        <t:tag>ietf:sdo-defined-class</t:tag>
+      </t:module>
+      <t:module>
+        <t:name>ietf-isis</t:name>
+        <t:tag>ietf:network-element-class</t:tag>
+        <t:tag>ietf:protocol</t:tag>
+        <t:tag>ietf:sdo-defined-class</t:tag>
+        <t:tag>ietf:routing</t:tag>
+      </t:module>
+      <t:module>
+        <t:name>ietf-ssh-server</t:name>
+        <t:tag>ietf:network-element-class</t:tag>
+        <t:tag>ietf:protocol</t:tag>
+        <t:tag>ietf:sdo-defined-class</t:tag>
+        <t:tag>ietf:system-management</t:tag>
+      </t:module>
+    </t:module-tags>
+  </ns0:config>
+#+end_src
+
+* Acknowledgements
+
+   Special thanks to Robert Wilton for his help improving the
+   introduction and providing the example use cases.
