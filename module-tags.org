@@ -1,14 +1,14 @@
 # -*- fill-column: 69; org-confirm-babel-evaluate: nil -*-
 
 #+TITLE: YANG Module Tags
-#+AUTHOR: Christian E. Hopps
+#+AUTHOR: Christian Hopps
 #+EMAIL: chopps@labn.net
 #+AFFILIATION: LabN Consulting, L.L.C.
 #+RFC_ADD_AUTHOR: ("Lou Berger" "lberger@labn.net" "LabN Consulting, LLC.")
 #+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
 #+RFC_NAME: draft-ietf-netmod-module-tags
 #+RFC_UPDATES: 8407
-#+RFC_VERSION: 07
+#+RFC_VERSION: 06
 #+RFC_XML_VERSION: 2
 
 # Do: title, table-of-contents ::fixed-width-sections |tables

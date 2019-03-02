@@ -10,13 +10,13 @@
 <?rfc strict="yes"?>
 <rfc ipr="trust200902"
      category="std"
-     docName="draft-ietf-netmod-module-tags-07"    updates="8407"
+     docName="draft-ietf-netmod-module-tags-06"    updates="8407"
      submissionType="IETF">
   <front>
     <title abbrev="YANG Module Tags">YANG Module Tags</title>
-<author fullname="Christian E. Hopps"><organization>LabN Consulting, L.L.C.</organization><address><email>chopps@labn.net</email></address></author>
-<author fullname="Lou Berger"><organization>LabN Consulting, LLC.</organization><address><email>lberger@labn.net</email></address></author>
-<author fullname="Dean Bogdanovic"><organization>Volta Networks</organization><address><email>ivandean@gmail.com</email></address></author>  <date/><abstract><t>This document provides for the association of tags with YANG modules.
+<author initials='C.' surname='Hopps' fullname='Christian Hopps'><organization>LabN Consulting, L.L.C.</organization><address><email>chopps@labn.net</email></address></author>
+<author initials='L.' surname='Berger' fullname='Lou Berger'><organization>LabN Consulting, LLC.</organization><address><email>lberger@labn.net</email></address></author>
+<author initials='D.' surname='Bogdanovic' fullname='Dean Bogdanovic'><organization>Volta Networks</organization><address><email>ivandean@gmail.com</email></address></author>  <date/><abstract><t>This document provides for the association of tags with YANG modules.
 The expectation is for such tags to be used to help classify and
 organize modules. A method for defining, reading and writing a
 modules tags is provided. Tags may be standardized and assigned
@@ -27,7 +27,7 @@ future model writers, as such, this document updates RFC8407.</t></abstract>  </
 <section title="Introduction">
 <t>The use of tags for classification and organization is fairly
 ubiquitous not only within IETF protocols, but in the internet itself
-(e.g., <spanx>#hashtags</spanx>). One benefit of using tags for organization over
+(e.g., <spanx style='verb'>#hashtags</spanx>). One benefit of using tags for organization over
 a rigid structure is that it is more flexible and can more easily
 adapt over time as technologies evolve. Tags can be usefully
 standardized, but they can also serve as a non-standardized mechanism
@@ -48,7 +48,7 @@ tags that SHOULD be added by the module implementation automatically
 <t>This document also defines an IANA registry for tag prefixes as well
 as a set of globally assigned tags.</t>
 
-<t><xref target="orgab6e1ce"></xref> provides guidelines for authors of YANG
+<t><xref target="orgffac3d6"></xref> provides guidelines for authors of YANG
 data models.</t>
 
 <t>This document updates <xref target="RFC8407"/>.</t>
@@ -112,7 +112,7 @@ that designers, implementers and users can use. As a result of this
 choice, designers, implementers, and users are free to add or not
 add any structure they may require to their own tag values.</t>
 
-<section title="IETF Standard Tags" anchor="orgfe7edc5">
+<section title="IETF Standard Tags" anchor="orgb335642">
 <t>An IETF standard tag is a tag that has the prefix "ietf:". All IETF
 standard tags are registered with IANA in a registry defined later in
 this document.</t>
@@ -156,7 +156,7 @@ module implementer. These design time tags are indicated using the
 module-tag extension statement.</t>
 
 <t>If the module definition is IETF standards track, the tags MUST also
-be <xref target="orgfe7edc5"></xref>. Thus, new modules can drive the addition of
+be <xref target="orgb335642"></xref>. Thus, new modules can drive the addition of
 new standard tags to the IANA registry, and the IANA registry can
 serve as a check against duplication.</t>
 
@@ -181,9 +181,7 @@ configuration mechanisms.</t>
 <t>The tree associated with the "ietf-module-tags" module follows. The
 meaning of the symbols can be found in <xref target="RFC8340"/>.</t>
 
-<t>
-<figure>
-<artwork><![CDATA[
+<figure><artwork><![CDATA[
   module: ietf-module-tags
     +--rw module-tags
        +--rw module* [name]
@@ -191,14 +189,11 @@ meaning of the symbols can be found in <xref target="RFC8340"/>.</t>
           +--rw tag*          tag
           +--rw masked-tag*   tag
 ]]></artwork></figure>
-</t>
 
 </section>
 
 <section title="YANG Module">
-<t>
-<figure>
-<artwork><![CDATA[
+<figure><artwork><![CDATA[
 module ietf-module-tags {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -312,7 +307,6 @@ module ietf-module-tags {
   }
 }
 ]]></artwork></figure>
-</t>
 
 </section>
 
@@ -330,7 +324,7 @@ classification.</t>
 
 </section>
 
-<section title="Guidelines to Model Writers" anchor="orgab6e1ce">
+<section title="Guidelines to Model Writers" anchor="orgffac3d6">
 <t>This section updates <xref target="RFC8407"/>.</t>
 
 <section title="Define Standard Tags">
@@ -338,9 +332,7 @@ classification.</t>
 of tags that are to be automatically associated with it (i.e., not
 added through configuration).</t>
 
-<t>
-<figure>
-<artwork><![CDATA[
+<figure><artwork><![CDATA[
 module example-module {
   //...
   import module-tags { prefix tags; }
@@ -350,12 +342,11 @@ module example-module {
   // ...
 }
 ]]></artwork></figure>
-</t>
 
 <t>The module writer can use existing standard tags, or use new tags
 defined in the model definition, as appropriate. For standardized
 modules new tags MUST be assigned in the IANA registry defined below,
-see <xref target="org47c03b1"></xref>.</t>
+see <xref target="org8949e1d"></xref>.</t>
 
 </section>
 
@@ -386,7 +377,7 @@ set of tags should allocate a prefix from this registry.</t>
 
 </section>
 
-<section title="YANG Module IETF Tag Registry" anchor="org47c03b1">
+<section title="YANG Module IETF Tag Registry" anchor="org8949e1d">
 <t>This registry allocates prefixes that have the standard prefix
 "ietf:". New values should be well considered and not achievable
 through a combination of already existing standard tags.</t>
@@ -637,9 +628,7 @@ security implications of any actions they choose to define.</t>
 module tags list. For the sake of brevity only a few module results
 are imagined.</t>
 
-<t>
-<figure>
-<artwork><![CDATA[
+<figure><artwork><![CDATA[
 <ns0:config xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
   <t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags">
     <t:module>
@@ -666,7 +655,6 @@ are imagined.</t>
   </t:module-tags>
 </ns0:config>
 ]]></artwork></figure>
-</t>
 
 </section>
 
