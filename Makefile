@@ -1,12 +1,12 @@
 ORG := module-tags.org
 BASE := $(shell sed -e '/^\#+RFC_NAME:/!d;s/\#+RFC_NAME: *\(.*\)/\1/' $(ORG))
 VERSION := $(shell sed -e '/^\#+RFC_VERSION:/!d;s/\#+RFC_VERSION: *\([0-9]*\)/\1/' $(ORG))
-OUTPUT_BASE := ${BASE}-${VERSION}
+VBASE := $(BASE)-$(VERSION)
 
-all: $(BASE).xml $(OUTPUT_BASE).txt $(OUTPUT_BASE).html $(OUTPUT_BASE).pdf
+all: $(BASE).xml $(VBASE).txt $(VBASE).html $(VBASE).pdf
 
 clean:
-	rm ${BASE}-*.{xml,txt,html,pdf}
+	rm -f ${BASE}.xml ${BASE}-*.{txt,html,pdf}
 
 # --------
 # Building
@@ -14,7 +14,6 @@ clean:
 
 $(BASE).xml: $(ORG) ox-rfc.el
 	emacs -Q --batch --eval '(setq org-confirm-babel-evaluate nil)' -l ./ox-rfc.el $< -f ox-rfc-export-to-xml
-	mv $(OUTPUT_BASE).xml $(BASE).xml
 
 %-$(VERSION).txt: %.xml
 	xml2rfc --text -o $@ $<
@@ -29,9 +28,9 @@ $(BASE).xml: $(ORG) ox-rfc.el
 # Verification
 # ------------
 
-idnits: $(OUTPUT_BASE).txt
+idnits: $(VBASE).txt
 	if [ ! -e idnits ]; then curl -fLO 'http://tools.ietf.org/tools/idnits/idnits'; chmod 755 idnits; fi
-	./idnits $(OUTPUT_BASE).txt
+	./idnits $<
 
 # -----
 # Tools
