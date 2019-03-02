@@ -282,15 +282,16 @@ Hopps, et al.           Expires September 3, 2019               [Page 5]
 Internet-Draft              YANG Module Tags                  March 2019
 
 
-     module: ietf-module-tags
-       +--rw module-tags
-          +--rw module* [name]
-             +--rw name          yang:yang-identifier
-             +--rw tag*          tag
-             +--rw masked-tag*   tag
+       module: ietf-module-tags
+         +--rw module-tags
+            +--rw module* [name]
+               +--rw name          yang:yang-identifier
+               +--rw tag*          tag
+               +--rw masked-tag*   tag
 
 4.2.  YANG Module
 
+   <CODE BEGINS> file "ietf-module-tags@2019-03-02.yang"
    module ietf-module-tags {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -329,7 +330,6 @@ Internet-Draft              YANG Module Tags                  March 2019
         they appear in all capitals, as shown here.
 
 
-        This version of this YANG module is part of RFC XXXX
 
 
 
@@ -338,13 +338,14 @@ Hopps, et al.           Expires September 3, 2019               [Page 6]
 Internet-Draft              YANG Module Tags                  March 2019
 
 
+        This version of this YANG module is part of RFC XXXX
         (https://tools.ietf.org/html/rfcXXXX); see the RFC itself for
         full legal notices.";
 
      // RFC Ed.: update the date below with the date of RFC publication
      // and RFC number and remove this note.
 
-     revision 2018-10-17 {
+     revision 2019-03-02 {
        description
          "Initial revision.";
        reference "RFC XXXX: YANG Module Tags";
@@ -385,7 +386,6 @@ Internet-Draft              YANG Module Tags                  March 2019
          }
          leaf-list tag {
            type tag;
-           description
 
 
 
@@ -394,6 +394,7 @@ Hopps, et al.           Expires September 3, 2019               [Page 7]
 Internet-Draft              YANG Module Tags                  March 2019
 
 
+           description
              "Tags associated with the module. See the IANA 'YANG Module
               Tag Prefixes' registry for reserved prefixes and the IANA
               'YANG Module Tags' registry for IETF standard tags.
@@ -419,6 +420,7 @@ Internet-Draft              YANG Module Tags                  March 2019
        }
      }
    }
+   <CODE ENDS>
 
 5.  Other Classifications
 
@@ -440,8 +442,6 @@ Internet-Draft              YANG Module Tags                  March 2019
    A module MAY indicate, using module-tag extension statements, a set
    of tags that are to be automatically associated with it (i.e., not
    added through configuration).
-
-
 
 
 
@@ -766,7 +766,7 @@ Authors' Addresses
    Christian Hopps
    LabN Consulting, L.L.C.
 
-   Email: chopps@labn.net
+   Email: chopps@chopps.org
 
 
    Lou Berger

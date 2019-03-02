@@ -2,7 +2,7 @@
 
 #+TITLE: YANG Module Tags
 #+AUTHOR: Christian Hopps
-#+EMAIL: chopps@labn.net
+#+EMAIL: chopps@chopps.org
 #+AFFILIATION: LabN Consulting, L.L.C.
 #+RFC_ADD_AUTHOR: ("Lou Berger" "lberger@labn.net" "LabN Consulting, LLC.")
 #+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
@@ -182,19 +182,22 @@ pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
 
 #+RESULTS: YANG Module Tags Tree Diagram.
 #+begin_example
-  module: ietf-module-tags
-    +--rw module-tags
-       +--rw module* [name]
-          +--rw name          yang:yang-identifier
-          +--rw tag*          tag
-          +--rw masked-tag*   tag
+    module: ietf-module-tags
+      +--rw module-tags
+         +--rw module* [name]
+            +--rw name          yang:yang-identifier
+            +--rw tag*          tag
+            +--rw masked-tag*   tag
 #+end_example
 
 ** YANG Module
 
+# #+header: :file (concat "ietf-module-tags@" (format-time-string "%Y-%m-%d") ".yang")
+
+#+CAPTION: Module Tags Module
 #+NAME: ietf-module-tags
-#+header: :file ietf-module-tags.yang :results output code silent
-#+begin_src yang :exports code
+#+header: :results output code silent
+#+begin_src yang :exports code :file ietf-module-tags.yang
   module ietf-module-tags {
     yang-version 1.1;
     namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -240,7 +243,7 @@ pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
     // RFC Ed.: update the date below with the date of RFC publication
     // and RFC number and remove this note.
 
-    revision 2018-10-17 {
+    revision 1900-01-01 {
       description
         "Initial revision.";
       reference "RFC XXXX: YANG Module Tags";
