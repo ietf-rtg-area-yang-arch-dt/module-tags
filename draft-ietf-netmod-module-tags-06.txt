@@ -85,8 +85,8 @@ Table of Contents
    6.  Guidelines to Model Writers . . . . . . . . . . . . . . . . .   8
      6.1.  Define Standard Tags  . . . . . . . . . . . . . . . . . .   8
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
-     7.1.  YANG Module Tag Prefix Registry . . . . . . . . . . . . .   9
-     7.2.  YANG Module IETF Tag Registry . . . . . . . . . . . . . .  10
+     7.1.  YANG Module Tag Prefixes Registry . . . . . . . . . . . .   9
+     7.2.  YANG Module Tags Registry . . . . . . . . . . . . . . . .  10
      7.3.  Updates to the IETF XML Registry  . . . . . . . . . . . .  11
      7.4.  Updates to the YANG Module Names Registry . . . . . . . .  11
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
@@ -187,10 +187,11 @@ Internet-Draft              YANG Module Tags                  March 2019
 
    All tags SHOULD begin with a prefix indicating who owns their
    definition.  An IANA registry is used to support standardizing tag
-   prefixes.  Currently 3 prefixes are defined with all others reserved.
-   No further structure is imposed by this document on the value
-   following the standard prefix, and the value can contain any yang
-   type 'string' characters except carriage-returns, newlines and tabs.
+   prefixes Section 7.1.  Currently 3 prefixes are defined with all
+   others reserved.  No further structure is imposed by this document on
+   the value following the standard prefix, and the value can contain
+   any yang type 'string' characters except carriage-returns, newlines
+   and tabs.
 
    Again, except for the conflict-avoiding prefix, this document is not
    specifying any structure on (i.e., restricting) the tag values on
@@ -203,7 +204,7 @@ Internet-Draft              YANG Module Tags                  March 2019
 
    An IETF standard tag is a tag that has the prefix "ietf:".  All IETF
    standard tags are registered with IANA in a registry defined later in
-   this document.
+   this document Section 7.2.
 
 2.2.  Vendor Tags
 
@@ -213,7 +214,6 @@ Internet-Draft              YANG Module Tags                  March 2019
    extra identification in the tag to avoid collisions such as using the
    enterpise or organization name follwing the "vendor:" prefix (e.g.,
    vendor:example.com:vendor-defined-classifier).
-
 
 
 
@@ -395,8 +395,8 @@ Internet-Draft              YANG Module Tags                  March 2019
 
 
              "Tags associated with the module. See the IANA 'YANG Module
-              Tag Prefix' registry for reserved prefixes and the IANA
-              'YANG Module IETF Tag' registry for IETF standard tags.
+              Tag Prefixes' registry for reserved prefixes and the IANA
+              'YANG Module Tags' registry for IETF standard tags.
 
               The 'operational' state [RFC8342] view of this list is
               constructed using the following steps:
@@ -466,7 +466,10 @@ Internet-Draft              YANG Module Tags                  March 2019
 
 7.  IANA Considerations
 
-7.1.  YANG Module Tag Prefix Registry
+7.1.  YANG Module Tag Prefixes Registry
+
+   IANA is asked to create a new registry "YANG Module Tag Prefixes"
+   grouped under a new "Protocol" category named "YANG Module Tags".
 
    This registry allocates tag prefixes.  All YANG module tags SHOULD
    begin with one of the prefixes in this registry.
@@ -483,7 +486,7 @@ Internet-Draft              YANG Module Tags                  March 2019
    | Prefix  | Description                                             |
    +---------+---------------------------------------------------------+
    | ietf:   | IETF Standard Tag allocated in the IANA YANG Module     |
-   |         | IETF Tag Registry.                                      |
+   |         | Tags registry.                                          |
    |         |                                                         |
    | vendor: | Non-standardized tags allocated by the module           |
    |         | implementer.                                            |
@@ -498,15 +501,17 @@ Internet-Draft              YANG Module Tags                  March 2019
 
 
 
-
-
-
 Hopps, et al.           Expires September 3, 2019               [Page 9]
 
 Internet-Draft              YANG Module Tags                  March 2019
 
 
-7.2.  YANG Module IETF Tag Registry
+7.2.  YANG Module Tags Registry
+
+   IANA is asked to create a new registry "YANG Module Tags" grouped
+   under a new "Protocol" category "YANG Module Tags".  This registry
+   should be included below "YANG Module Tag Prefixes" when listed on
+   the same page.
 
    This registry allocates prefixes that have the standard prefix
    "ietf:".  New values should be well considered and not achievable
@@ -549,11 +554,6 @@ Internet-Draft              YANG Module Tags                  March 2019
    |                            |                          |           |
    | ietf:network-service-app   | Relates to a network     | [This     |
    |                            | service application      | document] |
-   |                            | (e.g., an NTP server,    |           |
-   |                            | DNS server, DHCP server, |           |
-   |                            | etc).                    |           |
-   |                            |                          |           |
-   | ietf:system-management     | Relates to system        | [This     |
 
 
 
@@ -562,6 +562,11 @@ Hopps, et al.           Expires September 3, 2019              [Page 10]
 Internet-Draft              YANG Module Tags                  March 2019
 
 
+   |                            | (e.g., an NTP server,    |           |
+   |                            | DNS server, DHCP server, |           |
+   |                            | etc).                    |           |
+   |                            |                          |           |
+   | ietf:system-management     | Relates to system        | [This     |
    |                            | management (e.g., a      | document] |
    |                            | system management        |           |
    |                            | protocol such as syslog, |           |
@@ -606,17 +611,15 @@ Internet-Draft              YANG Module Tags                  March 2019
 
    prefix:  tags
 
-   reference:  RFC XXXX (RFC Ed.: replace XXX with actual RFC number and
-      remove this note.)
-
-
-
 
 
 Hopps, et al.           Expires September 3, 2019              [Page 11]
 
 Internet-Draft              YANG Module Tags                  March 2019
 
+
+   reference:  RFC XXXX (RFC Ed.: replace XXX with actual RFC number and
+      remove this note.)
 
 8.  Security Considerations
 
@@ -662,9 +665,6 @@ Internet-Draft              YANG Module Tags                  March 2019
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
               <https://www.rfc-editor.org/info/rfc3688>.
-
-
-
 
 
 

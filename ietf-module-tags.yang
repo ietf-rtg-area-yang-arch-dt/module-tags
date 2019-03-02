@@ -87,8 +87,8 @@ module ietf-module-tags {
         type tag;
         description
           "Tags associated with the module. See the IANA 'YANG Module
-           Tag Prefix' registry for reserved prefixes and the IANA
-           'YANG Module IETF Tag' registry for IETF standard tags.
+           Tag Prefixes' registry for reserved prefixes and the IANA
+           'YANG Module Tags' registry for IETF standard tags.
 
            The 'operational' state [RFC8342] view of this list is
            constructed using the following steps:

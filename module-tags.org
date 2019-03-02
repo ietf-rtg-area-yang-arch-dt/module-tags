@@ -101,10 +101,11 @@ shown here.
 
 All tags SHOULD begin with a prefix indicating who owns their
 definition. An IANA registry is used to support standardizing tag
-prefixes. Currently 3 prefixes are defined with all others reserved.
-No further structure is imposed by this document on the value
-following the standard prefix, and the value can contain any yang
-type 'string' characters except carriage-returns, newlines and tabs.
+prefixes [[YANG Module Tag Prefixes Registry]]. Currently 3 prefixes are
+defined with all others reserved. No further structure is imposed by
+this document on the value following the standard prefix, and the
+value can contain any yang type 'string' characters except
+carriage-returns, newlines and tabs.
 
 Again, except for the conflict-avoiding prefix, this document is not
 specifying any structure on (i.e., restricting) the tag values on
@@ -117,7 +118,7 @@ add any structure they may require to their own tag values.
 
 An IETF standard tag is a tag that has the prefix "ietf:". All IETF
 standard tags are registered with IANA in a registry defined later in
-this document.
+this document [[YANG Module Tags Registry]].
 
 ** Vendor Tags
 
@@ -282,8 +283,8 @@ pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
           type tag;
           description
             "Tags associated with the module. See the IANA 'YANG Module
-             Tag Prefix' registry for reserved prefixes and the IANA
-             'YANG Module IETF Tag' registry for IETF standard tags.
+             Tag Prefixes' registry for reserved prefixes and the IANA
+             'YANG Module Tags' registry for IETF standard tags.
 
              The 'operational' state [RFC8342] view of this list is
              constructed using the following steps:
@@ -343,11 +344,14 @@ added through configuration).
 The module writer can use existing standard tags, or use new tags
 defined in the model definition, as appropriate. For standardized
 modules new tags MUST be assigned in the IANA registry defined below,
-see [[YANG Module IETF Tag Registry]].
+see [[YANG Module Tags Registry]].
 
 * IANA Considerations
 
-** YANG Module Tag Prefix Registry
+** YANG Module Tag Prefixes Registry
+
+IANA is asked to create a new registry "YANG Module Tag Prefixes"
+grouped under a new "Protocol" category named "YANG Module Tags".
 
 This registry allocates tag prefixes. All YANG module tags SHOULD
 begin with one of the prefixes in this registry.
@@ -360,16 +364,21 @@ The allocation policy for this registry is Specification Required
 
 The initial values for this registry are as follows.
 
- | Prefix  | Description                                                            |
- |---------+------------------------------------------------------------------------|
- | ietf:   | IETF Standard Tag allocated in the IANA YANG Module IETF Tag Registry. |
- | vendor: | Non-standardized tags allocated by the module implementer.             |
- | user:   | Non-standardized tags allocated by and for the user.                   |
+| Prefix  | Description                                                        |
+|---------+--------------------------------------------------------------------|
+| ietf:   | IETF Standard Tag allocated in the IANA YANG Module Tags registry. |
+| vendor: | Non-standardized tags allocated by the module implementer.         |
+| user:   | Non-standardized tags allocated by and for the user.               |
 
 Other standards organizations (SDOs) wishing to standardize their own
 set of tags should allocate a prefix from this registry.
 
-** YANG Module IETF Tag Registry
+** YANG Module Tags Registry
+
+IANA is asked to create a new registry "YANG Module Tags" grouped
+under a new "Protocol" category "YANG Module Tags". This registry
+should be included below "YANG Module Tag Prefixes" when listed on
+the same page.
 
 This registry allocates prefixes that have the standard prefix
 "ietf:". New values should be well considered and not achievable
@@ -379,7 +388,6 @@ The allocation policy for this registry is IETF Review [[RFC8126]].
 
 The initial values for this registry are as follows.
 
-#+NAME: IETF Module Tag Registry
 | Tag                        | Description                                                                                                   | Reference       |
 |----------------------------+---------------------------------------------------------------------------------------------------------------+-----------------|
 | ietf:network-element-class | [[RFC8199]] network element.                                                                                      | [[RFC8199]]         |
