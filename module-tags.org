@@ -447,21 +447,20 @@ based on the tag meta-data. These actions and their definitions are
 outside the scope of this document. Users will need to consider the
 security implications of any actions they choose to define.
 
-* References
-** Normative References
-*** RFC2119
-*** RFC7950
-*** RFC8126
-*** RFC8174
-** Informative References
-*** RFC3688
-*** RFC6020
-*** RFC6241
-*** RFC6242
-*** RFC8199
-*** RFC8340
-*** RFC8342
-*** RFC8407
+* Normative References
+** RFC2119
+** RFC7950
+** RFC8126
+** RFC8174
+* Informative References
+** RFC3688
+** RFC6020
+** RFC6241
+** RFC6242
+** RFC8199
+** RFC8340
+** RFC8342
+** RFC8407
 
 * Examples
 

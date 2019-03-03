@@ -48,7 +48,7 @@ tags that SHOULD be added by the module implementation automatically
 <t>This document also defines an IANA registry for tag prefixes as well
 as a set of globally assigned tags.</t>
 
-<t><xref target="orgb585c2a"></xref> provides guidelines for authors of YANG
+<t><xref target="sec-guidelines-to-model-writers"></xref> provides guidelines for authors of YANG
 data models.</t>
 
 <t>This document updates <xref target="RFC8407"/>.</t>
@@ -100,7 +100,7 @@ shown here.</t>
 <section title="Tag Values">
 <t>All tags SHOULD begin with a prefix indicating who owns their
 definition. An IANA registry is used to support standardizing tag
-prefixes <xref target="orge968085"></xref>. Currently 3 prefixes are
+prefixes <xref target="sec-yang-module-tag-prefixes-registry"></xref>. Currently 3 prefixes are
 defined with all others reserved. No further structure is imposed by
 this document on the value following the standard prefix, and the
 value can contain any yang type 'string' characters except
@@ -113,10 +113,10 @@ that designers, implementers and users can use. As a result of this
 choice, designers, implementers, and users are free to add or not
 add any structure they may require to their own tag values.</t>
 
-<section title="IETF Standard Tags" anchor="org9bb6bff">
+<section title="IETF Standard Tags" anchor="sec-ietf-standard-tags">
 <t>An IETF standard tag is a tag that has the prefix "ietf:". All IETF
 standard tags are registered with IANA in a registry defined later in
-this document <xref target="org05f778a"></xref>.</t>
+this document <xref target="sec-yang-module-tags-registry"></xref>.</t>
 
 </section>
 
@@ -157,7 +157,7 @@ module implementer. These design time tags are indicated using the
 module-tag extension statement.</t>
 
 <t>If the module definition is IETF standards track, the tags MUST also
-be <xref target="org9bb6bff"></xref>. Thus, new modules can drive the addition of
+be <xref target="sec-ietf-standard-tags"></xref>. Thus, new modules can drive the addition of
 new standard tags to the IANA registry, and the IANA registry can
 serve as a check against duplication.</t>
 
@@ -327,7 +327,7 @@ classification.</t>
 
 </section>
 
-<section title="Guidelines to Model Writers" anchor="orgb585c2a">
+<section title="Guidelines to Model Writers" anchor="sec-guidelines-to-model-writers">
 <t>This section updates <xref target="RFC8407"/>.</t>
 
 <section title="Define Standard Tags">
@@ -349,14 +349,14 @@ module example-module {
 <t>The module writer can use existing standard tags, or use new tags
 defined in the model definition, as appropriate. For standardized
 modules new tags MUST be assigned in the IANA registry defined below,
-see <xref target="org05f778a"></xref>.</t>
+see <xref target="sec-yang-module-tags-registry"></xref>.</t>
 
 </section>
 
 </section>
 
 <section title="IANA Considerations">
-<section title="YANG Module Tag Prefixes Registry" anchor="orge968085">
+<section title="YANG Module Tag Prefixes Registry" anchor="sec-yang-module-tag-prefixes-registry">
 <t>IANA is asked to create a new registry "YANG Module Tag Prefixes"
 grouped under a new "Protocol" category named "YANG Module Tags".</t>
 
@@ -383,7 +383,7 @@ set of tags should allocate a prefix from this registry.</t>
 
 </section>
 
-<section title="YANG Module Tags Registry" anchor="org05f778a">
+<section title="YANG Module Tags Registry" anchor="sec-yang-module-tags-registry">
 <t>IANA is asked to create a new registry "YANG Module Tags" grouped
 under a new "Protocol" category "YANG Module Tags". This registry
 should be included below "YANG Module Tag Prefixes" when listed on
