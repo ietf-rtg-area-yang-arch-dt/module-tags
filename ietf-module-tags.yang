@@ -10,7 +10,17 @@ module ietf-module-tags {
   organization
     "IETF NetMod Working Group (NetMod)";
   contact
-    "NetMod Working Group - <netmod@ietf.org>";
+    "WG Web:  <https://tools.ietf.org/wg/netmod/>
+     WG List: <mailto:netmod@ietf.org>
+
+     Author: Christian Hopps
+             <mailto:chopps@chopps.org>
+
+     Author: Lou Berger
+             <mailto:lberger@labn.net>
+
+     Author: Dean Bogdanovic
+             <ivandean@gmail.com>";
 
   // RFC Ed.: replace XXXX with actual RFC number and
   // remove this note.
@@ -43,7 +53,7 @@ module ietf-module-tags {
   // RFC Ed.: update the date below with the date of RFC publication
   // and RFC number and remove this note.
 
-  revision 2019-03-02 {
+  revision 2019-03-09 {
     description
       "Initial revision.";
     reference
@@ -53,12 +63,13 @@ module ietf-module-tags {
   typedef tag {
     type string {
       length "1..max";
-      pattern '[a-zA-Z_][a-zA-Z0-9\-_]*:[\S ]+';
+      pattern '[\S ]+';
     }
     description
-      "A tag value is composed of a standard prefix followed by any
-       type 'string' value that does not include carriage return,
-       newline or tab characters.";
+      "A tag is a type 'string' value that does not include carriage
+       return, newline or tab characters. It SHOULD begin with a
+       standard prefix; however, tags without a standard prefix
+       SHOULD NOT be treated as invalid.";
   }
 
   extension module-tag {
@@ -67,7 +78,8 @@ module ietf-module-tags {
       "The argument 'tag' is of type 'tag'. This extension statement
        is used by module authors to indicate the tags that SHOULD be
        added automatically by the system. As such the origin of the
-       value for the pre-defined tags should be set to 'system'.";
+       value for the pre-defined tags should be set to 'system'
+       [RFC8342].";
   }
 
   container module-tags {
