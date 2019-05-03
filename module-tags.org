@@ -114,11 +114,11 @@ that designers, implementers and users can use. As a result of this
 choice, designers, implementers, and users are free to add or not
 add any structure they may require to their own tag values.
 
-** IETF Standard Tags
+** IETF Tags
 
-An IETF standard tag is a tag that has the prefix "ietf:". All IETF
-standard tags are registered with IANA in a registry defined later in
-this document ([[YANG Module Tags Registry]]).
+An IETF tag is a tag that has the prefix "ietf:". All IETF tags are
+registered with IANA in a registry defined later in this document
+([[IETF YANG Module Tags Registry]]).
 
 ** Vendor Tags
 
@@ -157,15 +157,15 @@ module implementer. These design time tags are indicated using the
 module-tag extension statement.
 
 If the module is defined in an IETF standards track document, the
-tags MUST be [[IETF Standard Tags][IETF Standard Tags]]. Thus, new modules can drive the
-addition of new standard tags to the IANA registry defined in [[YANG
-Module Tags Registry]], and the IANA registry can serve as a check
-against duplication.
+tags MUST be [[IETF Tags][IETF Tags]]. Thus, new modules can drive the addition of
+new IETF tags to the IANA registry defined in [[IETF YANG Module Tags
+Registry]], and the IANA registry can serve as a check against
+duplication.
 
 ** Implementation Tagging
 
 An implementation MAY include additional tags associated with a
-module. These tags SHOULD be IETF Standard or vendor specific tags.
+module. These tags SHOULD be IETF or vendor specific tags.
 
 ** User Tagging
 
@@ -305,7 +305,7 @@ pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
             description
               "Tags associated with the module. See the IANA 'YANG Module
                Tag Prefixes' registry for reserved prefixes and the IANA
-               'YANG Module Tags' registry for IETF standard tags.
+               'IETF YANG Module Tags' registry for IETF tags.
 
                The 'operational' state [RFC8342] view of this list is
                constructed using the following steps:
@@ -338,7 +338,7 @@ logical manner and does not define tagging or any other mechanisms.
 It divides YANG modules into two categories (service or element) and
 then into one of three origins: standard, vendor or user. It does
 provide a good way to discuss and identify modules in general. This
-document defines standard tags to support [[RFC8199]] style
+document defines IETF tags to support [[RFC8199]] style
 classification.
 
 * Guidelines to Model Writers
@@ -363,9 +363,9 @@ added through configuration).
 #+end_src
 
 The module writer can use existing standard tags, or use new tags
-defined in the model definition, as appropriate. For standardized
-modules new tags MUST be assigned in the IANA registry defined below,
-see [[YANG Module Tags Registry]].
+defined in the model definition, as appropriate. For IETF
+standardized modules new tags MUST be assigned in the IANA registry
+defined below, see [[IETF YANG Module Tags Registry]].
 
 * IANA Considerations
 
@@ -385,11 +385,11 @@ The allocation policy for this registry is Specification Required
 
 The initial values for this registry are as follows.
 
-| Prefix  | Description                                                        |
-|---------+--------------------------------------------------------------------|
-| ietf:   | IETF Standard Tag allocated in the IANA YANG Module Tags registry. |
-| vendor: | Non-standardized tags allocated by the module implementer.         |
-| user:   | Non-standardized tags allocated by and for the user.               |
+| Prefix  | Description                                                    |
+|---------+----------------------------------------------------------------|
+| ietf:   | IETF Tag allocated in the IANA IETF YANG Module Tags registry. |
+| vendor: | Non-standardized tags allocated by the module implementer.     |
+| user:   | Non-standardized tags allocated by and for the user.           |
 
 Other standards organizations (SDOs) wishing to standardize their own
 set of tags should allocate a prefix from this registry.
@@ -403,7 +403,7 @@ the same page.
 
 This registry allocates tags that have the standard prefix
 "ietf:". New values should be well considered and not achievable
-through a combination of already existing standard tags.
+through a combination of already existing IETF tags.
 
 The allocation policy for this registry is IETF Review [[RFC8126]].
 
