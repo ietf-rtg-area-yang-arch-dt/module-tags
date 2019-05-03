@@ -381,15 +381,17 @@ Prefix entries in this registry should be short strings consisting of
 lowercase ASCII alpha-numeric characters and a final ":" character.
 
 The allocation policy for this registry is Specification Required
-[[RFC8126]].
+[[RFC8126]]. The Reference and Assignee values should be sufficient to
+identify and contact the organization that has been allocated the
+prefix.
 
 The initial values for this registry are as follows.
 
-| Prefix  | Description                                                    |
-|---------+----------------------------------------------------------------|
-| ietf:   | IETF Tag allocated in the IANA IETF YANG Module Tags registry. |
-| vendor: | Non-standardized tags allocated by the module implementer.     |
-| user:   | Non-standardized tags allocated by and for the user.           |
+| Prefix  | Description                                                     | Reference       | Assignee |
+|---------+-----------------------------------------------------------------+-----------------+----------|
+| ietf:   | IETF Tags allocated in the IANA IETF YANG Module Tags registry. | [This document] | IETF     |
+| vendor: | Non-standardized tags allocated by the module implementer.      | [This document] | IETF     |
+| user:   | Non-standardized tags allocated by and for the user.            | [This document] | IETF     |
 
 Other standards organizations (SDOs) wishing to standardize their own
 set of tags should allocate a prefix from this registry.
