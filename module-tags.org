@@ -8,7 +8,7 @@
 #+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
 #+RFC_NAME: draft-ietf-netmod-module-tags
 #+RFC_UPDATES: 8407
-#+RFC_VERSION: 07
+#+RFC_VERSION: 08
 #+RFC_XML_VERSION: 2
 
 # Do: title, table-of-contents ::fixed-width-sections |tables
@@ -394,14 +394,14 @@ The initial values for this registry are as follows.
 Other standards organizations (SDOs) wishing to standardize their own
 set of tags should allocate a prefix from this registry.
 
-** YANG Module Tags Registry
+** IETF YANG Module Tags Registry
 
-IANA is asked to create a new registry "YANG Module Tags" grouped
-under a new "Protocol" category "YANG Module Tags". This registry
+IANA is asked to create a new registry "IETF YANG Module Tags" grouped
+under a new "Protocol" category "IETF YANG Module Tags". This registry
 should be included below "YANG Module Tag Prefixes" when listed on
 the same page.
 
-This registry allocates prefixes that have the standard prefix
+This registry allocates tags that have the standard prefix
 "ietf:". New values should be well considered and not achievable
 through a combination of already existing standard tags.
 

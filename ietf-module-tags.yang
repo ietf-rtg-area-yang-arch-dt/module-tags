@@ -53,7 +53,7 @@ module ietf-module-tags {
   // RFC Ed.: update the date below with the date of RFC publication
   // and RFC number and remove this note.
 
-  revision 2019-03-09 {
+  revision 2019-05-03 {
     description
       "Initial revision.";
     reference
