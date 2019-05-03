@@ -21,7 +21,7 @@
 This document provides for the association of tags with YANG modules.
 The expectation is for such tags to be used to help classify and
 organize modules. A method for defining, reading and writing a
-modules tags is provided. Tags may be standardized and assigned
+modules tags is provided. Tags may be registered and assigned
 during module definition; assigned by implementations; or dynamically
 defined and set by users. This document also provides guidance to
 future model writers; as such, this document updates RFC8407.
@@ -34,10 +34,10 @@ ubiquitous not only within IETF protocols, but in the internet itself
 (e.g., =#hashtags=). One benefit of using tags for organization over
 a rigid structure is that it is more flexible and can more easily
 adapt over time as technologies evolve. Tags can be usefully
-standardized, but they can also serve as a non-standardized mechanism
+registered, but they can also serve as a non-registered mechanism
 available for users to define themselves. This document provides a
 mechanism to define tags and associate them with YANG modules in a
-flexible manner. In particular, tags may be standardized as well as
+flexible manner. In particular, tags may be registered as well as
 assigned during module definition; assigned by implementations; or
 dynamically defined and set by users.
 
@@ -101,9 +101,9 @@ shown here.
 
 All tags SHOULD begin with a prefix indicating who owns their
 definition. An IANA registry ([[YANG Module Tag Prefixes Registry]]) is
-used to support standardizing tag prefixes. Currently 3 prefixes
+used to support registering tag prefixes. Currently 3 prefixes
 are defined. No further structure is imposed by this document on the
-value following the standard prefix, and the value can contain any
+value following the registered prefix, and the value can contain any
 YANG type 'string' characters except carriage-returns, newlines and
 tabs.
 
@@ -124,7 +124,7 @@ registered with IANA in a registry defined later in this document
 
 A vendor tag is a tag that has the prefix "vendor:". These tags are
 defined by the vendor that implements the module, and are not
-standardized; however, it is RECOMMENDED that the vendor include
+registered; however, it is RECOMMENDED that the vendor include
 extra identification in the tag to avoid collisions such as using the
 enterpise or organization name following the "vendor:" prefix (e.g.,
 vendor:example.com:vendor-defined-classifier).
@@ -132,15 +132,15 @@ vendor:example.com:vendor-defined-classifier).
 ** User Tags
 
 A user tag is any tag that has the prefix "user:". These tags are
-defined by the user/administrator and will never be standardized.
+defined by the user/administrator and are not meant to be registered.
 Users are not required to use the "user:" prefix; however, doing so
 is RECOMMENDED as it helps avoid collisions.
 
 ** Reserved Tags
 
 Any tag not starting with the prefix "ietf:", "vendor:" or "user:" is
-reserved for future standardization. These tag values are not invalid,
-but simply reserved in the context of standardization.
+reserved for future use. These tag values are not invalid, but simply
+reserved in the context of specifications (e.g., RFCs).
 
 * Tag Management
 
@@ -165,7 +165,8 @@ duplication.
 ** Implementation Tagging
 
 An implementation MAY include additional tags associated with a
-module. These tags SHOULD be IETF or vendor specific tags.
+module. These tags SHOULD be IETF Tags (i.e., registered) or vendor
+specific tags.
 
 ** User Tagging
 
@@ -273,7 +274,7 @@ pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
         description
           "A tag is a type 'string' value that does not include carriage
            return, newline or tab characters. It SHOULD begin with a
-           standard prefix; however, tags without a standard prefix
+           registered prefix; however, tags without a registered prefix
            SHOULD NOT be treated as invalid.";
       }
 
@@ -390,10 +391,10 @@ The initial values for this registry are as follows.
 | Prefix  | Description                                                     | Reference       | Assignee |
 |---------+-----------------------------------------------------------------+-----------------+----------|
 | ietf:   | IETF Tags allocated in the IANA IETF YANG Module Tags registry. | [This document] | IETF     |
-| vendor: | Non-standardized tags allocated by the module implementer.      | [This document] | IETF     |
-| user:   | Non-standardized tags allocated by and for the user.            | [This document] | IETF     |
+| vendor: | Non-registered tags allocated by the module implementer.        | [This document] | IETF     |
+| user:   | Non-registered tags allocated by and for the user.              | [This document] | IETF     |
 
-Other standards organizations (SDOs) wishing to standardize their own
+Other standards organizations (SDOs) wishing to allocate their own
 set of tags should allocate a prefix from this registry.
 
 ** IETF YANG Module Tags Registry
@@ -403,7 +404,7 @@ under a new "Protocol" category "IETF YANG Module Tags". This registry
 should be included below "YANG Module Tag Prefixes" when listed on
 the same page.
 
-This registry allocates tags that have the standard prefix
+This registry allocates tags that have the registered prefix
 "ietf:". New values should be well considered and not achievable
 through a combination of already existing IETF tags.
 

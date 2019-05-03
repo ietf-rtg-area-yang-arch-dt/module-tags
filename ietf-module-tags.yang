@@ -68,7 +68,7 @@ module ietf-module-tags {
     description
       "A tag is a type 'string' value that does not include carriage
        return, newline or tab characters. It SHOULD begin with a
-       standard prefix; however, tags without a standard prefix
+       registered prefix; however, tags without a registered prefix
        SHOULD NOT be treated as invalid.";
   }
 
@@ -100,7 +100,7 @@ module ietf-module-tags {
         description
           "Tags associated with the module. See the IANA 'YANG Module
            Tag Prefixes' registry for reserved prefixes and the IANA
-           'YANG Module Tags' registry for IETF standard tags.
+           'IETF YANG Module Tags' registry for IETF tags.
 
            The 'operational' state [RFC8342] view of this list is
            constructed using the following steps:
