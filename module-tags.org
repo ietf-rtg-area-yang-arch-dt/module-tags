@@ -483,9 +483,9 @@ security implications of any actions they choose to define.
 
 * Examples
 
-The following is a fictional example result from a query of the
-module tags list. For the sake of brevity only a few module results
-are imagined.
+The following is a fictional NETCONF example result from a query of
+the module tags list. For the sake of brevity only a few module
+results are imagined.
 
 #+NAME: validate-xml-example
 #+HEADER: :var vfile=xml-example :var module=ietf-module-tags
@@ -501,7 +501,7 @@ FAIL
 
 #+NAME: xml-example
 #+begin_src xml :file tests/test-xml-example.xml :results output code silent :exports code
-  <ns0:config xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ns0:data xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
     <t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags">
       <t:module>
         <t:name>ietf-bfd</t:name>
@@ -525,7 +525,7 @@ FAIL
         <t:tag>ietf:system-management</t:tag>
       </t:module>
     </t:module-tags>
-  </ns0:config>
+  </ns0:data>
 #+end_src
 
 * Acknowledgements
