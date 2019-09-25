@@ -188,7 +188,7 @@ matching <spanx style='verb'>masked-tag</spanx> entry for a given module.</t>
 <t>The tree associated with the "ietf-module-tags" module follows. The
 meaning of the symbols can be found in <xref target="RFC8340"/>.</t>
 
-<figure><artwork><![CDATA[
+<figure title="YANG Module Tags Tree Diagram" anchor="sec-yang-module-tags-tree-diagram"><artwork><![CDATA[
     module: ietf-module-tags
       +--rw module-tags
          +--rw module* [name]
@@ -660,7 +660,7 @@ security implications of any actions they choose to define.</t>
 the module tags list. For the sake of brevity only a few module
 results are imagined.</t>
 
-<figure><artwork><![CDATA[
+<figure title="Example NETCONF Query Output" anchor="sec-example-netconf-query-output"><artwork><![CDATA[
 <ns0:data xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
   <t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags">
     <t:module>

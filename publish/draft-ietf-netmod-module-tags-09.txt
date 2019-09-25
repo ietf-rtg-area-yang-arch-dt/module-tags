@@ -296,6 +296,8 @@ Internet-Draft              YANG Module Tags              September 2019
                +--rw tag*          tag
                +--rw masked-tag*   tag
 
+                  Figure 1: YANG Module Tags Tree Diagram
+
 4.2.  YANG Module
 
    <CODE BEGINS> file "ietf-module-tags@2019-09-25.yang"
@@ -328,8 +330,6 @@ Internet-Draft              YANG Module Tags              September 2019
 
      description
        "This module describes a mechanism associating tags with YANG
-        modules. Tags may be IANA assigned or privately defined.
-
 
 
 
@@ -337,6 +337,8 @@ Hopps, et al.            Expires March 28, 2020                 [Page 6]
 
 Internet-Draft              YANG Module Tags              September 2019
 
+
+        modules. Tags may be IANA assigned or privately defined.
 
         Copyright (c) 2018 IETF Trust and the persons identified as
         authors of the code. All rights reserved.
@@ -384,8 +386,6 @@ Internet-Draft              YANG Module Tags              September 2019
        argument tag;
        description
          "The argument 'tag' is of type 'tag'. This extension statement
-          is used by module authors to indicate the tags that SHOULD be
-          added automatically by the system. As such the origin of the
 
 
 
@@ -394,6 +394,8 @@ Hopps, et al.            Expires March 28, 2020                 [Page 7]
 Internet-Draft              YANG Module Tags              September 2019
 
 
+          is used by module authors to indicate the tags that SHOULD be
+          added automatically by the system. As such the origin of the
           value for the pre-defined tags should be set to 'system'
           [RFC8342].";
      }
@@ -441,14 +443,14 @@ Internet-Draft              YANG Module Tags              September 2019
    }
    <CODE ENDS>
 
-                       Figure 1: Module Tags Module
-
 
 
 Hopps, et al.            Expires March 28, 2020                 [Page 8]
 
 Internet-Draft              YANG Module Tags              September 2019
 
+
+                       Figure 2: Module Tags Module
 
 5.  Other Classifications
 
@@ -496,8 +498,6 @@ Internet-Draft              YANG Module Tags              September 2019
 
    Prefix entries in this registry should be short strings consisting of
    lowercase ASCII alpha-numeric characters and a final ":" character.
-
-
 
 
 
@@ -812,6 +812,8 @@ Internet-Draft              YANG Module Tags              September 2019
   </t:module-tags>
 </ns0:data>
 
+                  Figure 3: Example NETCONF Query Output
+
 Appendix B.  Acknowledgements
 
    Special thanks to Robert Wilton for his help improving the
@@ -832,8 +834,6 @@ Appendix C.  Non-NMDA State Module.
      import ietf-yang-types {
        prefix yang;
      }
-     import ietf-module-tags {
-       prefix tags;
 
 
 
@@ -842,6 +842,8 @@ Hopps, et al.            Expires March 28, 2020                [Page 15]
 Internet-Draft              YANG Module Tags              September 2019
 
 
+     import ietf-module-tags {
+       prefix tags;
      }
 
      organization
@@ -888,8 +890,6 @@ Internet-Draft              YANG Module Tags              September 2019
 
         This version of this YANG module is part of RFC XXXX
         (https://tools.ietf.org/html/rfcXXXX); see the RFC itself for
-        full legal notices.";
-
 
 
 
@@ -897,6 +897,8 @@ Hopps, et al.            Expires March 28, 2020                [Page 16]
 
 Internet-Draft              YANG Module Tags              September 2019
 
+
+        full legal notices.";
 
      // RFC Ed.: update the date below with the date of RFC publication
      // and RFC number and remove this note.
@@ -944,8 +946,6 @@ Internet-Draft              YANG Module Tags              September 2019
              "The list of tags that should not be associated with this
               module. The user can remove (mask) tags from the preceding
               'tag' list by adding them to this list (using the main
-              'ietf-module-tags' module). It is not an for tags to be
-              present in this list that are not associated with the
 
 
 
@@ -954,6 +954,8 @@ Hopps, et al.            Expires March 28, 2020                [Page 17]
 Internet-Draft              YANG Module Tags              September 2019
 
 
+              'ietf-module-tags' module). It is not an for tags to be
+              present in this list that are not associated with the
               module, they simply have no operational effect.";
          }
        }
@@ -961,7 +963,7 @@ Internet-Draft              YANG Module Tags              September 2019
    }
    <CODE ENDS>
 
-                Figure 2: Non-NMDA Module Tags State Module
+                Figure 4: Non-NMDA Module Tags State Module
 
 Authors' Addresses
 
@@ -981,8 +983,6 @@ Authors' Addresses
    Volta Networks
 
    Email: ivandean@gmail.com
-
-
 
 
 
