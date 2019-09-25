@@ -8,7 +8,7 @@
 #+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
 #+RFC_NAME: draft-ietf-netmod-module-tags
 #+RFC_UPDATES: 8407
-#+RFC_VERSION: 08
+#+RFC_VERSION: 09
 #+RFC_XML_VERSION: 2
 
 # Do: title, table-of-contents ::fixed-width-sections |tables
@@ -534,4 +534,126 @@ FAIL
 * Acknowledgements
 
    Special thanks to Robert Wilton for his help improving the
-   introduction and providing the example use cases.
+   introduction and providing the example use cases, as well as
+   generating the non-NMDA module.
+
+*  Non-NMDA State Module.
+  As per [[RFC8407]] the following is a non-NMDA module to support
+  viewing the operational state for non-NMDA compliant servers.
+
+#+CAPTION: Non-NMDA Module Tags State Module
+#+NAME: ietf-module-tags
+#+header: :results output code silent
+#+begin_src yang :exports code :file ietf-module-tags.yang
+  module ietf-module-tags-state {
+    yang-version 1.1;
+    namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags-state";
+    prefix tags-s;
+
+    import ietf-yang-types {
+      prefix yang;
+    }
+    import ietf-module-tags {
+      prefix tags;
+    }
+
+    organization
+      "IETF NetMod Working Group (NetMod)";
+    contact
+      "WG Web:  <https://tools.ietf.org/wg/netmod/>
+       WG List: <mailto:netmod@ietf.org>
+
+       Author: Christian Hopps
+               <mailto:chopps@chopps.org>
+
+       Author: Lou Berger
+               <mailto:lberger@labn.net>
+
+       Author: Dean Bogdanovic
+               <ivandean@gmail.com>";
+
+    // RFC Ed.: replace XXXX with actual RFC number and
+    // remove this note.
+
+    description
+      "This module describes a mechanism associating tags with YANG
+       modules. Tags may be IANA assigned or privately defined.
+
+       This is a temporary non-NMDA module that is for use by
+       implementations that don't yet support NMDA.
+
+       Copyright (c) 2018 IETF Trust and the persons identified as
+       authors of the code. All rights reserved.
+
+       Redistribution and use in source and binary forms, with or
+       without modification, is permitted pursuant to, and subject to
+       the license terms contained in, the Simplified BSD License set
+       forth in Section 4.c of the IETF Trust's Legal Provisions
+       Relating to IETF Documents
+       (https://trustee.ietf.org/license-info).
+
+       The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+       NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+       'MAY', and 'OPTIONAL' in this document are to be interpreted as
+       described in BCP 14 [RFC2119] [RFC8174] when, and only when,
+       they appear in all capitals, as shown here.
+
+
+       This version of this YANG module is part of RFC XXXX
+       (https://tools.ietf.org/html/rfcXXXX); see the RFC itself for
+       full legal notices.";
+
+    // RFC Ed.: update the date below with the date of RFC publication
+    // and RFC number and remove this note.
+
+    revision 1900-01-01 {
+      description
+        "Initial revision.";
+      reference
+        "RFC XXXX: YANG Module Tags";
+    }
+
+    container module-tags-state {
+      config false;
+      status deprecated;
+      description
+        "Contains the list of modules and their associated tags";
+      list module {
+        key "name";
+        description
+          "A list of modules and their associated tags";
+        leaf name {
+          type yang:yang-identifier;
+          mandatory true;
+          description
+            "The YANG module name.";
+        }
+        leaf-list tag {
+          type tags:tag;
+          description
+            "Tags associated with the module. See the IANA 'YANG Module
+             Tag Prefixes' registry for reserved prefixes and the IANA
+             'IETF YANG Module Tags' registry for IETF tags.
+
+             The contents of this list is constructed using the
+             following steps:
+
+             1) System tags (i.e., tags of 'system' origin) are added.
+             2) User configured tags (i.e., tags of 'intended' origin)
+             are added.
+             3) Any tag that is equal to a masked-tag is removed.";
+        }
+        leaf-list masked-tag {
+          type tags:tag;
+          description
+            "The list of tags that should not be associated with this
+             module. The user can remove (mask) tags from the preceding
+             'tag' list by adding them to this list (using the main
+             'ietf-module-tags' module). It is not an for tags to be
+             present in this list that are not associated with the
+             module, they simply have no operational effect.";
+        }
+      }
+    }
+  }
+#+end_src
