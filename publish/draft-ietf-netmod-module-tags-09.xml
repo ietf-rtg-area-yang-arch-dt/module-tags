@@ -201,7 +201,7 @@ meaning of the symbols can be found in <xref target="RFC8340"/>.</t>
 
 <section title="YANG Module">
 <figure title="Module Tags Module" anchor="sec-module-tags-module"><artwork><![CDATA[
-<CODE BEGINS> file "ietf-module-tags@2019-08-30.yang"
+<CODE BEGINS> file "ietf-module-tags@2019-09-25.yang"
 module ietf-module-tags {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -257,7 +257,7 @@ module ietf-module-tags {
   // RFC Ed.: update the date below with the date of RFC publication
   // and RFC number and remove this note.
 
-  revision 2019-08-30 {
+  revision 2019-09-25 {
     description
       "Initial revision.";
     reference "RFC XXXX: YANG Module Tags";
@@ -702,7 +702,7 @@ generating the non-NMDA module.</t>
 viewing the operational state for non-NMDA compliant servers.</t>
 
 <figure title="Non-NMDA Module Tags State Module" anchor="sec-non-nmda-module-tags-state-module"><artwork><![CDATA[
-<CODE BEGINS> file "ietf-module-tags-state@2019-08-30.yang"
+<CODE BEGINS> file "ietf-module-tags-state@2019-09-25.yang"
 module ietf-module-tags-state {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags-state";
@@ -764,7 +764,7 @@ module ietf-module-tags-state {
   // RFC Ed.: update the date below with the date of RFC publication
   // and RFC number and remove this note.
 
-  revision 2019-08-30 {
+  revision 2019-09-25 {
     description
       "Initial revision.";
     reference

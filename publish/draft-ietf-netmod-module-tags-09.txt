@@ -6,9 +6,9 @@ Network Working Group                                           C. Hopps
 Internet-Draft                                   LabN Consulting, L.L.C.
 Updates: 8407 (if approved)                                    L. Berger
 Intended status: Standards Track                   LabN Consulting, LLC.
-Expires: March 2, 2020                                     D. Bogdanovic
+Expires: March 28, 2020                                    D. Bogdanovic
                                                           Volta Networks
-                                                         August 30, 2019
+                                                      September 25, 2019
 
 
                             YANG Module Tags
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 2, 2020.
+   This Internet-Draft will expire on March 28, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Hopps, et al.             Expires March 2, 2020                 [Page 1]
+Hopps, et al.            Expires March 28, 2020                 [Page 1]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
    carefully, as they describe your rights and restrictions with respect
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Hopps, et al.             Expires March 2, 2020                 [Page 2]
+Hopps, et al.            Expires March 28, 2020                 [Page 2]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
    available for users to define themselves.  This document provides a
@@ -165,9 +165,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                 [Page 3]
+Hopps, et al.            Expires March 28, 2020                 [Page 3]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
    Future management protocol extensions could allow for filtering
@@ -221,9 +221,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                 [Page 4]
+Hopps, et al.            Expires March 28, 2020                 [Page 4]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
 2.3.  User Tags
@@ -277,9 +277,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                 [Page 5]
+Hopps, et al.            Expires March 28, 2020                 [Page 5]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
 4.  Tags Module Structure
@@ -298,7 +298,7 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 4.2.  YANG Module
 
-   <CODE BEGINS> file "ietf-module-tags@2019-08-30.yang"
+   <CODE BEGINS> file "ietf-module-tags@2019-09-25.yang"
    module ietf-module-tags {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
@@ -333,9 +333,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                 [Page 6]
+Hopps, et al.            Expires March 28, 2020                 [Page 6]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
         Copyright (c) 2018 IETF Trust and the persons identified as
@@ -362,7 +362,7 @@ Internet-Draft              YANG Module Tags                 August 2019
      // RFC Ed.: update the date below with the date of RFC publication
      // and RFC number and remove this note.
 
-     revision 2019-08-30 {
+     revision 2019-09-25 {
        description
          "Initial revision.";
        reference "RFC XXXX: YANG Module Tags";
@@ -389,9 +389,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                 [Page 7]
+Hopps, et al.            Expires March 28, 2020                 [Page 7]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
           value for the pre-defined tags should be set to 'system'
@@ -445,9 +445,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                 [Page 8]
+Hopps, et al.            Expires March 28, 2020                 [Page 8]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
 5.  Other Classifications
@@ -501,9 +501,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                 [Page 9]
+Hopps, et al.            Expires March 28, 2020                 [Page 9]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
    The allocation policy for this registry is Specification Required
@@ -557,9 +557,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                [Page 10]
+Hopps, et al.            Expires March 28, 2020                [Page 10]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
    |                            | standards organization.  |           |
@@ -613,9 +613,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                [Page 11]
+Hopps, et al.            Expires March 28, 2020                [Page 11]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
    |                            | management.              | document] |
@@ -669,9 +669,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                [Page 12]
+Hopps, et al.            Expires March 28, 2020                [Page 12]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
    Users of the tag-meta data may define various actions to be taken
@@ -725,9 +725,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                [Page 13]
+Hopps, et al.            Expires March 28, 2020                [Page 13]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
@@ -781,9 +781,9 @@ Appendix A.  Examples
 
 
 
-Hopps, et al.             Expires March 2, 2020                [Page 14]
+Hopps, et al.            Expires March 28, 2020                [Page 14]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
 <ns0:data xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
@@ -823,7 +823,7 @@ Appendix C.  Non-NMDA State Module.
    As per [RFC8407] the following is a non-NMDA module to support
    viewing the operational state for non-NMDA compliant servers.
 
-   <CODE BEGINS> file "ietf-module-tags-state@2019-08-30.yang"
+   <CODE BEGINS> file "ietf-module-tags-state@2019-09-25.yang"
    module ietf-module-tags-state {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags-state";
@@ -837,9 +837,9 @@ Appendix C.  Non-NMDA State Module.
 
 
 
-Hopps, et al.             Expires March 2, 2020                [Page 15]
+Hopps, et al.            Expires March 28, 2020                [Page 15]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
      }
@@ -893,15 +893,15 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                [Page 16]
+Hopps, et al.            Expires March 28, 2020                [Page 16]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
      // RFC Ed.: update the date below with the date of RFC publication
      // and RFC number and remove this note.
 
-     revision 2019-08-30 {
+     revision 2019-09-25 {
        description
          "Initial revision.";
        reference
@@ -949,9 +949,9 @@ Internet-Draft              YANG Module Tags                 August 2019
 
 
 
-Hopps, et al.             Expires March 2, 2020                [Page 17]
+Hopps, et al.            Expires March 28, 2020                [Page 17]
 
-Internet-Draft              YANG Module Tags                 August 2019
+Internet-Draft              YANG Module Tags              September 2019
 
 
               module, they simply have no operational effect.";
@@ -1005,4 +1005,4 @@ Authors' Addresses
 
 
 
-Hopps, et al.             Expires March 2, 2020                [Page 18]
+Hopps, et al.            Expires March 28, 2020                [Page 18]
