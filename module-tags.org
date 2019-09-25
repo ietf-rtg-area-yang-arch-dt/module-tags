@@ -8,7 +8,7 @@
 #+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
 #+RFC_NAME: draft-ietf-netmod-module-tags
 #+RFC_UPDATES: 8407
-#+RFC_VERSION: 09
+#+RFC_VERSION: 10
 #+RFC_XML_VERSION: 2
 
 # Do: title, table-of-contents ::fixed-width-sections |tables
@@ -200,13 +200,13 @@ pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
 
 ** YANG Module
 
-#+NAME: validate-module
+#+NAME: test-validate-module
 #+HEADER: :var module=ietf-module-tags
 #+begin_src bash :results output verbatim replace :wrap example :exports none
 pyang --ietf $module 2>&1
 #+end_src
 
-#+RESULTS: validate-module
+#+RESULTS: test-validate-module
 #+begin_example
 #+end_example
 
@@ -509,13 +509,14 @@ The following is a fictional NETCONF example result from a query of
 the module tags list. For the sake of brevity only a few module
 results are imagined.
 
-#+NAME: validate-xml-example
+#+NAME: test-validate-xml-example
 #+HEADER: :var vfile=xml-example :var module=ietf-module-tags
 #+begin_src bash :results output verbatim replace :wrap example :exports none
-    if ! yang2dsdl -x -t data -d .validate -v ${vfile} $module > /dev/null 2>&1; then echo FAIL; else echo OK; fi
+  mkdir -p .validate
+  if ! yang2dsdl -x -t data -d .validate -v ${vfile} $module > /dev/null 2>&1; then echo FAIL; else echo OK; fi
 #+end_src
 
-#+RESULTS: validate-xml-example
+#+RESULTS: test-validate-xml-example
 #+begin_example
 #+end_example
 
@@ -559,13 +560,13 @@ results are imagined.
   As per [[RFC8407]] the following is a non-NMDA module to support
   viewing the operational state for non-NMDA compliant servers.
 
-#+NAME: validate-state-module
+#+NAME: test-validate-state-module
 #+HEADER: :var module=ietf-module-tags-state
 #+begin_src bash :results output verbatim replace :wrap example :exports none
   pyang --ietf $module 2>&1
 #+end_src
 
-#+RESULTS: validate-state-module
+#+RESULTS: test-validate-state-module
 #+begin_example
 #+end_example
 

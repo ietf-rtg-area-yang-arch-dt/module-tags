@@ -1,6 +1,7 @@
 *.tex
 *.yang
 *.xml
+.validate/
 auto/
 build/
 idnits
