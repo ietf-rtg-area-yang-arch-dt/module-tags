@@ -1,5 +1,6 @@
 *.tex
 *.yang
+*.xml
 auto/
 build/
 idnits
