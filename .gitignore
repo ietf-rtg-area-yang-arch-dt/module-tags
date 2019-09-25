@@ -1,9 +1,8 @@
-*.html
-*.prev
-*.next
-*.pdf
 *.tex
+*.yang
 auto/
 build/
 idnits
+publish/*-latest.*
+tests/*
 ox-rfc.el
