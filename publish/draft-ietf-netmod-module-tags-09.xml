@@ -233,8 +233,8 @@ module ietf-module-tags {
     "This module describes a mechanism associating tags with YANG
      modules. Tags may be IANA assigned or privately defined.
 
-     Copyright (c) 2018 IETF Trust and the persons identified as
-     authors of the code. All rights reserved.
+     Copyright (c) 2019 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject to
@@ -243,16 +243,15 @@ module ietf-module-tags {
      Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
+     This version of this YANG module is part of RFC XXXX
+     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+     for full legal notices.
+
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
      NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
      'MAY', and 'OPTIONAL' in this document are to be interpreted as
-     described in BCP 14 [RFC2119] [RFC8174] when, and only when,
-     they appear in all capitals, as shown here.
-
-
-     This version of this YANG module is part of RFC XXXX
-     (https://tools.ietf.org/html/rfcXXXX); see the RFC itself for
-     full legal notices.";
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
 
   // RFC Ed.: update the date below with the date of RFC publication
   // and RFC number and remove this note.
@@ -441,11 +440,15 @@ through a combination of already existing IETF tags.</t>
 
 <section title="Updates to the IETF XML Registry">
 <t>This document registers a URI in the "IETF XML Registry" <xref target="RFC3688"/>.
-Following the format in <xref target="RFC3688"/>, the following registration has been
+Following the format in <xref target="RFC3688"/>, the following registrations have been
 made:</t>
 
 <t><list style="hanging">
 <t hangText="URI:"><vspace/>urn:ietf:params:xml:ns:yang:ietf-module-tags</t>
+<t hangText="Registrant Contact:"><vspace/>The IESG.</t>
+<t hangText="XML:"><vspace/>N/A; the requested URI is an XML namespace.</t>
+
+<t hangText="URI:"><vspace/>urn:ietf:params:xml:ns:yang:ietf-module-tags-state</t>
 <t hangText="Registrant Contact:"><vspace/>The IESG.</t>
 <t hangText="XML:"><vspace/>N/A; the requested URI is an XML namespace.</t>
 </list></t>
@@ -453,13 +456,18 @@ made:</t>
 </section>
 
 <section title="Updates to the YANG Module Names Registry">
-<t>This document registers one YANG module in the "YANG Module Names"
+<t>This document registers two YANG modules in the "YANG Module Names"
 registry <xref target="RFC6020"/>. Following the format in <xref target="RFC6020"/>, the following
-registration has been made:</t>
+registration have been made:</t>
 
 <t><list style="hanging">
 <t hangText="name:"><vspace/>ietf-module-tags</t>
 <t hangText="namespace:"><vspace/>urn:ietf:params:xml:ns:yang:ietf-module-tags</t>
+<t hangText="prefix:"><vspace/>tags</t>
+<t hangText="reference:"><vspace/>RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove this note.)</t>
+
+<t hangText="name:"><vspace/>ietf-module-tags-state</t>
+<t hangText="namespace:"><vspace/>urn:ietf:params:xml:ns:yang:ietf-module-tags-state</t>
 <t hangText="prefix:"><vspace/>tags</t>
 <t hangText="reference:"><vspace/>RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove this note.)</t>
 </list></t>
@@ -740,8 +748,8 @@ module ietf-module-tags-state {
      This is a temporary non-NMDA module that is for use by
      implementations that don't yet support NMDA.
 
-     Copyright (c) 2018 IETF Trust and the persons identified as
-     authors of the code. All rights reserved.
+     Copyright (c) 2019 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject to
@@ -750,16 +758,15 @@ module ietf-module-tags-state {
      Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
+     This version of this YANG module is part of RFC XXXX
+     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+     for full legal notices.
+
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
      NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
      'MAY', and 'OPTIONAL' in this document are to be interpreted as
-     described in BCP 14 [RFC2119] [RFC8174] when, and only when,
-     they appear in all capitals, as shown here.
-
-
-     This version of this YANG module is part of RFC XXXX
-     (https://tools.ietf.org/html/rfcXXXX); see the RFC itself for
-     full legal notices.";
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
 
   // RFC Ed.: update the date below with the date of RFC publication
   // and RFC number and remove this note.
@@ -778,16 +785,19 @@ module ietf-module-tags-state {
       "Contains the list of modules and their associated tags";
     list module {
       key "name";
+      status deprecated;
       description
 	"A list of modules and their associated tags";
       leaf name {
 	type yang:yang-identifier;
 	mandatory true;
+	status deprecated;
 	description
 	  "The YANG module name.";
       }
       leaf-list tag {
 	type tags:tag;
+	status deprecated;
 	description
 	  "Tags associated with the module. See the IANA 'YANG Module
 	   Tag Prefixes' registry for reserved prefixes and the IANA
@@ -796,20 +806,12 @@ module ietf-module-tags-state {
 	   The contents of this list is constructed using the
 	   following steps:
 
-	   1) System tags (i.e., tags of 'system' origin) are added.
-	   2) User configured tags (i.e., tags of 'intended' origin)
+	   1) System tags (i.e., tags of added by the system) are added.
+	   2) User configured tags (i.e., tags added by configuration)
 	   are added.
-	   3) Any tag that is equal to a masked-tag is removed.";
-      }
-      leaf-list masked-tag {
-	type tags:tag;
-	description
-	  "The list of tags that should not be associated with this
-	   module. The user can remove (mask) tags from the preceding
-	   'tag' list by adding them to this list (using the main
-	   'ietf-module-tags' module). It is not an for tags to be
-	   present in this list that are not associated with the
-	   module, they simply have no operational effect.";
+	   3) Any tag that is equal to a masked-tag present in the
+	   corresponding ietf-module-tags:module-tags:module-tag leaf
+	   list for this module is removed.";
       }
     }
   }

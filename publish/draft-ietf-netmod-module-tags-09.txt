@@ -89,10 +89,10 @@ Table of Contents
      7.2.  IETF YANG Module Tags Registry  . . . . . . . . . . . . .  10
      7.3.  Updates to the IETF XML Registry  . . . . . . . . . . . .  12
      7.4.  Updates to the YANG Module Names Registry . . . . . . . .  12
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  13
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  14
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  14
    Appendix B.  Acknowledgements . . . . . . . . . . . . . . . . . .  15
    Appendix C.  Non-NMDA State Module. . . . . . . . . . . . . . . .  15
@@ -340,8 +340,8 @@ Internet-Draft              YANG Module Tags              September 2019
 
         modules. Tags may be IANA assigned or privately defined.
 
-        Copyright (c) 2018 IETF Trust and the persons identified as
-        authors of the code. All rights reserved.
+        Copyright (c) 2019 IETF Trust and the persons identified as
+        authors of the code.  All rights reserved.
 
         Redistribution and use in source and binary forms, with or
         without modification, is permitted pursuant to, and subject to
@@ -350,16 +350,15 @@ Internet-Draft              YANG Module Tags              September 2019
         Relating to IETF Documents
         (https://trustee.ietf.org/license-info).
 
+        This version of this YANG module is part of RFC XXXX
+        (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+        for full legal notices.
+
         The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
         NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
         'MAY', and 'OPTIONAL' in this document are to be interpreted as
-        described in BCP 14 [RFC2119] [RFC8174] when, and only when,
-        they appear in all capitals, as shown here.
-
-
-        This version of this YANG module is part of RFC XXXX
-        (https://tools.ietf.org/html/rfcXXXX); see the RFC itself for
-        full legal notices.";
+        described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+        they appear in all capitals, as shown here.";
 
      // RFC Ed.: update the date below with the date of RFC publication
      // and RFC number and remove this note.
@@ -386,6 +385,7 @@ Internet-Draft              YANG Module Tags              September 2019
        argument tag;
        description
          "The argument 'tag' is of type 'tag'. This extension statement
+          is used by module authors to indicate the tags that SHOULD be
 
 
 
@@ -394,7 +394,6 @@ Hopps, et al.            Expires March 28, 2020                 [Page 7]
 Internet-Draft              YANG Module Tags              September 2019
 
 
-          is used by module authors to indicate the tags that SHOULD be
           added automatically by the system. As such the origin of the
           value for the pre-defined tags should be set to 'system'
           [RFC8342].";
@@ -442,6 +441,7 @@ Internet-Draft              YANG Module Tags              September 2019
      }
    }
    <CODE ENDS>
+
 
 
 
@@ -624,7 +624,7 @@ Internet-Draft              YANG Module Tags              September 2019
 7.3.  Updates to the IETF XML Registry
 
    This document registers a URI in the "IETF XML Registry" [RFC3688].
-   Following the format in [RFC3688], the following registration has
+   Following the format in [RFC3688], the following registrations have
    been made:
 
    URI:
@@ -636,17 +636,46 @@ Internet-Draft              YANG Module Tags              September 2019
    XML:
       N/A; the requested URI is an XML namespace.
 
+   URI:
+      urn:ietf:params:xml:ns:yang:ietf-module-tags-state
+
+   Registrant Contact:
+      The IESG.
+
+   XML:
+      N/A; the requested URI is an XML namespace.
+
 7.4.  Updates to the YANG Module Names Registry
 
-   This document registers one YANG module in the "YANG Module Names"
+   This document registers two YANG modules in the "YANG Module Names"
    registry [RFC6020].  Following the format in [RFC6020], the following
-   registration has been made:
+   registration have been made:
 
    name:
       ietf-module-tags
 
    namespace:
       urn:ietf:params:xml:ns:yang:ietf-module-tags
+
+   prefix:
+      tags
+
+   reference:
+      RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
+      this note.)
+
+   name:
+      ietf-module-tags-state
+
+
+
+Hopps, et al.            Expires March 28, 2020                [Page 12]
+
+Internet-Draft              YANG Module Tags              September 2019
+
+
+   namespace:
+      urn:ietf:params:xml:ns:yang:ietf-module-tags-state
 
    prefix:
       tags
@@ -666,13 +695,6 @@ Internet-Draft              YANG Module Tags              September 2019
    modules.  This document does not define any actions based on these
    associations, and none are yet defined, and therefore it does not by
    itself introduce any new security considerations.
-
-
-
-Hopps, et al.            Expires March 28, 2020                [Page 12]
-
-Internet-Draft              YANG Module Tags              September 2019
-
 
    Users of the tag-meta data may define various actions to be taken
    based on the tag meta-data.  These actions and their definitions are
@@ -701,6 +723,13 @@ Internet-Draft              YANG Module Tags              September 2019
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+
+
+Hopps, et al.            Expires March 28, 2020                [Page 13]
+
+Internet-Draft              YANG Module Tags              September 2019
+
+
    [RFC8199]  Bogdanovic, D., Claise, B., and C. Moberg, "YANG Module
               Classification", RFC 8199, DOI 10.17487/RFC8199, July
               2017, <https://www.rfc-editor.org/info/rfc8199>.
@@ -720,15 +749,6 @@ Internet-Draft              YANG Module Tags              September 2019
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
               <https://www.rfc-editor.org/info/rfc3688>.
-
-
-
-
-
-Hopps, et al.            Expires March 28, 2020                [Page 13]
-
-Internet-Draft              YANG Module Tags              September 2019
-
 
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
@@ -753,26 +773,6 @@ Appendix A.  Examples
    The following is a fictional NETCONF example result from a query of
    the module tags list.  For the sake of brevity only a few module
    results are imagined.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -825,15 +825,15 @@ Appendix C.  Non-NMDA State Module.
    As per [RFC8407] the following is a non-NMDA module to support
    viewing the operational state for non-NMDA compliant servers.
 
-   <CODE BEGINS> file "ietf-module-tags-state@2019-09-25.yang"
-   module ietf-module-tags-state {
-     yang-version 1.1;
-     namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags-state";
-     prefix tags-s;
+<CODE BEGINS> file "ietf-module-tags-state@2019-09-25.yang"
+module ietf-module-tags-state {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags-state";
+  prefix tags-s;
 
-     import ietf-yang-types {
-       prefix yang;
-     }
+  import ietf-yang-types {
+    prefix yang;
+  }
 
 
 
@@ -842,54 +842,54 @@ Hopps, et al.            Expires March 28, 2020                [Page 15]
 Internet-Draft              YANG Module Tags              September 2019
 
 
-     import ietf-module-tags {
-       prefix tags;
-     }
+  import ietf-module-tags {
+    prefix tags;
+  }
 
-     organization
-       "IETF NetMod Working Group (NetMod)";
-     contact
-       "WG Web:  <https://tools.ietf.org/wg/netmod/>
-        WG List: <mailto:netmod@ietf.org>
+  organization
+    "IETF NetMod Working Group (NetMod)";
+  contact
+    "WG Web:  <https://tools.ietf.org/wg/netmod/>
+     WG List: <mailto:netmod@ietf.org>
 
-        Author: Christian Hopps
-                <mailto:chopps@chopps.org>
+     Author: Christian Hopps
+             <mailto:chopps@chopps.org>
 
-        Author: Lou Berger
-                <mailto:lberger@labn.net>
+     Author: Lou Berger
+             <mailto:lberger@labn.net>
 
-        Author: Dean Bogdanovic
-                <ivandean@gmail.com>";
+     Author: Dean Bogdanovic
+             <ivandean@gmail.com>";
 
-     // RFC Ed.: replace XXXX with actual RFC number and
-     // remove this note.
+  // RFC Ed.: replace XXXX with actual RFC number and
+  // remove this note.
 
-     description
-       "This module describes a mechanism associating tags with YANG
-        modules. Tags may be IANA assigned or privately defined.
+  description
+    "This module describes a mechanism associating tags with YANG
+     modules. Tags may be IANA assigned or privately defined.
 
-        This is a temporary non-NMDA module that is for use by
-        implementations that don't yet support NMDA.
+     This is a temporary non-NMDA module that is for use by
+     implementations that don't yet support NMDA.
 
-        Copyright (c) 2018 IETF Trust and the persons identified as
-        authors of the code. All rights reserved.
+     Copyright (c) 2019 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
 
-        Redistribution and use in source and binary forms, with or
-        without modification, is permitted pursuant to, and subject to
-        the license terms contained in, the Simplified BSD License set
-        forth in Section 4.c of the IETF Trust's Legal Provisions
-        Relating to IETF Documents
-        (https://trustee.ietf.org/license-info).
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject to
+     the license terms contained in, the Simplified BSD License set
+     forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
 
-        The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
-        NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
-        'MAY', and 'OPTIONAL' in this document are to be interpreted as
-        described in BCP 14 [RFC2119] [RFC8174] when, and only when,
-        they appear in all capitals, as shown here.
+     This version of this YANG module is part of RFC XXXX
+     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+     for full legal notices.
 
-
-        This version of this YANG module is part of RFC XXXX
-        (https://tools.ietf.org/html/rfcXXXX); see the RFC itself for
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+     'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
 
 
 
@@ -898,54 +898,54 @@ Hopps, et al.            Expires March 28, 2020                [Page 16]
 Internet-Draft              YANG Module Tags              September 2019
 
 
-        full legal notices.";
+  // RFC Ed.: update the date below with the date of RFC publication
+  // and RFC number and remove this note.
 
-     // RFC Ed.: update the date below with the date of RFC publication
-     // and RFC number and remove this note.
+  revision 2019-09-25 {
+    description
+      "Initial revision.";
+    reference
+      "RFC XXXX: YANG Module Tags";
+  }
 
-     revision 2019-09-25 {
-       description
-         "Initial revision.";
-       reference
-         "RFC XXXX: YANG Module Tags";
-     }
+  container module-tags-state {
+    config false;
+    status deprecated;
+    description
+      "Contains the list of modules and their associated tags";
+    list module {
+      key "name";
+      status deprecated;
+      description
+        "A list of modules and their associated tags";
+      leaf name {
+        type yang:yang-identifier;
+        mandatory true;
+        status deprecated;
+        description
+          "The YANG module name.";
+      }
+      leaf-list tag {
+        type tags:tag;
+        status deprecated;
+        description
+          "Tags associated with the module. See the IANA 'YANG Module
+           Tag Prefixes' registry for reserved prefixes and the IANA
+           'IETF YANG Module Tags' registry for IETF tags.
 
-     container module-tags-state {
-       config false;
-       status deprecated;
-       description
-         "Contains the list of modules and their associated tags";
-       list module {
-         key "name";
-         description
-           "A list of modules and their associated tags";
-         leaf name {
-           type yang:yang-identifier;
-           mandatory true;
-           description
-             "The YANG module name.";
-         }
-         leaf-list tag {
-           type tags:tag;
-           description
-             "Tags associated with the module. See the IANA 'YANG Module
-              Tag Prefixes' registry for reserved prefixes and the IANA
-              'IETF YANG Module Tags' registry for IETF tags.
+           The contents of this list is constructed using the
+           following steps:
 
-              The contents of this list is constructed using the
-              following steps:
-
-              1) System tags (i.e., tags of 'system' origin) are added.
-              2) User configured tags (i.e., tags of 'intended' origin)
-              are added.
-              3) Any tag that is equal to a masked-tag is removed.";
-         }
-         leaf-list masked-tag {
-           type tags:tag;
-           description
-             "The list of tags that should not be associated with this
-              module. The user can remove (mask) tags from the preceding
-              'tag' list by adding them to this list (using the main
+           1) System tags (i.e., tags of added by the system) are added.
+           2) User configured tags (i.e., tags added by configuration)
+           are added.
+           3) Any tag that is equal to a masked-tag present in the
+           corresponding ietf-module-tags:module-tags:module-tag leaf
+           list for this module is removed.";
+      }
+    }
+  }
+}
 
 
 
@@ -954,14 +954,7 @@ Hopps, et al.            Expires March 28, 2020                [Page 17]
 Internet-Draft              YANG Module Tags              September 2019
 
 
-              'ietf-module-tags' module). It is not an for tags to be
-              present in this list that are not associated with the
-              module, they simply have no operational effect.";
-         }
-       }
-     }
-   }
-   <CODE ENDS>
+<CODE ENDS>
 
                 Figure 4: Non-NMDA Module Tags State Module
 
@@ -983,6 +976,13 @@ Authors' Addresses
    Volta Networks
 
    Email: ivandean@gmail.com
+
+
+
+
+
+
+
 
 
 
