@@ -187,6 +187,7 @@ meaning of the symbols can be found in [[RFC8340]].
 pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
 #+end_src
 
+#+CAPTION: YANG Module Tags Tree Diagram
 #+RESULTS: YANG Module Tags Tree Diagram.
 #+begin_example
     module: ietf-module-tags
@@ -502,6 +503,7 @@ DSDL plugin supports only YANG version 1.
 FAIL
 #+end_example
 
+#+CAPTION: Example NETCONF Query Output
 #+NAME: xml-example
 #+begin_src xml :file tests/test-xml-example.xml :results output code silent :exports code
   <ns0:data xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
