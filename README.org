@@ -1,0 +1,21 @@
+
+*  YANG Module Tags
+
+CircleCI [[https://circleci.com/gh/ietf-rtg-area-yang-arch-dt/module-tags][https://circleci.com/gh/ietf-rtg-area-yang-arch-dt/module-tags.svg?style=svg]]
+
+This is a github project for building and publishing "YANG Module Tags" The
+document is written in org-mode and uses [[https://github.com/choppsv1/org-rfc-export][ox-rfc.el]] to convert to XML, and then
+on to one of the xml2rfc output formats (e.g., HTML, TXT, etc).
+
+By using org-babel embedded sections we have automatic verification of the YANG
+module source, verification of YANG examples, and auto-generation of the YANG tree.
+
+To locally produce the documents one needs emacs and xml2rfc; however,
+the creation of the publishable documents is also automated using Circle
+CI on every git push.
+
+The badge at the top of this page indicates the current build status.
+
+The latest build artifacts:
+
+  [[https://circleci.com/api/v1.1/project/github/ietf-rtg-area-yang-arch-dt/module-tags/latest/artifacts/0/root/project/publish/draft-ietf-netmod-module-tags-latest.html][HTML]]
