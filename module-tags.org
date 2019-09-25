@@ -203,7 +203,7 @@ pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
 #+NAME: test-validate-module
 #+HEADER: :var module=ietf-module-tags
 #+begin_src bash :results output verbatim replace :wrap example :exports none
-pyang --ietf $module 2>&1
+if ! pyang --ietf $module 2>&1; then echo FAIL; fi
 #+end_src
 
 #+RESULTS: test-validate-module
@@ -513,11 +513,12 @@ results are imagined.
 #+HEADER: :var vfile=xml-example :var module=ietf-module-tags
 #+begin_src bash :results output verbatim replace :wrap example :exports none
   mkdir -p .validate
-  if ! yang2dsdl -x -t data -d .validate -v ${vfile} $module > /dev/null 2>&1; then echo FAIL; else echo OK; fi
+  if ! yang2dsdl -x -t data -d .validate -v ${vfile} $module > /dev/null 2>&1; then echo FAIL; fi
 #+end_src
 
 #+RESULTS: test-validate-xml-example
 #+begin_example
+OK
 #+end_example
 
 #+CAPTION: Example NETCONF Query Output
@@ -563,7 +564,7 @@ results are imagined.
 #+NAME: test-validate-state-module
 #+HEADER: :var module=ietf-module-tags-state
 #+begin_src bash :results output verbatim replace :wrap example :exports none
-  pyang --ietf $module 2>&1
+  if ! pyang --ietf $module 2>&1; then echo FAIL; fi
 #+end_src
 
 #+RESULTS: test-validate-state-module
