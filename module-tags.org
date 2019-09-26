@@ -201,16 +201,9 @@ pyang --tree-print-groupings -f tree ${file} | sed -e 's/^/    /'
 ** YANG Module
 
 #+NAME: test-validate-module
-#+HEADER: :var module=ietf-module-tags
-#+begin_src bash :results output verbatim replace :wrap example :exports none
-if ! pyang --ietf $module 2>&1; then echo FAIL; fi
+#+begin_src bash :var module=ietf-module-tags :results silent :exports none
+if ! pyang --ietf $module 2>&1; then echo FAIL; else echo OK; fi
 #+end_src
-
-#+RESULTS: test-validate-module
-#+begin_example
-#+end_example
-
-# #+header: :file (concat "ietf-module-tags@" (format-time-string "%Y-%m-%d") ".yang")
 
 #+CAPTION: Module Tags Module
 #+NAME: ietf-module-tags
@@ -510,16 +503,10 @@ the module tags list. For the sake of brevity only a few module
 results are imagined.
 
 #+NAME: test-validate-xml-example
-#+HEADER: :var vfile=xml-example :var module=ietf-module-tags
-#+begin_src bash :results output verbatim replace :wrap example :exports none
+#+begin_src bash :var vfile=xml-example :var module=ietf-module-tags :results silent :exports none
   mkdir -p .validate
-  if ! yang2dsdl -x -t data -d .validate -v ${vfile} $module > /dev/null 2>&1; then echo FAIL; fi
+  if ! yang2dsdl -x -t data -d .validate -v ${vfile} $module > /dev/null 2>&1; then echo FAIL; else echo OK; fi
 #+end_src
-
-#+RESULTS: test-validate-xml-example
-#+begin_example
-OK
-#+end_example
 
 #+CAPTION: Example NETCONF Query Output
 #+NAME: xml-example
@@ -562,14 +549,9 @@ OK
   viewing the operational state for non-NMDA compliant servers.
 
 #+NAME: test-validate-state-module
-#+HEADER: :var module=ietf-module-tags-state
-#+begin_src bash :results output verbatim replace :wrap example :exports none
-  if ! pyang --ietf $module 2>&1; then echo FAIL; fi
+#+begin_src bash :var module=ietf-module-tags-state :results silent :exports none
+  if ! pyang --ietf $module 2>&1; then echo FAIL; else echo OK; fi
 #+end_src
-
-#+RESULTS: test-validate-state-module
-#+begin_example
-#+end_example
 
 #+CAPTION: Non-NMDA Module Tags State Module
 #+NAME: ietf-module-tags-state
