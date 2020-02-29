@@ -1,0 +1,1253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>YANG Module Tags</title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Some possible use cases for YANG module tags">
+<link href="#rfc.section.1.2" rel="Chapter" title="1.2 Conventions Used in This Document">
+<link href="#rfc.section.2" rel="Chapter" title="2 Tag Values">
+<link href="#rfc.section.2.1" rel="Chapter" title="2.1 IETF Tags">
+<link href="#rfc.section.2.2" rel="Chapter" title="2.2 Vendor Tags">
+<link href="#rfc.section.2.3" rel="Chapter" title="2.3 User Tags">
+<link href="#rfc.section.2.4" rel="Chapter" title="2.4 Reserved Tags">
+<link href="#rfc.section.3" rel="Chapter" title="3 Tag Management">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 Module Definition Tagging">
+<link href="#rfc.section.3.2" rel="Chapter" title="3.2 Implementation Tagging">
+<link href="#rfc.section.3.3" rel="Chapter" title="3.3 User Tagging">
+<link href="#rfc.section.4" rel="Chapter" title="4 Tags Module Structure">
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Tags Module Tree">
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 YANG Module">
+<link href="#rfc.section.5" rel="Chapter" title="5 Other Classifications">
+<link href="#rfc.section.6" rel="Chapter" title="6 Guidelines to Model Writers">
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Define Standard Tags">
+<link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations">
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 YANG Module Tag Prefixes Registry">
+<link href="#rfc.section.7.2" rel="Chapter" title="7.2 IETF YANG Module Tags Registry">
+<link href="#rfc.section.7.3" rel="Chapter" title="7.3 Updates to the IETF XML Registry">
+<link href="#rfc.section.7.4" rel="Chapter" title="7.4 Updates to the YANG Module Names Registry">
+<link href="#rfc.section.8" rel="Chapter" title="8 Security Considerations">
+<link href="#rfc.references" rel="Chapter" title="9 References">
+<link href="#rfc.references.1" rel="Chapter" title="9.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="9.2 Informative References">
+<link href="#rfc.appendix.A" rel="Chapter" title="A Examples">
+<link href="#rfc.appendix.B" rel="Chapter" title="B Acknowledgements">
+<link href="#rfc.appendix.C" rel="Chapter" title="C Non-NMDA State Module.">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.22.3 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Hopps, C., Berger, L., and D. Bogdanovic" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-netmod-module-tags-10" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-29" />
+  <meta name="dct.abstract" content="This document provides for the association of tags with YANG modules.  The expectation is for such tags to be used to help classify and organize modules. A method for defining, reading and writing a modules tags is provided. Tags may be registered and assigned during module definition; assigned by implementations; or dynamically defined and set by users. This document also provides guidance to future model writers; as such, this document updates RFC8407." />
+  <meta name="description" content="This document provides for the association of tags with YANG modules.  The expectation is for such tags to be used to help classify and organize modules. A method for defining, reading and writing a modules tags is provided. Tags may be registered and assigned during module definition; assigned by implementations; or dynamically defined and set by users. This document also provides guidance to future model writers; as such, this document updates RFC8407." />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">Network Working Group</td>
+<td class="right">C. Hopps</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">LabN Consulting, L.L.C.</td>
+</tr>
+<tr>
+<td class="left">Updates: 8407 (if approved)</td>
+<td class="right">L. Berger</td>
+</tr>
+<tr>
+<td class="left">Intended status: Standards Track</td>
+<td class="right">LabN Consulting, LLC.</td>
+</tr>
+<tr>
+<td class="left">Expires: September 1, 2020</td>
+<td class="right">D. Bogdanovic</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">Volta Networks</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">February 29, 2020</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">YANG Module Tags<br />
+  <span class="filename">draft-ietf-netmod-module-tags-10</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>This document provides for the association of tags with YANG modules.  The expectation is for such tags to be used to help classify and organize modules. A method for defining, reading and writing a modules tags is provided. Tags may be registered and assigned during module definition; assigned by implementations; or dynamically defined and set by users. This document also provides guidance to future model writers; as such, this document updates RFC8407.</p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on September 1, 2020.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<ul><li>1.1.   <a href="#rfc.section.1.1">Some possible use cases for YANG module tags</a>
+</li>
+<li>1.2.   <a href="#rfc.section.1.2">Conventions Used in This Document</a>
+</li>
+</ul><li>2.   <a href="#rfc.section.2">Tag Values</a>
+</li>
+<ul><li>2.1.   <a href="#rfc.section.2.1">IETF Tags</a>
+</li>
+<li>2.2.   <a href="#rfc.section.2.2">Vendor Tags</a>
+</li>
+<li>2.3.   <a href="#rfc.section.2.3">User Tags</a>
+</li>
+<li>2.4.   <a href="#rfc.section.2.4">Reserved Tags</a>
+</li>
+</ul><li>3.   <a href="#rfc.section.3">Tag Management</a>
+</li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">Module Definition Tagging</a>
+</li>
+<li>3.2.   <a href="#rfc.section.3.2">Implementation Tagging</a>
+</li>
+<li>3.3.   <a href="#rfc.section.3.3">User Tagging</a>
+</li>
+</ul><li>4.   <a href="#rfc.section.4">Tags Module Structure</a>
+</li>
+<ul><li>4.1.   <a href="#rfc.section.4.1">Tags Module Tree</a>
+</li>
+<li>4.2.   <a href="#rfc.section.4.2">YANG Module</a>
+</li>
+</ul><li>5.   <a href="#rfc.section.5">Other Classifications</a>
+</li>
+<li>6.   <a href="#rfc.section.6">Guidelines to Model Writers</a>
+</li>
+<ul><li>6.1.   <a href="#rfc.section.6.1">Define Standard Tags</a>
+</li>
+</ul><li>7.   <a href="#rfc.section.7">IANA Considerations</a>
+</li>
+<ul><li>7.1.   <a href="#rfc.section.7.1">YANG Module Tag Prefixes Registry</a>
+</li>
+<li>7.2.   <a href="#rfc.section.7.2">IETF YANG Module Tags Registry</a>
+</li>
+<li>7.3.   <a href="#rfc.section.7.3">Updates to the IETF XML Registry</a>
+</li>
+<li>7.4.   <a href="#rfc.section.7.4">Updates to the YANG Module Names Registry</a>
+</li>
+</ul><li>8.   <a href="#rfc.section.8">Security Considerations</a>
+</li>
+<li>9.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>9.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>9.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Examples</a>
+</li>
+<li>Appendix B.   <a href="#rfc.appendix.B">Acknowledgements</a>
+</li>
+<li>Appendix C.   <a href="#rfc.appendix.C">Non-NMDA State Module.</a>
+</li>
+<li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> Introduction</h1>
+<p id="rfc.section.1.p.1">The use of tags for classification and organization is fairly ubiquitous not only within IETF protocols, but in the internet itself (e.g., <samp>#hashtags</samp>). One benefit of using tags for organization over a rigid structure is that it is more flexible and can more easily adapt over time as technologies evolve. Tags can be usefully registered, but they can also serve as a non-registered mechanism available for users to define themselves. This document provides a mechanism to define tags and associate them with YANG modules in a flexible manner. In particular, tags may be registered as well as assigned during module definition; assigned by implementations; or dynamically defined and set by users.</p>
+<p id="rfc.section.1.p.2">This document defines a YANG module <a href="#RFC7950" class="xref">[RFC7950]</a> which provides a list of module entries to allow for adding or removing of tags as well as viewing the set of tags associated with a module.</p>
+<p id="rfc.section.1.p.3">This document defines an extension statement to be used to indicate tags that SHOULD be added by the module implementation automatically (i.e., outside of configuration).</p>
+<p id="rfc.section.1.p.4">This document also defines an IANA registry for tag prefixes as well as a set of globally assigned tags.</p>
+<p><a href="#sec-guidelines-to-model-writers" class="xref">Section 6</a> provides guidelines for authors of YANG data models.</p>
+<p id="rfc.section.1.p.6">This document updates <a href="#RFC8407" class="xref">[RFC8407]</a>.</p>
+<p id="rfc.section.1.p.7">The YANG data model in this document conforms to the Network Management Datastore Architecture defined in <a href="#RFC8342" class="xref">[RFC8342]</a>.</p>
+<h1 id="rfc.section.1.1">
+<a href="#rfc.section.1.1">1.1.</a> Some possible use cases for YANG module tags</h1>
+<p id="rfc.section.1.1.p.1">During this documents's development there were requests for example uses of module tags. The following are a few example use cases for tags. This list is certainly not exhaustive.</p>
+<p id="rfc.section.1.1.p.2">One example use of tags would be to help filter different discrete categories of YANG modules supported by a device. For example, if modules are suitably tagged, then an XPath query can be used to list all of the vendor modules supported by a device.</p>
+<p id="rfc.section.1.1.p.3">Tags can also be used to help coordination when multiple semi-independent clients are interacting with the same devices. For example, one management client could mark that some modules should not be used because they have not been verified to behave correctly, so that other management clients avoid querying the data associated with those modules.</p>
+<p id="rfc.section.1.1.p.4">Tag classification is useful for users searching module repositories (e.g., YANG catalog). A query restricted to the 'ietf:routing' module tag could be used to return only the IETF YANG modules associated with routing. Without tags, a user would need to know the name of all the IETF routing protocol YANG modules.</p>
+<p id="rfc.section.1.1.p.5">Future management protocol extensions could allow for filtering queries of configuration or operational state on a server based on tags. For example, return all operational state related to system-management.</p>
+<h1 id="rfc.section.1.2">
+<a href="#rfc.section.1.2">1.2.</a> Conventions Used in This Document</h1>
+<p id="rfc.section.1.2.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.</p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> Tag Values</h1>
+<p id="rfc.section.2.p.1">All tags SHOULD begin with a prefix indicating who owns their definition. An IANA registry (<a href="#sec-yang-module-tag-prefixes-registry" class="xref">Section 7.1</a>) is used to support registering tag prefixes. Currently 3 prefixes are defined. No further structure is imposed by this document on the value following the registered prefix, and the value can contain any YANG type 'string' characters except carriage-returns, newlines and tabs.</p>
+<p id="rfc.section.2.p.2">Again, except for the conflict-avoiding prefix, this document is not specifying any structure on (i.e., restricting) the tag values on purpose. The intent is to avoid arbitrarily restricting the values that designers, implementers and users can use. As a result of this choice, designers, implementers, and users are free to add or not add any structure they may require to their own tag values.</p>
+<h1 id="rfc.section.2.1">
+<a href="#rfc.section.2.1">2.1.</a> <a href="#sec-ietf-tags" id="sec-ietf-tags">IETF Tags</a>
+</h1>
+<p id="rfc.section.2.1.p.1">An IETF tag is a tag that has the prefix "ietf:". All IETF tags are registered with IANA in a registry defined later in this document (<a href="#sec-ietf-yang-module-tags-registry" class="xref">Section 7.2</a>).</p>
+<h1 id="rfc.section.2.2">
+<a href="#rfc.section.2.2">2.2.</a> Vendor Tags</h1>
+<p id="rfc.section.2.2.p.1">A vendor tag is a tag that has the prefix "vendor:". These tags are defined by the vendor that implements the module, and are not registered; however, it is RECOMMENDED that the vendor include extra identification in the tag to avoid collisions such as using the enterpise or organization name following the "vendor:" prefix (e.g., vendor:example.com:vendor-defined-classifier).</p>
+<h1 id="rfc.section.2.3">
+<a href="#rfc.section.2.3">2.3.</a> User Tags</h1>
+<p id="rfc.section.2.3.p.1">A user tag is any tag that has the prefix "user:". These tags are defined by the user/administrator and are not meant to be registered.  Users are not required to use the "user:" prefix; however, doing so is RECOMMENDED as it helps avoid collisions.</p>
+<h1 id="rfc.section.2.4">
+<a href="#rfc.section.2.4">2.4.</a> Reserved Tags</h1>
+<p id="rfc.section.2.4.p.1">Any tag not starting with the prefix "ietf:", "vendor:" or "user:" is reserved for future use. These tag values are not invalid, but simply reserved in the context of specifications (e.g., RFCs).</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> Tag Management</h1>
+<p id="rfc.section.3.p.1">Tags can become associated with a module in a number of ways. Tags may be defined and associated at module design time, at implementation time, or via user administrative control. As the main consumer of tags are users, users may also remove any tag, no matter how the tag became associated with a module.</p>
+<h1 id="rfc.section.3.1">
+<a href="#rfc.section.3.1">3.1.</a> Module Definition Tagging</h1>
+<p id="rfc.section.3.1.p.1">A module definition MAY indicate a set of tags to be added by the module implementer. These design time tags are indicated using the module-tag extension statement.</p>
+<p id="rfc.section.3.1.p.2">If the module is defined in an IETF standards track document, the tags MUST be <a href="#sec-ietf-tags" class="xref">IETF Tags</a>. Thus, new modules can drive the addition of new IETF tags to the IANA registry defined in <a href="#sec-ietf-yang-module-tags-registry" class="xref">Section 7.2</a>, and the IANA registry can serve as a check against duplication.</p>
+<h1 id="rfc.section.3.2">
+<a href="#rfc.section.3.2">3.2.</a> Implementation Tagging</h1>
+<p id="rfc.section.3.2.p.1">An implementation MAY include additional tags associated with a module. These tags SHOULD be IETF Tags (i.e., registered) or vendor specific tags.</p>
+<h1 id="rfc.section.3.3">
+<a href="#rfc.section.3.3">3.3.</a> User Tagging</h1>
+<p id="rfc.section.3.3.p.1">Tags of any kind, with or without a prefix, can be assigned and removed by the user using normal configuration mechanisms. In order to remove a tag from the operational datastore the user adds a matching <samp>masked-tag</samp> entry for a given module.</p>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> Tags Module Structure</h1>
+<h1 id="rfc.section.4.1">
+<a href="#rfc.section.4.1">4.1.</a> Tags Module Tree</h1>
+<p id="rfc.section.4.1.p.1">The tree associated with the "ietf-module-tags" module follows. The meaning of the symbols can be found in <a href="#RFC8340" class="xref">[RFC8340]</a>.</p>
+<div id="rfc.figure.1"></div>
+<div id="sec-yang-module-tags-tree-diagram"></div>
+<pre>
+    module: ietf-module-tags
+      +--rw module-tags
+         +--rw module* [name]
+            +--rw name          yang:yang-identifier
+            +--rw tag*          tag
+            +--rw masked-tag*   tag
+</pre>
+<p class="figure">Figure 1: YANG Module Tags Tree Diagram</p>
+<h1 id="rfc.section.4.2">
+<a href="#rfc.section.4.2">4.2.</a> YANG Module</h1>
+<div id="rfc.figure.2"></div>
+<div id="sec-module-tags-module"></div>
+<pre>
+&lt;CODE BEGINS&gt; file "ietf-module-tags@2020-02-29.yang"
+module ietf-module-tags {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags";
+  prefix tags;
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+
+  organization
+    "IETF NetMod Working Group (NetMod)";
+  contact
+    "WG Web:  &lt;https://tools.ietf.org/wg/netmod/&gt;
+     WG List: &lt;mailto:netmod@ietf.org&gt;
+
+     Author: Christian Hopps
+	     &lt;mailto:chopps@chopps.org&gt;
+
+     Author: Lou Berger
+	     &lt;mailto:lberger@labn.net&gt;
+
+     Author: Dean Bogdanovic
+	     &lt;ivandean@gmail.com&gt;";
+
+  // RFC Ed.: replace XXXX with actual RFC number and
+  // remove this note.
+
+  description
+    "This module describes a mechanism associating tags with YANG
+     modules. Tags may be IANA assigned or privately defined.
+
+     Copyright (c) 2019 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject to
+     the license terms contained in, the Simplified BSD License set
+     forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
+
+     This version of this YANG module is part of RFC XXXX
+     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+     for full legal notices.
+
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+     'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
+
+  // RFC Ed.: update the date below with the date of RFC publication
+  // and RFC number and remove this note.
+
+  revision 2020-02-29 {
+    description
+      "Initial revision.";
+    reference "RFC XXXX: YANG Module Tags";
+  }
+
+  typedef tag {
+    type string {
+      length "1..max";
+      pattern '[\S ]+';
+    }
+    description
+      "A tag is a type 'string' value that does not include carriage
+       return, newline or tab characters. It SHOULD begin with a
+       registered prefix; however, tags without a registered prefix
+       SHOULD NOT be treated as invalid.";
+  }
+
+  extension module-tag {
+    argument tag;
+    description
+      "The argument 'tag' is of type 'tag'. This extension statement
+       is used by module authors to indicate the tags that SHOULD be
+       added automatically by the system. As such the origin of the
+       value for the pre-defined tags should be set to 'system'
+       [RFC8342].";
+  }
+
+  container module-tags {
+    description
+      "Contains the list of modules and their associated tags";
+    list module {
+      key "name";
+      description
+	"A list of modules and their associated tags";
+      leaf name {
+	type yang:yang-identifier;
+	mandatory true;
+	description
+	  "The YANG module name.";
+      }
+      leaf-list tag {
+	type tag;
+	description
+	  "Tags associated with the module. See the IANA 'YANG Module
+	   Tag Prefixes' registry for reserved prefixes and the IANA
+	   'IETF YANG Module Tags' registry for IETF tags.
+
+	   The 'operational' state [RFC8342] view of this list is
+	   constructed using the following steps:
+
+	   1) System tags (i.e., tags of 'system' origin) are added.
+	   2) User configured tags (i.e., tags of 'intended' origin)
+	   are added.
+	   3) Any tag that is equal to a masked-tag is removed.";
+      }
+      leaf-list masked-tag {
+	type tag;
+	description
+	  "The list of tags that should not be associated with this
+	   module. The user can remove (mask) tags from the
+	   operational state datastore [RFC8342] by adding them to
+	   this list. It is not an error to add tags to this list
+	   that are not associated with the module, but they have no
+	   operational effect.";
+      }
+    }
+  }
+}
+&lt;CODE ENDS&gt;
+</pre>
+<p class="figure">Figure 2: Module Tags Module</p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> Other Classifications</h1>
+<p id="rfc.section.5.p.1">It is worth noting that a different YANG module classification document exists <a href="#RFC8199" class="xref">[RFC8199]</a>. That document only classifies modules in a logical manner and does not define tagging or any other mechanisms.  It divides YANG modules into two categories (service or element) and then into one of three origins: standard, vendor or user. It does provide a good way to discuss and identify modules in general. This document defines IETF tags to support <a href="#RFC8199" class="xref">[RFC8199]</a> style classification.</p>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#sec-guidelines-to-model-writers" id="sec-guidelines-to-model-writers">Guidelines to Model Writers</a>
+</h1>
+<p id="rfc.section.6.p.1">This section updates <a href="#RFC8407" class="xref">[RFC8407]</a>.</p>
+<h1 id="rfc.section.6.1">
+<a href="#rfc.section.6.1">6.1.</a> Define Standard Tags</h1>
+<p id="rfc.section.6.1.p.1">A module MAY indicate, using module-tag extension statements, a set of tags that are to be automatically associated with it (i.e., not added through configuration).</p>
+<pre>
+module example-module {
+  //...
+  import module-tags { prefix tags; }
+
+  tags:module-tag "ietf:some-new-tag";
+  tags:module-tag "ietf:some-other-tag";
+  // ...
+}
+</pre>
+<p id="rfc.section.6.1.p.2">The module writer can use existing standard tags, or use new tags defined in the model definition, as appropriate. For IETF standardized modules new tags MUST be assigned in the IANA registry defined below, see <a href="#sec-ietf-yang-module-tags-registry" class="xref">Section 7.2</a>.</p>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> IANA Considerations</h1>
+<h1 id="rfc.section.7.1">
+<a href="#rfc.section.7.1">7.1.</a> <a href="#sec-yang-module-tag-prefixes-registry" id="sec-yang-module-tag-prefixes-registry">YANG Module Tag Prefixes Registry</a>
+</h1>
+<p id="rfc.section.7.1.p.1">IANA is asked to create a new registry "YANG Module Tag Prefixes" grouped under a new "Protocol" category named "YANG Module Tags".</p>
+<p id="rfc.section.7.1.p.2">This registry allocates tag prefixes. All YANG module tags SHOULD begin with one of the prefixes in this registry.</p>
+<p id="rfc.section.7.1.p.3">Prefix entries in this registry should be short strings consisting of lowercase ASCII alpha-numeric characters and a final ":" character.</p>
+<p id="rfc.section.7.1.p.4">The allocation policy for this registry is Specification Required <a href="#RFC8126" class="xref">[RFC8126]</a>. The Reference and Assignee values should be sufficient to identify and contact the organization that has been allocated the prefix.</p>
+<p id="rfc.section.7.1.p.5">The initial values for this registry are as follows.</p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Prefix</th>
+<th class="left">Description</th>
+<th class="left">Reference</th>
+<th class="left">Assignee</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">ietf:</td>
+<td class="left">IETF Tags allocated in the IANA IETF YANG Module Tags registry.</td>
+<td class="left">[This document]</td>
+<td class="left">IETF</td>
+</tr>
+<tr>
+<td class="left">vendor:</td>
+<td class="left">Non-registered tags allocated by the module implementer.</td>
+<td class="left">[This document]</td>
+<td class="left">IETF</td>
+</tr>
+<tr>
+<td class="left">user:</td>
+<td class="left">Non-registered tags allocated by and for the user.</td>
+<td class="left">[This document]</td>
+<td class="left">IETF</td>
+</tr>
+</tbody>
+</table>
+<p id="rfc.section.7.1.p.6">Other standards organizations (SDOs) wishing to allocate their own set of tags should allocate a prefix from this registry.</p>
+<h1 id="rfc.section.7.2">
+<a href="#rfc.section.7.2">7.2.</a> <a href="#sec-ietf-yang-module-tags-registry" id="sec-ietf-yang-module-tags-registry">IETF YANG Module Tags Registry</a>
+</h1>
+<p id="rfc.section.7.2.p.1">IANA is asked to create a new registry "IETF YANG Module Tags" grouped under a new "Protocol" category "IETF YANG Module Tags". This registry should be included below "YANG Module Tag Prefixes" when listed on the same page.</p>
+<p id="rfc.section.7.2.p.2">This registry allocates tags that have the registered prefix "ietf:".  New values should be well considered and not achievable through a combination of already existing IETF tags. IANA assigned tags must conform to Net-Unicode as defined in <a href="#RFC5198" class="xref">[RFC5198]</a> and they shall not need normalization.</p>
+<p id="rfc.section.7.2.p.3">The allocation policy for this registry is IETF Review <a href="#RFC8126" class="xref">[RFC8126]</a>.</p>
+<p id="rfc.section.7.2.p.4">The initial values for this registry are as follows.</p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Tag</th>
+<th class="left">Description</th>
+<th class="left">Reference</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">ietf:network-element-class</td>
+<td class="left">
+<a href="#RFC8199" class="xref">[RFC8199]</a> network element.</td>
+<td class="left"><a href="#RFC8199" class="xref">[RFC8199]</a></td>
+</tr>
+<tr>
+<td class="left">ietf:network-service-class</td>
+<td class="left">
+<a href="#RFC8199" class="xref">[RFC8199]</a> network service.</td>
+<td class="left"><a href="#RFC8199" class="xref">[RFC8199]</a></td>
+</tr>
+<tr>
+<td class="left">ietf:sdo-defined-class</td>
+<td class="left">Module is defined by a standards organization.</td>
+<td class="left"><a href="#RFC8199" class="xref">[RFC8199]</a></td>
+</tr>
+<tr>
+<td class="left">ietf:vendor-defined-class</td>
+<td class="left">Module is defined by a vendor.</td>
+<td class="left"><a href="#RFC8199" class="xref">[RFC8199]</a></td>
+</tr>
+<tr>
+<td class="left">ietf:user-defined-class</td>
+<td class="left">Module is defined by the user.</td>
+<td class="left"><a href="#RFC8199" class="xref">[RFC8199]</a></td>
+</tr>
+<tr>
+<td class="left">ietf:hardware</td>
+<td class="left">Relates to hardware (e.g., inventory).</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:software</td>
+<td class="left">Relates to software (e.g., installed OS).</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:protocol</td>
+<td class="left">Represents a protocol (often combined with another tag to refine).</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:qos</td>
+<td class="left">Relates to quality of service.</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:network-service-app</td>
+<td class="left">Relates to a network service application (e.g., an NTP server, DNS server, DHCP server, etc).</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:system-management</td>
+<td class="left">Relates to system management (e.g., a system management protocol such as syslog, TACAC+, SNMP, netconf, ...).</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:oam</td>
+<td class="left">Relates to Operations, Administration, and Maintenance (e.g., BFD).</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:routing</td>
+<td class="left">Relates to routing.</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:security</td>
+<td class="left">Related to security.</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:signaling</td>
+<td class="left">Relates to control plane signaling.</td>
+<td class="left">[This document]</td>
+</tr>
+<tr>
+<td class="left">ietf:link-management</td>
+<td class="left">Relates to link management.</td>
+<td class="left">[This document]</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.7.3">
+<a href="#rfc.section.7.3">7.3.</a> Updates to the IETF XML Registry</h1>
+<p id="rfc.section.7.3.p.1">This document registers a URI in the "IETF XML Registry" <a href="#RFC3688" class="xref">[RFC3688]</a>.  Following the format in <a href="#RFC3688" class="xref">[RFC3688]</a>, the following registrations have been made:</p>
+<p></p>
+
+<dl>
+<dt>URI:</dt>
+<dd style="margin-left: 8">
+<br>urn:ietf:params:xml:ns:yang:ietf-module-tags</dd>
+<dt>Registrant Contact:</dt>
+<dd style="margin-left: 8">
+<br>The IESG.</dd>
+<dt>XML:</dt>
+<dd style="margin-left: 8">
+<br>N/A; the requested URI is an XML namespace.</dd>
+<dt>URI:</dt>
+<dd style="margin-left: 8">
+<br>urn:ietf:params:xml:ns:yang:ietf-module-tags-state</dd>
+<dt>Registrant Contact:</dt>
+<dd style="margin-left: 8">
+<br>The IESG.</dd>
+<dt>XML:</dt>
+<dd style="margin-left: 8">
+<br>N/A; the requested URI is an XML namespace.</dd>
+</dl>
+<h1 id="rfc.section.7.4">
+<a href="#rfc.section.7.4">7.4.</a> Updates to the YANG Module Names Registry</h1>
+<p id="rfc.section.7.4.p.1">This document registers two YANG modules in the "YANG Module Names" registry <a href="#RFC6020" class="xref">[RFC6020]</a>. Following the format in <a href="#RFC6020" class="xref">[RFC6020]</a>, the following registration have been made:</p>
+<p></p>
+
+<dl>
+<dt>name:</dt>
+<dd style="margin-left: 8">
+<br>ietf-module-tags</dd>
+<dt>namespace:</dt>
+<dd style="margin-left: 8">
+<br>urn:ietf:params:xml:ns:yang:ietf-module-tags</dd>
+<dt>prefix:</dt>
+<dd style="margin-left: 8">
+<br>tags</dd>
+<dt>reference:</dt>
+<dd style="margin-left: 8">
+<br>RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove this note.)</dd>
+<dt>name:</dt>
+<dd style="margin-left: 8">
+<br>ietf-module-tags-state</dd>
+<dt>namespace:</dt>
+<dd style="margin-left: 8">
+<br>urn:ietf:params:xml:ns:yang:ietf-module-tags-state</dd>
+<dt>prefix:</dt>
+<dd style="margin-left: 8">
+<br>tags</dd>
+<dt>reference:</dt>
+<dd style="margin-left: 8">
+<br>RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove this note.)</dd>
+</dl>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> Security Considerations</h1>
+<p id="rfc.section.8.p.1">The YANG module defined in this memo is designed to be accessed via the NETCONF protocol <a href="#RFC6241" class="xref">[RFC6241]</a>. The lowest NETCONF layer is the secure transport layer and the mandatory-to-implement secure transport is SSH <a href="#RFC6242" class="xref">[RFC6242]</a>.</p>
+<p id="rfc.section.8.p.2">This document adds the ability to associate tag meta-data with YANG modules. This document does not define any actions based on these associations, and none are yet defined, and therefore it does not by itself introduce any new security considerations directly.</p>
+<p id="rfc.section.8.p.3">Users of the tag-meta data may define various actions to be taken based on the tag meta-data. These actions and their definitions are outside the scope of this document. Users will need to consider the security implications of any actions they choose to define, including the potential for a tag to get 'masked' by another user.</p>
+<h1 id="rfc.references">
+<a href="#rfc.references">9.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">9.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7950">[RFC7950]</b></td>
+<td class="top">
+<a>Bjorklund, M.</a>, "<a href="https://tools.ietf.org/html/rfc7950">The YANG 1.1 Data Modeling Language</a>", RFC 7950, DOI 10.17487/RFC7950, August 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8126">[RFC8126]</b></td>
+<td class="top">
+<a>Cotton, M.</a>, <a>Leiba, B.</a> and <a>T. Narten</a>, "<a href="https://tools.ietf.org/html/rfc8126">Guidelines for Writing an IANA Considerations Section in RFCs</a>", BCP 26, RFC 8126, DOI 10.17487/RFC8126, June 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8174">[RFC8174]</b></td>
+<td class="top">
+<a>Leiba, B.</a>, "<a href="https://tools.ietf.org/html/rfc8174">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</a>", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8199">[RFC8199]</b></td>
+<td class="top">
+<a>Bogdanovic, D.</a>, <a>Claise, B.</a> and <a>C. Moberg</a>, "<a href="https://tools.ietf.org/html/rfc8199">YANG Module Classification</a>", RFC 8199, DOI 10.17487/RFC8199, July 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8342">[RFC8342]</b></td>
+<td class="top">
+<a>Bjorklund, M.</a>, <a>Schoenwaelder, J.</a>, <a>Shafer, P.</a>, <a>Watsen, K.</a> and <a>R. Wilton</a>, "<a href="https://tools.ietf.org/html/rfc8342">Network Management Datastore Architecture (NMDA)</a>", RFC 8342, DOI 10.17487/RFC8342, March 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8407">[RFC8407]</b></td>
+<td class="top">
+<a>Bierman, A.</a>, "<a href="https://tools.ietf.org/html/rfc8407">Guidelines for Authors and Reviewers of Documents Containing YANG Data Models</a>", BCP 216, RFC 8407, DOI 10.17487/RFC8407, October 2018.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">9.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="RFC3688">[RFC3688]</b></td>
+<td class="top">
+<a>Mealling, M.</a>, "<a href="https://tools.ietf.org/html/rfc3688">The IETF XML Registry</a>", BCP 81, RFC 3688, DOI 10.17487/RFC3688, January 2004.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5198">[RFC5198]</b></td>
+<td class="top">
+<a>Klensin, J.</a> and <a>M. Padlipsky</a>, "<a href="https://tools.ietf.org/html/rfc5198">Unicode Format for Network Interchange</a>", RFC 5198, DOI 10.17487/RFC5198, March 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6020">[RFC6020]</b></td>
+<td class="top">
+<a>Bjorklund, M.</a>, "<a href="https://tools.ietf.org/html/rfc6020">YANG - A Data Modeling Language for the Network Configuration Protocol (NETCONF)</a>", RFC 6020, DOI 10.17487/RFC6020, October 2010.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6241">[RFC6241]</b></td>
+<td class="top">
+<a>Enns, R.</a>, <a>Bjorklund, M.</a>, <a>Schoenwaelder, J.</a> and <a>A. Bierman</a>, "<a href="https://tools.ietf.org/html/rfc6241">Network Configuration Protocol (NETCONF)</a>", RFC 6241, DOI 10.17487/RFC6241, June 2011.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6242">[RFC6242]</b></td>
+<td class="top">
+<a>Wasserman, M.</a>, "<a href="https://tools.ietf.org/html/rfc6242">Using the NETCONF Protocol over Secure Shell (SSH)</a>", RFC 6242, DOI 10.17487/RFC6242, June 2011.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8340">[RFC8340]</b></td>
+<td class="top">
+<a>Bjorklund, M.</a> and <a>L. Berger</a>, "<a href="https://tools.ietf.org/html/rfc8340">YANG Tree Diagrams</a>", BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.appendix.A">
+<a href="#rfc.appendix.A">Appendix A.</a> Examples</h1>
+<p id="rfc.section.A.p.1">The following is a fictional NETCONF example result from a query of the module tags list. For the sake of brevity only a few module results are imagined.</p>
+<div id="rfc.figure.3"></div>
+<div id="sec-example-netconf-query-output"></div>
+<pre>
+&lt;ns0:data xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
+  &lt;t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags"&gt;
+    &lt;t:module&gt;
+      &lt;t:name&gt;ietf-bfd&lt;/t:name&gt;
+      &lt;t:tag&gt;ietf:network-element-class&lt;/t:tag&gt;
+      &lt;t:tag&gt;ietf:oam&lt;/t:tag&gt;
+      &lt;t:tag&gt;ietf:protocol&lt;/t:tag&gt;
+      &lt;t:tag&gt;ietf:sdo-defined-class&lt;/t:tag&gt;
+    &lt;/t:module&gt;
+    &lt;t:module&gt;
+      &lt;t:name&gt;ietf-isis&lt;/t:name&gt;
+      &lt;t:tag&gt;ietf:network-element-class&lt;/t:tag&gt;
+      &lt;t:tag&gt;ietf:protocol&lt;/t:tag&gt;
+      &lt;t:tag&gt;ietf:sdo-defined-class&lt;/t:tag&gt;
+      &lt;t:tag&gt;ietf:routing&lt;/t:tag&gt;
+    &lt;/t:module&gt;
+    &lt;t:module&gt;
+      &lt;t:name&gt;ietf-ssh-server&lt;/t:name&gt;
+      &lt;t:tag&gt;ietf:network-element-class&lt;/t:tag&gt;
+      &lt;t:tag&gt;ietf:protocol&lt;/t:tag&gt;
+      &lt;t:tag&gt;ietf:sdo-defined-class&lt;/t:tag&gt;
+      &lt;t:tag&gt;ietf:system-management&lt;/t:tag&gt;
+    &lt;/t:module&gt;
+  &lt;/t:module-tags&gt;
+&lt;/ns0:data&gt;
+</pre>
+<p class="figure">Figure 3: Example NETCONF Query Output</p>
+<h1 id="rfc.appendix.B">
+<a href="#rfc.appendix.B">Appendix B.</a> Acknowledgements</h1>
+<p id="rfc.section.B.p.1">Special thanks to Robert Wilton for his help improving the introduction and providing the example use cases, as well as generating the non-NMDA module.</p>
+<h1 id="rfc.appendix.C">
+<a href="#rfc.appendix.C">Appendix C.</a> Non-NMDA State Module.</h1>
+<p id="rfc.section.C.p.1">As per <a href="#RFC8407" class="xref">[RFC8407]</a> the following is a non-NMDA module to support viewing the operational state for non-NMDA compliant servers.</p>
+<div id="rfc.figure.4"></div>
+<div id="sec-non-nmda-module-tags-state-module"></div>
+<pre>
+&lt;CODE BEGINS&gt; file "ietf-module-tags-state@2020-02-29.yang"
+module ietf-module-tags-state {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-module-tags-state";
+  prefix tags-s;
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import ietf-module-tags {
+    prefix tags;
+  }
+
+  organization
+    "IETF NetMod Working Group (NetMod)";
+  contact
+    "WG Web:  &lt;https://tools.ietf.org/wg/netmod/&gt;
+     WG List: &lt;mailto:netmod@ietf.org&gt;
+
+     Author: Christian Hopps
+	     &lt;mailto:chopps@chopps.org&gt;
+
+     Author: Lou Berger
+	     &lt;mailto:lberger@labn.net&gt;
+
+     Author: Dean Bogdanovic
+	     &lt;ivandean@gmail.com&gt;";
+
+  // RFC Ed.: replace XXXX with actual RFC number and
+  // remove this note.
+
+  description
+    "This module describes a mechanism associating tags with YANG
+     modules. Tags may be IANA assigned or privately defined.
+
+     This is a temporary non-NMDA module that is for use by
+     implementations that don't yet support NMDA.
+
+     Copyright (c) 2019 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject to
+     the license terms contained in, the Simplified BSD License set
+     forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
+
+     This version of this YANG module is part of RFC XXXX
+     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+     for full legal notices.
+
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+     'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
+
+  // RFC Ed.: update the date below with the date of RFC publication
+  // and RFC number and remove this note.
+
+  revision 2020-02-29 {
+    description
+      "Initial revision.";
+    reference
+      "RFC XXXX: YANG Module Tags";
+  }
+
+  container module-tags-state {
+    config false;
+    status deprecated;
+    description
+      "Contains the list of modules and their associated tags";
+    list module {
+      key "name";
+      status deprecated;
+      description
+	"A list of modules and their associated tags";
+      leaf name {
+	type yang:yang-identifier;
+	mandatory true;
+	status deprecated;
+	description
+	  "The YANG module name.";
+      }
+      leaf-list tag {
+	type tags:tag;
+	status deprecated;
+	description
+	  "Tags associated with the module. See the IANA 'YANG Module
+	   Tag Prefixes' registry for reserved prefixes and the IANA
+	   'IETF YANG Module Tags' registry for IETF tags.
+
+	   The contents of this list is constructed using the
+	   following steps:
+
+	   1) System tags (i.e., tags of added by the system) are added.
+	   2) User configured tags (i.e., tags added by configuration)
+	   are added.
+	   3) Any tag that is equal to a masked-tag present in the
+	   corresponding ietf-module-tags:module-tags:module-tag leaf
+	   list for this module is removed.";
+      }
+    }
+  }
+}
+&lt;CODE ENDS&gt;
+</pre>
+<p class="figure">Figure 4: Non-NMDA Module Tags State Module</p>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Christian Hopps</span> 
+	  <span class="n hidden">
+		<span class="family-name">Hopps</span>
+	  </span>
+	</span>
+	<span class="org vcardline">LabN Consulting, L.L.C.</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:chopps@chopps.org">chopps@chopps.org</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Lou Berger</span> 
+	  <span class="n hidden">
+		<span class="family-name">Berger</span>
+	  </span>
+	</span>
+	<span class="org vcardline">LabN Consulting, LLC.</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:lberger@labn.net">lberger@labn.net</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Dean Bogdanovic</span> 
+	  <span class="n hidden">
+		<span class="family-name">Bogdanovic</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Volta Networks</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:ivandean@gmail.com">ivandean@gmail.com</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>

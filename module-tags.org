@@ -407,9 +407,11 @@ under a new "Protocol" category "IETF YANG Module Tags". This registry
 should be included below "YANG Module Tag Prefixes" when listed on
 the same page.
 
-This registry allocates tags that have the registered prefix
-"ietf:". New values should be well considered and not achievable
-through a combination of already existing IETF tags.
+This registry allocates tags that have the registered prefix "ietf:".
+New values should be well considered and not achievable through a
+combination of already existing IETF tags. IANA assigned tags must
+conform to Net-Unicode as defined in [[RFC5198]] and they shall not need
+normalization.
 
 The allocation policy for this registry is IETF Review [[RFC8126]].
 
@@ -474,12 +476,13 @@ transport is SSH [[RFC6242]].
 This document adds the ability to associate tag meta-data with YANG
 modules. This document does not define any actions based on these
 associations, and none are yet defined, and therefore it does not
-by itself introduce any new security considerations.
+by itself introduce any new security considerations directly.
 
 Users of the tag-meta data may define various actions to be taken
 based on the tag meta-data. These actions and their definitions are
 outside the scope of this document. Users will need to consider the
-security implications of any actions they choose to define.
+security implications of any actions they choose to define,
+including the potential for a tag to get 'masked' by another user.
 
 * Normative References
 ** RFC2119
@@ -491,6 +494,7 @@ security implications of any actions they choose to define.
 ** RFC8407
 * Informative References
 ** RFC3688
+** RFC5198
 ** RFC6020
 ** RFC6241
 ** RFC6242

@@ -1,2 +1,2 @@
 ORG := module-tags.org
-include yang.mk
+include mk/yang.mk
