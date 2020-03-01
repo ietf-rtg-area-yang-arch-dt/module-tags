@@ -8,7 +8,7 @@
 #+RFC_ADD_AUTHOR: ("Dean Bogdanovic" "ivandean@gmail.com" "Volta Networks")
 #+RFC_NAME: draft-ietf-netmod-module-tags
 #+RFC_UPDATES: 8407
-#+RFC_VERSION: 10
+#+RFC_VERSION: 11
 #+RFC_XML_VERSION: 2
 
 # Do: title, table-of-contents ::fixed-width-sections |tables
