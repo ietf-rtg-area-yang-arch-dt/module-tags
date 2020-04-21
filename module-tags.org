@@ -207,7 +207,7 @@ if ! pyang --ietf $module 2>&1; then echo FAIL; else echo OK; fi
 
 #+CAPTION: Module Tags Module
 #+NAME: ietf-module-tags
-#+header: :results output code silent
+#+header: :results output code file silent
 #+begin_src yang :exports code :file ietf-module-tags.yang
   module ietf-module-tags {
     yang-version 1.1;
@@ -514,7 +514,7 @@ results are imagined.
 
 #+CAPTION: Example NETCONF Query Output
 #+NAME: xml-example
-#+begin_src xml :file tests/test-xml-example.xml :results output code silent :exports code
+#+begin_src xml :file tests/test-xml-example.xml :results output code file silent :exports code
   <ns0:data xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0">
     <t:module-tags xmlns:t="urn:ietf:params:xml:ns:yang:ietf-module-tags">
       <t:module>
@@ -559,7 +559,7 @@ results are imagined.
 
 #+CAPTION: Non-NMDA Module Tags State Module
 #+NAME: ietf-module-tags-state
-#+header: :results output code silent
+#+header: :results output code file silent
 #+begin_src yang :exports code :file ietf-module-tags-state.yang
   module ietf-module-tags-state {
     yang-version 1.1;
